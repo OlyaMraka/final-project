@@ -1,7 +1,7 @@
 import {model, Schema} from "mongoose";
-import {ICourse} from "../interfaces/course.interface";
+import {ITariff} from "../interfaces/tariff.interface";
 
-const courseSchema = new Schema (
+const tariffSchema = new Schema (
     {
         name: {type: String, required: true, unique: true}
     },
@@ -11,4 +11,4 @@ const courseSchema = new Schema (
     }
 );
 
-export const Course = model<ICourse>("Course", courseSchema);
+export const Tariff = model<ITariff>("Tariff", tariffSchema);

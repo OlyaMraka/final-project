@@ -7,6 +7,10 @@ class CourseService {
         return courseRepository.getAll();
     }
 
+    public async getById(courseId: string): Promise<ICourse> {
+        return courseRepository.getById(courseId);
+    }
+
     public create(course: CourseDto): Promise<ICourse> {
         return courseRepository.create(course);
     }

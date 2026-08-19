@@ -7,6 +7,10 @@ class CourseRepository {
         return Course.find();
     }
 
+    public getById(courseId: string): Promise<ICourse> {
+        return Course.findById(courseId);
+    }
+
     public create(course: CourseDto): Promise<ICourse> {
         return Course.create(course);
     }

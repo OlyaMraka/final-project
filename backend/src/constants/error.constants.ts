@@ -2,6 +2,9 @@ export const ServiceConstants = {
     USER_ALREADY_EXISTS: "User already exists",
     SIGN_IN_ERROR_USER_BANNED: "You cannot log in to your account because the manager has blocked it!",
     INVALID_EMAIL_OR_PASSWORD: "Invalid email or password!",
+    COURSE_NOT_FOUND: "Course not found!",
+    TARIFF_NOT_FOUND: "Tariff not found!",
+    COURSE_TARIFF_NOT_FOUND: "Course tariff not found!",
 }
 
 export const MiddlewareConstants = {

@@ -5,6 +5,7 @@ import {apiRouter} from "./routers/api.router";
 import {ApiError} from "./errors/api.error";
 import {userSeeder} from "./seeders/user.seeder";
 import {courseSeeder} from "./seeders/course.seeder";
+import {tariffSeeder} from "./seeders/tariff.seeder";
 
 const app = express();
 app.use(express.json());
@@ -25,6 +26,7 @@ const dbConnection = async () => {
         await mongoose.connect(config.MONGO_URL!);
         await userSeeder.seed();
         await courseSeeder.seed();
+        await tariffSeeder.seed();
     } catch (e) {
         console.error(e);
     }

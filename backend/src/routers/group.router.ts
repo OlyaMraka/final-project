@@ -1,44 +1,51 @@
 import {Router} from "express";
 import {authMiddleware} from "../middleware/auth.middleware";
-import {courseController} from "../controllers/course.controller";
+import {groupController} from "../controllers/group.controller";
 import {commonMiddleware} from "../middleware/common.middleware";
-import {CourseValidator} from "../validators/course.validator";
+import {GroupValidator} from "../validators/group.validator";
 
 const router = Router();
 
 router.get(
     '/',
     authMiddleware.checkAccessToken(),
-    courseController.GetAllCourses
+    groupController.GetAllGroups
 );
 
 router.get(
     '/:id',
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
-    courseController.GetCourseById
+    groupController.GetGroupById
+);
+
+router.get(
+    '/course-tariff/:id',
+    commonMiddleware.isIdValid("id"),
+    authMiddleware.checkAccessToken(),
+    groupController.GetGroupsByCourseTariffId
 );
 
 router.post(
     '/',
-    commonMiddleware.validateBody(CourseValidator.validateCourse),
+    commonMiddleware.validateBody(GroupValidator.validateGroup),
     authMiddleware.checkAccessToken(),
-    courseController.CreateCourse
+    groupController.CreateGroup
 );
 
 router.put(
     '/:id',
     commonMiddleware.isIdValid("id"),
-    commonMiddleware.validateBody(CourseValidator.validateCourse),
+    commonMiddleware.validateBody(GroupValidator.validateGroup),
     authMiddleware.checkAccessToken(),
-    courseController.UpdateCourse
+    groupController.UpdateGroup
 );
 
 router.delete(
     '/:id',
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
-    courseController.DeleteCourse
+    groupController.DeleteGroup
 );
 
-export const courseRouter = router;
+export const groupRouter = router;

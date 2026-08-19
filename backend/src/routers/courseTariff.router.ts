@@ -1,44 +1,44 @@
 import {Router} from "express";
 import {authMiddleware} from "../middleware/auth.middleware";
-import {courseController} from "../controllers/course.controller";
+import {courseTariffController} from "../controllers/courseTariff.controller";
 import {commonMiddleware} from "../middleware/common.middleware";
-import {CourseValidator} from "../validators/course.validator";
+import {CourseTariffValidator} from "../validators/courseTariff.validator";
 
 const router = Router();
 
 router.get(
     '/',
     authMiddleware.checkAccessToken(),
-    courseController.GetAllCourses
+    courseTariffController.GetAllCourseTariffs
 );
 
 router.get(
     '/:id',
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
-    courseController.GetCourseById
+    courseTariffController.GetCourseTariffById
 );
 
 router.post(
     '/',
-    commonMiddleware.validateBody(CourseValidator.validateCourse),
+    commonMiddleware.validateBody(CourseTariffValidator.validateCourseTariff),
     authMiddleware.checkAccessToken(),
-    courseController.CreateCourse
+    courseTariffController.CreateCourseTariff
 );
 
 router.put(
     '/:id',
     commonMiddleware.isIdValid("id"),
-    commonMiddleware.validateBody(CourseValidator.validateCourse),
+    commonMiddleware.validateBody(CourseTariffValidator.validateCourseTariff),
     authMiddleware.checkAccessToken(),
-    courseController.UpdateCourse
+    courseTariffController.UpdateCourseTariffById
 );
 
 router.delete(
     '/:id',
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
-    courseController.DeleteCourse
+    courseTariffController.DeleteCourseTariffById
 );
 
-export const courseRouter = router;
+export const courseTariffRouter = router;

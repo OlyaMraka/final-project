@@ -1,9 +1,8 @@
-import {CourseName} from "../enums/courseName.enum";
 import {Course} from "../models/course.model";
 
 class CourseSeeder {
     public async seed(): Promise<void> {
-        const courses = Object.values(CourseName).map((name) => ({name}));
+        const courses = ["FS", "QAX", "JCX", "JSCX", "FE", "PCX"].map((name) => ({name}));
 
         await Course.bulkWrite(
             courses.map((course) => ({
