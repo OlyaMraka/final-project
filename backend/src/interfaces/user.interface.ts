@@ -1,4 +1,4 @@
-import {RoleName} from "../enums/roleName.enum";
+import {RoleName} from "../enums/role-name.enum";
 import {IBase} from "./base.interface";
 
 export interface IUser extends IBase {

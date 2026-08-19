@@ -23,16 +23,6 @@ class GroupController {
         }
     }
 
-    public async GetGroupsByCourseTariffId(req: Request, res: Response, next: NextFunction) {
-        try {
-            const {id} = req.params;
-            const data = await groupService.getByCourseTariffId(id as string);
-            res.status(StatusCodes.OK).json(data);
-        } catch (error) {
-            next(error);
-        }
-    }
-
     public async CreateGroup(req: Request, res: Response, next: NextFunction) {
         try {
             const groupDto = req.body as GroupDto;

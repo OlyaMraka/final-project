@@ -1,20 +1,16 @@
 import {Router} from "express";
 import {userRouter} from "./user.router";
 import {authRouter} from "./auth.router";
-import {courseRouter} from "./course.router";
-import {tariffRouter} from "./tariff.router";
-import {courseTariffRouter} from "./courseTariff.router";
 import {groupRouter} from "./group.router";
-import {leadRouter} from "./lead.router";
+import {applicationRouter} from "./application.router";
+import {commentRouter} from "./application-comment.router";
 
 const router = Router();
 
 router.use("/users", userRouter);
 router.use("/auth", authRouter);
-router.use("/courses", courseRouter);
-router.use("/tariffs", tariffRouter);
-router.use("/courseTariffs", courseTariffRouter);
 router.use("/groups", groupRouter);
-router.use("/leads", leadRouter);
+router.use("/leads", applicationRouter);
+router.use("/application-comments", commentRouter)
 
 export const apiRouter = router;

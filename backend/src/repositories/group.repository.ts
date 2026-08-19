@@ -11,10 +11,6 @@ class GroupRepository {
         return Group.findById(groupId);
     }
 
-    public getByCourseTariffId(courseTariffId: string): Promise<IGroup[]> {
-        return Group.find({courseTariffId});
-    }
-
     public create(group: GroupDto): Promise<IGroup> {
         return Group.create(group);
     }

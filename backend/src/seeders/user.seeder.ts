@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import {RoleName} from "../enums/roleName.enum";
+import {RoleName} from "../enums/role-name.enum";
 import {User} from "../models/user.model";
 
 export class UserSeeder {

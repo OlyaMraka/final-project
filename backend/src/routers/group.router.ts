@@ -19,13 +19,6 @@ router.get(
     groupController.GetGroupById
 );
 
-router.get(
-    '/course-tariff/:id',
-    commonMiddleware.isIdValid("id"),
-    authMiddleware.checkAccessToken(),
-    groupController.GetGroupsByCourseTariffId
-);
-
 router.post(
     '/',
     commonMiddleware.validateBody(GroupValidator.validateGroup),

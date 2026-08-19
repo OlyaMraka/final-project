@@ -1,12 +1,12 @@
 import {NextFunction, Request, Response} from "express";
-import {LeadFilters} from "../dtos/lead.dto";
+import {ApplicationFilters} from "../dtos/application.dto";
 import {StatusCodes} from "../enums/status-codes";
-import {leadService} from "../services/lead.service";
+import {applicationService} from "../services/application.service";
 
-class LeadController {
+class ApplicationController {
     public async getAllLeads(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const data = await leadService.getAll(res.locals.query as LeadFilters);
+            const data = await applicationService.getAll(res.locals.query as ApplicationFilters);
             res.status(StatusCodes.OK).json(data);
         } catch (error) {
             next(error);
@@ -14,4 +14,4 @@ class LeadController {
     }
 }
 
-export const leadController = new LeadController();
+export const applicationController = new ApplicationController();
