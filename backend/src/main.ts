@@ -6,6 +6,7 @@ import {ApiError} from "./errors/api.error";
 import {userSeeder} from "./seeders/user.seeder";
 import {courseSeeder} from "./seeders/course.seeder";
 import {tariffSeeder} from "./seeders/tariff.seeder";
+import {courseTariffSeeder} from "./seeders/courseTariff.seeder";
 
 const app = express();
 app.use(express.json());
@@ -27,6 +28,7 @@ const dbConnection = async () => {
         await userSeeder.seed();
         await courseSeeder.seed();
         await tariffSeeder.seed();
+        await courseTariffSeeder.seed();
     } catch (e) {
         console.error(e);
     }

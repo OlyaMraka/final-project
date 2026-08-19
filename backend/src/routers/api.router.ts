@@ -5,6 +5,7 @@ import {courseRouter} from "./course.router";
 import {tariffRouter} from "./tariff.router";
 import {courseTariffRouter} from "./courseTariff.router";
 import {groupRouter} from "./group.router";
+import {leadRouter} from "./lead.router";
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.use("/courses", courseRouter);
 router.use("/tariffs", tariffRouter);
 router.use("/courseTariffs", courseTariffRouter);
 router.use("/groups", groupRouter);
+router.use("/leads", leadRouter);
 
 export const apiRouter = router;
