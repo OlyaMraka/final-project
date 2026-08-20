@@ -3,6 +3,7 @@ import {applicationController} from "../controllers/application.controller";
 import {authMiddleware} from "../middleware/auth.middleware";
 import {commonMiddleware} from "../middleware/common.middleware";
 import {ApplicationValidator} from "../validators/application.validator";
+import {applicationMiddleware} from "../middleware/application.middleware";
 
 const router = Router();
 
@@ -19,6 +20,15 @@ router.post(
     commonMiddleware.validateBody(ApplicationValidator.validateSetManager),
     authMiddleware.checkAccessToken(),
     applicationController.SetManager
+);
+
+router.put(
+    '/:id',
+    commonMiddleware.isIdValid("id"),
+    commonMiddleware.validateBody(ApplicationValidator.validateApplicationUpdate),
+    authMiddleware.checkAccessToken(),
+    applicationMiddleware.checkUpdateAccess(),
+    applicationController.UpdateApplication
 );
 
 export const applicationRouter = router;

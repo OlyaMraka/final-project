@@ -22,6 +22,8 @@ export class ApplicationValidator {
     private static startDate = joi.date();
     private static endDate = joi.date().min(joi.ref("startDate"));
     private static managerId = joi.string().trim();
+    private static sum = joi.number().integer().min(1);
+    private static alreadyPaid = joi.number().integer().min(1);
 
     public static validateFilters = joi.object({
         page: this.page.default(1),
@@ -43,6 +45,21 @@ export class ApplicationValidator {
 
         startDate: this.startDate,
         endDate: this.endDate,
+    });
+
+    public static validateApplicationUpdate = joi.object({
+        name: this.name.required(),
+        surname: this.surname.required(),
+        email: this.email.required(),
+        age: this.age.required(),
+        phone: this.phone.required(),
+        course: this.course.required(),
+        tariff: this.tariff.required(),
+        format: this.format.required(),
+        groupId: this.groupId.required(),
+        status: this.status.required(),
+        sum: this.sum.required(),
+        alreadyPaid: this.alreadyPaid.required()
     });
 
     public static validateSetManager = joi.object({

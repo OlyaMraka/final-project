@@ -19,10 +19,7 @@ export type ApplicationDto = Pick<IApplication,
     "status" |
 
     "alreadyPaid" |
-    "sum" |
-
-    "startDate" |
-    "endDate">;
+    "sum">;
 
 export type ApplicationFilters = {
     page?: number;

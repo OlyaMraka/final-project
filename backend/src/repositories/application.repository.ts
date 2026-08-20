@@ -1,6 +1,6 @@
 import {Application} from "../models/application.model";
 import {IApplication} from "../interfaces/application.interface";
-import {ApplicationFilters} from "../dtos/application.dto";
+import {ApplicationDto, ApplicationFilters} from "../dtos/application.dto";
 import {OrderDirection, SortField} from "../enums/sort-field.enum";
 import {ApplicationStatus} from "../enums/application-status.enum";
 
@@ -40,6 +40,9 @@ type ApplicationSort = {
 export type ApplicationListResult = {
     data: IApplication[];
     total: number;
+    page: number;
+    limit: number;
+    pagesCount: number
 };
 
 class ApplicationRepository {
@@ -67,7 +70,14 @@ class ApplicationRepository {
         return {
             data,
             total,
+            page,
+            limit: PAGE_SIZE,
+            pagesCount: Math.ceil(total / PAGE_SIZE),
         };
+    }
+
+    public getById(applicationId: string): Promise<IApplication> {
+        return Application.findById(applicationId);
     }
 
     public setManager(applicationId: string, managerId: string): Promise<IApplication> {
@@ -75,6 +85,10 @@ class ApplicationRepository {
             managerId: managerId,
             status: ApplicationStatus.IN_WORK
         }, { returnDocument: 'after' });
+    }
+
+    public updateApplicationById(applicationId: string, application: ApplicationDto): Promise<IApplication> {
+        return Application.findByIdAndUpdate(applicationId, application, { returnDocument: 'after' });
     }
 
     private createFilter(

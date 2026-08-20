@@ -1,7 +1,8 @@
 import {NextFunction, Request, Response} from "express";
-import {ApplicationFilters, SetManagerDto} from "../dtos/application.dto";
+import {ApplicationDto, ApplicationFilters} from "../dtos/application.dto";
 import {StatusCodes} from "../enums/status-codes";
 import {applicationService} from "../services/application.service";
+import {ITokenPayload} from "../interfaces/token.interface";
 
 class ApplicationController {
     public async getAllLeads(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -16,8 +17,23 @@ class ApplicationController {
     public async SetManager(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const { id } = req.params;
-            const manager = req.body as SetManagerDto;
-            const data = await applicationService.setManager(id as string, manager);
+
+            const tokenPayload = res.locals.tokenPayload as ITokenPayload;
+            const { userId } = tokenPayload;
+
+            const data = await applicationService.setManager(id as string, userId);
+            res.status(StatusCodes.OK).json(data);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    public async UpdateApplication(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const { id } = req.params;
+            const applicationDto = req.body as ApplicationDto;
+
+            const data = await applicationService.updateApplicationById(id as string, applicationDto);
             res.status(StatusCodes.OK).json(data);
         } catch (error) {
             next(error);
