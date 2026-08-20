@@ -45,3 +45,7 @@ export type ApplicationFilters = {
     startDate?: Date;
     endDate?: Date;
 }
+
+export type SetManagerDto = {
+    managerId: string;
+}

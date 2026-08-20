@@ -13,4 +13,11 @@ router.get(
     applicationController.getAllLeads
 );
 
+router.post(
+    '/set-manager/:id',
+    commonMiddleware.isIdValid("id"),
+    authMiddleware.checkAccessToken(),
+    applicationController.SetManager
+);
+
 export const applicationRouter = router;

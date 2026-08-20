@@ -2,6 +2,7 @@ import {Application} from "../models/application.model";
 import {IApplication} from "../interfaces/application.interface";
 import {ApplicationFilters} from "../dtos/application.dto";
 import {OrderDirection, SortField} from "../enums/sort-field.enum";
+import {ApplicationStatus} from "../enums/application-status.enum";
 
 const PAGE_SIZE = 25;
 
@@ -67,6 +68,13 @@ class ApplicationRepository {
             data,
             total,
         };
+    }
+
+    public setManager(applicationId: string, managerId: string): Promise<IApplication> {
+        return Application.findByIdAndUpdate(applicationId, {
+            managerId: managerId,
+            status: ApplicationStatus.IN_WORK
+        }, { returnDocument: 'after' });
     }
 
     private createFilter(
