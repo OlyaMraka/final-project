@@ -4,7 +4,8 @@ import {config} from "./configs/config";
 import {apiRouter} from "./routers/api.router";
 import {ApiError} from "./errors/api.error";
 import {userSeeder} from "./seeders/user.seeder";
-import {leadSeeder} from "./seeders/application.seeder";
+import {applicationSeeder} from "./seeders/application.seeder";
+import {cronsRunner} from "./crons";
 
 const app = express();
 app.use(express.json());
@@ -24,7 +25,7 @@ const dbConnection = async () => {
     try {
         await mongoose.connect(config.MONGO_URL!);
         await userSeeder.seed();
-        await leadSeeder.seed();
+        await applicationSeeder.seed();
     } catch (e) {
         console.error(e);
     }
@@ -35,6 +36,7 @@ const startServer = async () => {
         await dbConnection();
         app.listen(config.PORT, async () => {
             console.log(`Server started on ${config.PORT}`);
+            await cronsRunner();
         })
     } catch (e) {
         console.error(e);

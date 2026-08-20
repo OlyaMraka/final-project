@@ -199,4 +199,4 @@ class ApplicationSeeder {
     }
 }
 
-export const leadSeeder = new ApplicationSeeder();
+export const applicationSeeder = new ApplicationSeeder();
