@@ -1,4 +1,3 @@
-import {IUser} from "../interfaces/user.interface";
 import {TokenPair} from "../interfaces/token.interface";
 import {passwordService} from "./password.service";
 import {userRepository} from "../repositories/user.repository";
@@ -9,13 +8,23 @@ import {ApiError} from "../errors/api.error";
 import {StatusCodes} from "../enums/status-codes";
 import {ServiceConstants} from "../constants/error.constants";
 import {TokenType} from "../enums/tokenType.enum";
+import {UserResponseDto} from "../dtos/user.dto";
+import {userService} from "./user.service";
 
 class AuthService {
-    public async signIn(credentials: SignInDto): Promise<{user: IUser, token: TokenPair}>{
+    public async signIn(credentials: SignInDto): Promise<{user: UserResponseDto, token: TokenPair}>{
         const user = await userRepository.getByEmail(credentials.email);
+
+        if(!user) {
+            throw new ApiError(StatusCodes.UNAUTHORIZED, ServiceConstants.USER_NOT_FOUND);
+        }
 
         if(user.banned){
             throw new ApiError(StatusCodes.FORBIDDEN, ServiceConstants.SIGN_IN_ERROR_USER_BANNED);
+        }
+
+        if(!user.isActive){
+            throw new ApiError(StatusCodes.FORBIDDEN, ServiceConstants.USER_NOT_ACTIVE);
         }
 
         const isPasswordValid = await passwordService.comparePassword(credentials.password, user.password);
@@ -29,10 +38,12 @@ class AuthService {
         });
         await tokenRepository.create({...token, _userId: user._id});
 
+        const userResponse = userService.mapUserToResponse(user);
+
         return {
-            user,
+            user: userResponse,
             token
-        }
+        };
     }
 
     public async setUserPassword(passwordDto: SetPasswordDto): Promise<TokenPair> {
@@ -41,7 +52,10 @@ class AuthService {
         const passwordHash = await passwordService.hashPassword(passwordDto.password);
         await userRepository.setUserPassword(tokenPayload.userId, passwordHash);
 
-        return tokenService.generateTokens({userId: tokenPayload.userId});
+        const token = tokenService.generateTokens({userId: tokenPayload.userId});
+        await tokenRepository.create({...token, _userId: tokenPayload.userId});
+
+        return token;
     }
 }
 

@@ -3,8 +3,8 @@ import {Comment} from "../models/application-comment.model";
 import {CreateCommentDto, UpdateCommentDto} from "../dtos/application-comment.dto";
 
 class CommentRepository {
-    public getByLeadId(leadId: string): Promise<IComment[]> {
-        return Comment.find({leadId});
+    public getByLeadId(applicationId: string): Promise<IComment[]> {
+        return Comment.find({applicationId});
     }
 
     public create(comment: CreateCommentDto): Promise<IComment> {

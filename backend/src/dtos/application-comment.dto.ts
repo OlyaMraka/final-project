@@ -1,4 +1,4 @@
 import {IComment} from "../interfaces/application-comment.interface";
 
-export type CreateCommentDto = Pick<IComment, "text" | "leadId">;
+export type CreateCommentDto = Pick<IComment, "text" | "applicationId">;
 export type UpdateCommentDto = Pick<IComment, "text">;

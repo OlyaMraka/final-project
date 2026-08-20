@@ -5,6 +5,8 @@ export const ServiceConstants = {
     COURSE_NOT_FOUND: "Course not found!",
     TARIFF_NOT_FOUND: "Tariff not found!",
     COURSE_TARIFF_NOT_FOUND: "Course tariff not found!",
+    USER_NOT_ACTIVE: "User not activated!",
+    USER_NOT_FOUND: "User not found!",
 }
 
 export const MiddlewareConstants = {
@@ -14,4 +16,5 @@ export const MiddlewareConstants = {
     NO_ACCESS_TOKEN_FOUND: "No access token found",
     NO_REFRESH_TOKEN: "No refresh token provided",
     NO_REFRESH_TOKEN_FOUND: "No refresh token found",
+    ADMIN_ACCESS: "This action can only be performed by an administrator."
 }

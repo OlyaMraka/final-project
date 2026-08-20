@@ -16,6 +16,7 @@ router.get(
 router.post(
     '/set-manager/:id',
     commonMiddleware.isIdValid("id"),
+    commonMiddleware.validateBody(ApplicationValidator.validateSetManager),
     authMiddleware.checkAccessToken(),
     applicationController.SetManager
 );

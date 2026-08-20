@@ -21,6 +21,7 @@ export class ApplicationValidator {
     private static status = joi.string().valid(...Object.values(ApplicationStatus));
     private static startDate = joi.date();
     private static endDate = joi.date().min(joi.ref("startDate"));
+    private static managerId = joi.string().trim();
 
     public static validateFilters = joi.object({
         page: this.page.default(1),
@@ -42,5 +43,9 @@ export class ApplicationValidator {
 
         startDate: this.startDate,
         endDate: this.endDate,
+    });
+
+    public static validateSetManager = joi.object({
+        managerId: this.managerId.required(),
     });
 }

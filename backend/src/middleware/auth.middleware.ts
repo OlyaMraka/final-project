@@ -1,10 +1,13 @@
-import {Request, Response, NextFunction} from "express";
+import {NextFunction, Request, Response} from "express";
 import {ApiError} from "../errors/api.error";
 import {StatusCodes} from "../enums/status-codes";
 import {tokenService} from "../services/token.service";
 import {RefreshToken} from "../dtos/token.dto";
 import {MiddlewareConstants} from "../constants/error.constants";
 import {TokenType} from "../enums/tokenType.enum";
+import {ITokenPayload} from "../interfaces/token.interface";
+import {userRepository} from "../repositories/user.repository";
+import {RoleName} from "../enums/role-name.enum";
 
 class AuthMiddleware {
     public checkAccessToken() {
@@ -63,6 +66,23 @@ class AuthMiddleware {
         }
     }
 
+    public checkAdminAccess() {
+        return async (req: Request, res: Response, next: NextFunction) => {
+            try {
+                const payload = res.locals.tokenPayload as ITokenPayload;
+
+                const user = await userRepository.getById(payload.userId);
+
+                if(user.role != RoleName.ADMIN) {
+                    throw new ApiError(StatusCodes.FORBIDDEN, MiddlewareConstants.ADMIN_ACCESS);
+                }
+
+                next();
+            } catch (error) {
+                next(error);
+            }
+        }
+    }
 }
 
 export const authMiddleware = new AuthMiddleware();

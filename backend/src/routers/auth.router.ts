@@ -8,6 +8,7 @@ const router = Router();
 
 router.post(
     "/sign-in",
+    commonMiddleware.validateBody(AuthValidator.signIn),
     authController.SignIn
 );
 

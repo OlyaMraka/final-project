@@ -39,7 +39,7 @@ class CommentController {
         try {
             const { id } = req.params;
             await commentService.deleteById(id as string);
-            res.status(StatusCodes.OK).end();
+            res.status(StatusCodes.NO_CONTENT).end();
         } catch (error) {
             next(error);
         }

@@ -3,8 +3,8 @@ import {CreateCommentDto, UpdateCommentDto} from "../dtos/application-comment.dt
 import {commentRepository} from "../repositories/application-comment.repository";
 
 class CommentService {
-    public getByLeadId(leadId: string): Promise<IComment[]> {
-        return commentRepository.getByLeadId(leadId);
+    public getByLeadId(applicationId: string): Promise<IComment[]> {
+        return commentRepository.getByLeadId(applicationId);
     }
 
     public create(comment: CreateCommentDto): Promise<IComment> {

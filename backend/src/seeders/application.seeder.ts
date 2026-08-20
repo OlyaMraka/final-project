@@ -11,13 +11,25 @@ class ApplicationSeeder {
     private readonly LEAD_COUNT = 500;
 
     public async seed(): Promise<void> {
-        await Application.deleteMany({});
-        await Group.deleteMany({});
+        const applicationsCount = await Application.countDocuments();
+        if (applicationsCount > 0) {
+            return;
+        }
 
-        const groups = await this.createGroups();
-        const leads = this.createLeads(groups);
+        const groups = await this.getGroups();
+        const applications = this.createLeads(groups);
 
-        await Application.insertMany(leads);
+        await Application.insertMany(applications);
+    }
+
+    private async getGroups(): Promise<IGroup[]> {
+        const existingGroups = await Group.find();
+
+        if (existingGroups.length > 0) {
+            return existingGroups;
+        }
+
+        return this.createGroups();
     }
 
     private async createGroups(): Promise<IGroup[]> {

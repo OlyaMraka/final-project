@@ -6,11 +6,15 @@ import {UserValidator} from "../validators/user.validator";
 
 const router = Router();
 
-router.get('/', userController.GetAllUsers);
+router.get('/',
+    authMiddleware.checkAccessToken(),
+    authMiddleware.checkAdminAccess(),
+    userController.GetAllUsers);
 
 router.post(
     '/',
     authMiddleware.checkAccessToken(),
+    authMiddleware.checkAdminAccess(),
     commonMiddleware.validateBody(UserValidator.validateUser),
     userController.CreateUser,
 );
@@ -18,6 +22,8 @@ router.post(
 router.get(
     '/:id',
     commonMiddleware.isIdValid("id"),
+    authMiddleware.checkAccessToken(),
+    authMiddleware.checkAdminAccess(),
     userController.GetUserById);
 
 router.put(
@@ -31,6 +37,7 @@ router.delete(
     '/:id',
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
+    authMiddleware.checkAdminAccess(),
     userController.DeleteUserById
 );
 
@@ -38,6 +45,7 @@ router.patch(
     '/:id/ban',
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
+    authMiddleware.checkAdminAccess(),
     userController.BanUserById
 );
 
@@ -45,13 +53,15 @@ router.patch(
     '/:id/unban',
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
-    userController.BanUserById
+    authMiddleware.checkAdminAccess(),
+    userController.UnbanUserById
 );
 
 router.patch(
     '/:id/activate',
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
+    authMiddleware.checkAdminAccess(),
     userController.ActivateUserById
 );
 
