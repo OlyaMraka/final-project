@@ -1,6 +1,6 @@
 import type {FC} from "react";
 import {useForm} from "react-hook-form";
-import type {SignInFormProps} from "../../types/sign-in-form.ts";
+import type {SignInFormProps} from "../../types/component-props/sign-in-form.ts";
 import {joiResolver} from "@hookform/resolvers/joi";
 import {SignInValidator} from "../../validators/sign-in.validator.ts";
 import "./sign-in-form.css";

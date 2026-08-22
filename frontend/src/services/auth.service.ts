@@ -7,13 +7,26 @@ export const login = async (email: string, password: string): Promise<LogInRespo
     return data
 }
 
+export const logout = async (): Promise<void> => {
+    const token = getItemFromLocalStorage<Token>("token");
+
+    await publicInstance.post<Token>(
+        "/auth/refresh",
+        {
+            refresh_token: token.refresh_token,
+        }
+    );
+
+    localStorage.removeItem("token");
+}
+
 export const getCurrentUser = async (): Promise<User> => {
     const { data } = await privateInstance.get<User>("/auth/me");
 
     return data;
 }
 
-export const refresh = async (): Promise<void> => {
+export const refresh = async (): Promise<Token> => {
     const token = getItemFromLocalStorage<Token>("token");
 
     const { data } = await publicInstance.post<Token>(
@@ -24,4 +37,5 @@ export const refresh = async (): Promise<void> => {
     );
 
     localStorage.setItem("token", JSON.stringify(data));
+    return data;
 };

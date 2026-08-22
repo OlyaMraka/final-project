@@ -1,6 +1,6 @@
 import type {UserSliceType} from "../types/user.ts";
 import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolkit";
-import type {SignInParams} from "../../types/sign-in-form.ts";
+import type {SignInParams} from "../../types/component-props/sign-in-form.ts";
 import {getCurrentUser, login} from "../../services/auth.service.ts";
 import type {LogInResponse, User} from "../../types/user.ts";
 import * as axios from "axios";
@@ -31,19 +31,6 @@ const me = createAsyncThunk("userSlice/me", async (_, thunkAPI) => {
         const data = await getCurrentUser();
         return thunkAPI.fulfillWithValue(data);
     } catch (error) {
-        if (axios.isAxiosError(error)) {
-            if (error.response?.status === 401) {
-                return thunkAPI.rejectWithValue(
-                    "Unauthorized"
-                );
-            }
-
-            return thunkAPI.rejectWithValue(
-                error.response?.data?.message ||
-                "Request failed"
-            );
-        }
-
         return thunkAPI.rejectWithValue(
             "Something went wrong"
         );

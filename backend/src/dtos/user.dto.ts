@@ -24,3 +24,5 @@ export type UserResponseDto = Pick<IUser,
 export type ActivateUserResponseDto = {
     activationToken: string;
 }
+
+export type ApplicationOwnerDto = Pick<IUser, "_id" | "name" | "surname" | "role">;

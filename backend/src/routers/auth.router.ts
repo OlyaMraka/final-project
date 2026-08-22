@@ -29,6 +29,11 @@ router.patch(
     '/set-password',
     commonMiddleware.validateBody(AuthValidator.setPassword),
     authController.SetPassword
+);
+
+router.post(
+    '/log-out',
+    authController.LogOut
 )
 
 export const authRouter = router;

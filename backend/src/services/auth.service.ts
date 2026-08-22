@@ -10,6 +10,7 @@ import {ServiceConstants} from "../constants/error.constants";
 import {TokenType} from "../enums/tokenType.enum";
 import {UserResponseDto} from "../dtos/user.dto";
 import {userService} from "./user.service";
+import {RefreshToken} from "../dtos/token.dto";
 
 class AuthService {
     public async signIn(credentials: SignInDto): Promise<{user: UserResponseDto, token: TokenPair}>{
@@ -56,6 +57,13 @@ class AuthService {
         await tokenRepository.create({...token, _userId: tokenPayload.userId});
 
         return token;
+    }
+
+    public async logOut(refresh: RefreshToken): Promise<void> {
+        const foundToken = await tokenRepository.findByParams(refresh);
+        if (foundToken) {
+            await tokenRepository.deleteById(foundToken._id);
+        }
     }
 }
 

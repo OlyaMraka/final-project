@@ -5,10 +5,15 @@ import {AdminPanelSettingsOutlined, LogoutOutlined} from "@mui/icons-material";
 import "./header.css";
 import {useAppSelector} from "../../redux/hooks/useAppSelector.tsx";
 import {RoleName} from "../../enums/role-name.enum.ts";
+import {logout} from "../../services/auth.service.ts";
 
 const Header: FC = () => {
 
     const {user} = useAppSelector(({userSlice}) => userSlice);
+
+    const handleLogOut = async () => {
+        await logout();
+    }
 
     return (
         <div className="header-block">
@@ -25,7 +30,7 @@ const Header: FC = () => {
                     </Link>
                 }
 
-                <Link className="log-out-button" to={"/"}>
+                <Link className="log-out-button" onClick={handleLogOut} to={"/"}>
                     Log Out
                     <LogoutOutlined/>
                 </Link>

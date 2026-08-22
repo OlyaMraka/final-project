@@ -4,6 +4,8 @@ import {CourseFormat} from "../enums/course-format.enum";
 import {CourseName} from "../enums/course-name.enum";
 import {TariffName} from "../enums/tariff-name.enum";
 import {ApplicationStatus} from "../enums/application-status.enum";
+import {IGroup} from "../interfaces/group.interface";
+import {ApplicationOwnerDto} from "./user.dto";
 
 export type ApplicationDto = Pick<IApplication,
     "name" |
@@ -20,6 +22,12 @@ export type ApplicationDto = Pick<IApplication,
 
     "alreadyPaid" |
     "sum">;
+
+export interface IApplicationResponse extends Omit<IApplication, "groupId" | "managerId"> {
+    groupId: IGroup | null;
+    managerId: ApplicationOwnerDto | null;
+}
+
 
 export type ApplicationFilters = {
     page?: number;

@@ -1,0 +1,43 @@
+.applications-table .MuiTableRow-root {
+    transition: background-color 0.15s ease;
+}
+
+.applications-table .MuiTableRow-root:hover {
+    background-color: #f4f9ee;
+}
+
+.applications-table .MuiTableCell-root {
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #33422e;
+    border-bottom: 1px solid #e2eed4;
+    white-space: nowrap;
+}
+
+.applications-table .expand-button {
+    color: #79ad57;
+    transition: color 0.15s ease, background-color 0.15s ease, transform 0.2s ease;
+}
+
+.applications-table .expand-button:hover {
+    color: #6fa84c;
+    background-color: #e9f3dc;
+}
+
+.applications-table .expand-button.expanded {
+    color: #ffffff;
+    background-color: #8bc169;
+}
+
+.applications-table .collapse-row .MuiTableCell-root {
+    padding: 0;
+    border-bottom: none;
+}
+
+.applications-table .collapse-content {
+    padding: 18px 24px;
+    background-color: #f4f9ee;
+    border-left: 3px solid #a8d18d;
+    color: #4b5c43;
+    font-size: 14px;
+}

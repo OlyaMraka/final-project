@@ -1,0 +1,24 @@
+.applications-table {
+    overflow-x: auto !important;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(120, 160, 90, 0.08);
+}
+
+.applications-table .MuiTable-root {
+    min-width: 1400px !important;
+}
+
+.applications-table .MuiTableHead-root .MuiTableRow-root {
+    background-color: #cfe6b3 !important;
+}
+
+.applications-table .MuiTableHead-root .MuiTableCell-root {
+    padding: 14px 16px !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #33422e !important;
+    white-space: nowrap;
+}

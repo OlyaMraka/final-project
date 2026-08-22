@@ -11,6 +11,10 @@ class TokenRepository {
         return Token.findOne(params);
     }
 
+    public deleteById(tokenId: string): Promise<IToken> {
+        return Token.findByIdAndDelete(tokenId);
+    }
+
     public async deleteBeforeDate(date: Date): Promise<number> {
         const result = await Token.deleteMany({ createdAt: { $lt: date } });
         return result.deletedCount;

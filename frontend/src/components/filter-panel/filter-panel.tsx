@@ -15,7 +15,7 @@ const FilterPanel: FC = () => {
             <div className="first-row">
                 <SearchInput label="Name" queryParam="name"/>
                 <SearchInput label="Surname" queryParam="surname"/>
-                <SearchInput label="Email" queryParam="enail"/>
+                <SearchInput label="Email" queryParam="email"/>
                 <SearchInput label="Phone" queryParam="phone"/>
                 <SearchInput label="Age" queryParam="age"/>
                 <CustomDropdown queryParam="course" label="Course" values={Object.values(CourseName)}/>

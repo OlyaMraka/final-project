@@ -1,19 +1,23 @@
-import {type FC, useState} from "react";
-import type {DropdownProps} from "../../../types/dropdown.ts";
+import {type FC} from "react";
+import type {DropdownProps} from "../../../types/component-props/dropdown.ts";
 import {FormControl, InputLabel, Select, MenuItem, type SelectChangeEvent} from "@mui/material";
 import {useSearchParams} from "react-router-dom";
 import "./custom-dropdown.css";
 
 const CustomDropdown: FC<DropdownProps> = ({queryParam, values, label}) => {
-    const [value, setValue] = useState('');
+
     const [query, setQuery] = useSearchParams();
+    const value = query.get(queryParam) ?? '';
 
     const handleChange = (event: SelectChangeEvent) => {
         const newValue = event.target.value as string;
-        setValue(newValue);
 
         const params = new URLSearchParams(query);
-        params.set(queryParam, newValue);
+        if(newValue) {
+            params.set(queryParam, newValue);
+        } else {
+            params.delete(queryParam);
+        }
 
         setQuery(params);
     };

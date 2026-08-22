@@ -9,6 +9,8 @@ export type User = {
     isActive: boolean;
 }
 
+export type ApplicationOwnerDto = Pick<User, "_id" | "name" | "surname" | "role">;
+
 export type Token = {
     access_token: string;
     refresh_token: string;

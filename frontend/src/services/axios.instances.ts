@@ -2,6 +2,7 @@ import * as axios from "axios";
 import {getItemFromLocalStorage} from "./helpers.ts";
 import type {Token} from "../types/user.ts";
 import {refresh} from "./auth.service.ts";
+import type {AxiosError, InternalAxiosRequestConfig} from "axios";
 
 export const privateInstance = axios.create({
     baseURL: "http://localhost:7000",
@@ -13,19 +14,32 @@ export const publicInstance = axios.create({
 });
 
 privateInstance.interceptors.request.use(request => {
-    request.headers.Authorization = "Bearer " + getItemFromLocalStorage<Token>("token").access_token;
-    return request;
-});
+        const token = getItemFromLocalStorage<Token>("token");
 
-privateInstance.interceptors.response.use(
-    response => response,
-
-    async error => {
-        if (error.response?.status !== 401) {
-            return Promise.reject(error);
+        if (token?.access_token) {
+            request.headers.Authorization = `Bearer ${token.access_token}`;
         }
 
-        const originalRequest = error.config;
+        return request;
+    }
+);
+
+interface RetryRequestConfig extends InternalAxiosRequestConfig {
+    _retry?: boolean;
+}
+
+privateInstance.interceptors.response.use(
+    (response) => response,
+
+    async (error: AxiosError) => {
+        const originalRequest = error.config as RetryRequestConfig;
+
+        if (
+            error.response?.status !== 401 ||
+            !originalRequest
+        ) {
+            return Promise.reject(error);
+        }
 
         if (originalRequest._retry) {
             return Promise.reject(error);
@@ -38,6 +52,10 @@ privateInstance.interceptors.response.use(
 
             return privateInstance(originalRequest);
         } catch (refreshError) {
+            localStorage.removeItem("token");
+
+            window.location.href = "/";
+
             return Promise.reject(refreshError);
         }
     }

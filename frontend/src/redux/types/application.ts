@@ -1,7 +1,7 @@
-import type {Application} from "../../types/application.ts";
+import type {IApplicationResponse} from "../../types/application.ts";
 
 export type ApplicationSliceType = {
-    applications?: Application[];
+    applications?: IApplicationResponse[];
     total?: number;
     page?: number;
     limit?: number;

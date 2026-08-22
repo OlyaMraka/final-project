@@ -1,8 +1,10 @@
 import {Application} from "../models/application.model";
 import {IApplication} from "../interfaces/application.interface";
-import {ApplicationDto, ApplicationFilters} from "../dtos/application.dto";
+import {ApplicationDto, ApplicationFilters, IApplicationResponse} from "../dtos/application.dto";
 import {OrderDirection, SortField} from "../enums/sort-field.enum";
 import {ApplicationStatus} from "../enums/application-status.enum";
+import {IGroup} from "../interfaces/group.interface";
+import {ApplicationOwnerDto} from "../dtos/user.dto";
 
 const PAGE_SIZE = 25;
 
@@ -38,7 +40,7 @@ type ApplicationSort = {
 };
 
 export type ApplicationListResult = {
-    applications: IApplication[];
+    applications: IApplicationResponse[];
     total: number;
     page: number;
     limit: number;
@@ -59,6 +61,8 @@ class ApplicationRepository {
 
         const [data, total] = await Promise.all([
             Application.find(filter)
+                .populate<{ groupId: IGroup | null }>("groupId")
+                .populate<{ managerId: ApplicationOwnerDto | null}>("managerId", "_id name surname role")
                 .sort(sort)
                 .skip(skip)
                 .limit(PAGE_SIZE)

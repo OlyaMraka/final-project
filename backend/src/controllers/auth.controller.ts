@@ -8,6 +8,7 @@ import {tokenService} from "../services/token.service";
 import {tokenRepository} from "../repositories/token.repository";
 import {userRepository} from "../repositories/user.repository";
 import {ServiceConstants} from "../constants/error.constants";
+import {RefreshToken} from "../dtos/token.dto";
 
 class AuthController {
 
@@ -47,6 +48,16 @@ class AuthController {
             await tokenRepository.create({...token, _userId: payload.userId});
 
             res.status(StatusCodes.OK).json(token);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    public async LogOut(req: Request, res: Response, next: NextFunction) {
+        try {
+            const refresh = req.body as RefreshToken;
+            await authService.logOut(refresh);
+            res.sendStatus(StatusCodes.NO_CONTENT);
         } catch (error) {
             next(error);
         }

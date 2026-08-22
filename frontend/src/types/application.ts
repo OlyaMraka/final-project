@@ -2,6 +2,8 @@ import type {CourseName} from "../enums/course-name.enum.ts";
 import type {TariffName} from "../enums/tariff-name.enum.ts";
 import type {CourseFormat} from "../enums/course-format.enum.ts";
 import type {ApplicationStatus} from "../enums/application-status.enum.ts";
+import type {Group} from "./group.ts";
+import type {ApplicationOwnerDto} from "./user.ts";
 
 export type Application = {
     _id: string;
@@ -34,6 +36,11 @@ export type Application = {
     deletedAt: Date;
 }
 
+export interface IApplicationResponse extends Omit<Application, "groupId" | "managerId"> {
+    groupId: Group | null;
+    managerId: ApplicationOwnerDto | null;
+}
+
 export type ApplicationFilters = {
     page?: number;
 
@@ -55,7 +62,7 @@ export type ApplicationFilters = {
 
 
 export type ApplicationResponse = {
-    applications?: Application[];
+    applications?: IApplicationResponse[];
     total?: number;
     page?: number;
     limit?: number;
