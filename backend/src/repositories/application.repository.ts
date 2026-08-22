@@ -38,7 +38,7 @@ type ApplicationSort = {
 };
 
 export type ApplicationListResult = {
-    data: IApplication[];
+    applications: IApplication[];
     total: number;
     page: number;
     limit: number;
@@ -68,7 +68,7 @@ class ApplicationRepository {
         ]);
 
         return {
-            data,
+            applications: data,
             total,
             page,
             limit: PAGE_SIZE,

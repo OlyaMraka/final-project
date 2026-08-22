@@ -1,0 +1,121 @@
+.date-filters {
+    display: flex;
+    gap: 14px;
+}
+
+.date-filters .MuiTextField-root,
+.date-filters .MuiFormControl-root {
+    min-width: 200px !important;
+    max-width: 260px;
+}
+
+.date-filters .MuiOutlinedInput-root {
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(120, 160, 90, 0.08);
+    transition: box-shadow 0.2s ease;
+}
+
+.date-filters .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: #d9e8c9;
+    border-radius: 12px;
+    transition: border-color 0.2s ease;
+}
+
+.date-filters .MuiOutlinedInput-root:hover {
+    box-shadow: 0 4px 12px rgba(120, 160, 90, 0.12);
+}
+
+.date-filters .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #b9dc9d;
+}
+
+.date-filters .MuiOutlinedInput-root.Mui-focused {
+    box-shadow: 0 0 0 3px rgba(158, 201, 126, 0.22);
+}
+
+.date-filters .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #8bc169;
+    border-width: 1.5px;
+}
+
+.date-filters .MuiOutlinedInput-input {
+    padding: 13px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #33422e !important;
+    min-height: 1.4em;
+    box-sizing: content-box;
+}
+
+.date-filters .MuiInputLabel-root {
+    color: #8ba67d;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 0 5px;
+}
+
+.date-filters .MuiInputLabel-root.Mui-focused {
+    color: #6fa84c;
+}
+
+.date-filters .MuiIconButton-root {
+    color: #8bc169;
+}
+
+.date-filters .MuiIconButton-root:hover {
+    background-color: #f4f9ee;
+    color: #6fa84c;
+}
+
+/* Calendar popup renders in a portal, needs global selectors */
+.MuiPickersPopper-root .MuiPaper-root {
+    margin-top: 6px;
+    background-color: #ffffff;
+    border: 1px solid #e2eed4;
+    border-radius: 14px;
+    box-shadow: 0 12px 28px rgba(120, 160, 90, 0.18);
+}
+
+.MuiPickersPopper-root .MuiPickersCalendarHeader-label {
+    color: #33422e;
+    font-weight: 600;
+}
+
+.MuiPickersPopper-root .MuiPickersArrowSwitcher-button {
+    color: #79ad57;
+}
+
+.MuiPickersPopper-root .MuiDayCalendar-weekDayLabel {
+    color: #8ba67d;
+    font-weight: 600;
+}
+
+.MuiPickersPopper-root .MuiPickersDay-root {
+    color: #33422e;
+    font-weight: 500;
+    border-radius: 8px;
+}
+
+.MuiPickersPopper-root .MuiPickersDay-root:hover {
+    background-color: #f4f9ee;
+}
+
+.MuiPickersPopper-root .MuiPickersDay-root.Mui-selected {
+    background-color: #8bc169 !important;
+    color: #ffffff;
+}
+
+.MuiPickersPopper-root .MuiPickersDay-root.Mui-selected:hover {
+    background-color: #79ad57 !important;
+}
+
+.MuiPickersPopper-root .MuiPickersDay-today {
+    border-color: #8bc169 !important;
+}
+
+.MuiPickersPopper-root .MuiPickersYear-yearButton.Mui-selected,
+.MuiPickersPopper-root .MuiPickersMonth-monthButton.Mui-selected {
+    background-color: #8bc169 !important;
+    color: #ffffff;
+}

@@ -1,0 +1,66 @@
+.header-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 40px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2eed4;
+    box-shadow: 0 2px 10px rgba(120, 160, 90, 0.06);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+.operations-block {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-panel-button,
+.log-out-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-panel-button svg,
+.log-out-button svg {
+    font-size: 18px;
+}
+
+.admin-panel-button {
+    color: #33422e;
+    background-color: #f4f9ee;
+    border: 1px solid #d9e8c9;
+}
+
+.admin-panel-button:hover {
+    background-color: #e9f3dc;
+    border-color: #c3dcab;
+}
+
+.log-out-button {
+    color: #79ad57;
+    background-color: transparent;
+    border: 1px solid transparent;
+}
+
+.log-out-button:hover {
+    color: #d97a6c;
+    background-color: #fbeae7;
+}

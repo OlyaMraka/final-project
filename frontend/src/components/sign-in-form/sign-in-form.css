@@ -1,0 +1,115 @@
+.log-in-form-container {
+    max-width: 480px;
+    width: 100%;
+    margin: 80px auto;
+    padding: 48px 44px;
+    background-color: #ffffff;
+    border-left: 4px solid #a8d18d;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(120, 160, 90, 0.12);
+}
+
+.log-in-form-container h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #33422e;
+    margin: 0 0 6px;
+    text-align: center;
+}
+
+.log-in-form-container h3 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #7c9470;
+    margin: 0 0 32px;
+    text-align: center;
+}
+
+.form-block {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.form-block label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4b5c43;
+}
+
+.form-block input {
+    padding: 13px 16px;
+    font-size: 15px;
+    color: #33422e;
+    background-color: #f4f9ee;
+    border: 1px solid #d9e8c9;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-block input::placeholder {
+    color: #a3b596;
+}
+
+.form-block input:hover {
+    border-color: #c3dcab;
+}
+
+.form-block input:focus {
+    background-color: #ffffff;
+    border-color: #9ec97e;
+    box-shadow: 0 0 0 3px rgba(158, 201, 126, 0.25);
+}
+
+.error-message {
+    min-height: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #d97a6c;
+    margin-top: 2px;
+}
+
+.form-block button {
+    margin-top: 10px;
+    padding: 13px 18px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #8bc169;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.form-block button:hover:not(:disabled) {
+    background-color: #79ad57;
+    box-shadow: 0 6px 14px rgba(139, 193, 105, 0.35);
+}
+
+.form-block button:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.form-block button:disabled {
+    background-color: #d9e8c9;
+    color: #a3b596;
+    cursor: not-allowed;
+}
+
+.error-info {
+    margin-top: 20px;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #a83f36;
+    background-color: #fbeae7;
+    border: 1px solid #f3c9c2;
+    border-radius: 10px;
+    text-align: center;
+}
+

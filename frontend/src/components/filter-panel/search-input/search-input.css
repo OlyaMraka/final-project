@@ -1,0 +1,54 @@
+.custom-text-input {
+    min-width: 220px !important;
+    max-width: 280px;
+}
+
+.custom-text-input .MuiOutlinedInput-root {
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(120, 160, 90, 0.08);
+    transition: box-shadow 0.2s ease;
+}
+
+.custom-text-input .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: #d9e8c9;
+    border-radius: 12px;
+    transition: border-color 0.2s ease;
+}
+
+.custom-text-input .MuiOutlinedInput-root:hover {
+    box-shadow: 0 4px 12px rgba(120, 160, 90, 0.12);
+}
+
+.custom-text-input .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #b9dc9d;
+}
+
+.custom-text-input .MuiOutlinedInput-root.Mui-focused {
+    box-shadow: 0 0 0 3px rgba(158, 201, 126, 0.22);
+}
+
+.custom-text-input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #8bc169;
+    border-width: 1.5px;
+}
+
+.custom-text-input .MuiOutlinedInput-input {
+    padding: 13px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #33422e;
+    min-height: 1.4em;
+    box-sizing: content-box;
+}
+
+.custom-text-input .MuiInputLabel-root {
+    color: #8ba67d;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 0 5px;
+}
+
+.custom-text-input .MuiInputLabel-root.Mui-focused {
+    color: #6fa84c;
+}

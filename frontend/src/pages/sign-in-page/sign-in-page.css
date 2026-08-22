@@ -1,0 +1,8 @@
+.sign-in-page-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(160deg, #eef6e4 0%, #dcecc9 100%);
+}

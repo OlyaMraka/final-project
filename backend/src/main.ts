@@ -6,8 +6,16 @@ import {ApiError} from "./errors/api.error";
 import {userSeeder} from "./seeders/user.seeder";
 import {applicationSeeder} from "./seeders/application.seeder";
 import {cronsRunner} from "./crons";
+import cors from "cors";
 
 const app = express();
+
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+    })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
