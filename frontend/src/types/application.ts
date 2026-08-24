@@ -24,9 +24,6 @@ export type Application = {
 
     managerId: string;
 
-    startDate: Date;
-    endDate: Date;
-
     message: string;
     utm: string;
 

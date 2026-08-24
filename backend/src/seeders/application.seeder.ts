@@ -106,10 +106,6 @@ class ApplicationSeeder {
 
                     alreadyPaid: this.getAlreadyPaid(sum),
 
-                    startDate: this.getRandomStartDate(),
-
-                    endDate: this.getRandomEndDate(),
-
                     message: `test - ${Math.random()}`,
                     utm: "test"
                 };
@@ -160,42 +156,6 @@ class ApplicationSeeder {
         return values[
             Math.floor(Math.random() * values.length)
             ];
-    }
-
-    private getRandomStartDate(): Date {
-        const start = new Date(
-            2025,
-            0,
-            1
-        ).getTime();
-
-        const end = new Date(
-            2026,
-            10,
-            1
-        ).getTime();
-
-        return new Date(
-            start + Math.random() * (end - start)
-        );
-    }
-
-    private getRandomEndDate(): Date {
-        const start = new Date(
-            2026,
-            0,
-            1
-        ).getTime();
-
-        const end = new Date(
-            2027,
-            5,
-            1
-        ).getTime();
-
-        return new Date(
-            start + Math.random() * (end - start)
-        );
     }
 }
 

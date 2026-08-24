@@ -51,6 +51,26 @@ export type ApplicationFilters = {
     endDate?: Date;
 }
 
-export type SetManagerDto = {
+export type ApplicationExcelRow = {
+    applicationId: string;
+
+    name: string;
+    surname: string;
+    email: string;
+    phone: string;
+
+    course: string;
+    tariff: string;
+    format: string;
+    status: string;
+
+    sum: number;
+    alreadyPaid: number;
+
     managerId: string;
-}
+    managerName: string;
+    managerSurname: string;
+
+    groupId: string;
+    groupName: string;
+};

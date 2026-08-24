@@ -1,8 +1,7 @@
-import type {ApplicationSliceType} from "../types/application.ts";
+import type {ApplicationSliceType, EditApplicationParams} from "../types/application.ts";
 import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolkit";
-import type {ApplicationFilters, ApplicationResponse} from "../../types/application.ts";
-import {getAllWithFilters} from "../../services/application.service.ts";
-import * as axios from "axios";
+import type {ApplicationFilters, ApplicationResponse, IApplicationResponse} from "../../types/application.ts";
+import {editApplication, getAllWithFilters} from "../../services/application.service.ts";
 
 const initialState: ApplicationSliceType = {};
 
@@ -12,25 +11,24 @@ const getAllApplicationsWithFilters = createAsyncThunk("applicationSlice/getAllA
             const data = await getAllWithFilters(filters);
             return thunkAPI.fulfillWithValue(data);
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                if (error.response?.status === 401) {
-                    return thunkAPI.rejectWithValue(
-                        "Unauthorized"
-                    );
-                }
-
-                return thunkAPI.rejectWithValue(
-                    error.response?.data?.message ||
-                    "Request failed"
-                );
-            }
-
             return thunkAPI.rejectWithValue(
                 "Something went wrong"
             );
         }
     }
 );
+
+const updateApplication = createAsyncThunk("applicationSlice/updateApplication",
+    async (applicationInfo: EditApplicationParams, thunkAPI) => {
+        try {
+            const data = await editApplication(applicationInfo.applicationId, applicationInfo.application);
+            return thunkAPI.fulfillWithValue(data);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(
+                "Something went wrong"
+            );
+        }
+    });
 
 export const applicationSlice = createSlice({
     name: "applicationSlice",
@@ -44,8 +42,20 @@ export const applicationSlice = createSlice({
             state.page = action.payload.page;
             state.pagesCount = action.payload.pagesCount
         })
+            .addCase(
+                updateApplication.fulfilled,
+                (state, action: PayloadAction<IApplicationResponse>) => {
+                    const index = state.applications?.findIndex(
+                        application => application._id === action.payload._id
+                    );
+
+                    if (index !== undefined && index !== -1 && state.applications) {
+                        state.applications[index] = action.payload;
+                    }
+                }
+            )
 });
 
 export const applicationSliceActions = {
-    ...applicationSlice.actions, getAllApplicationsWithFilters
+    ...applicationSlice.actions, getAllApplicationsWithFilters, updateApplication
 };

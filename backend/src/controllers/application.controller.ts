@@ -5,7 +5,7 @@ import {applicationService} from "../services/application.service";
 import {ITokenPayload} from "../interfaces/token.interface";
 
 class ApplicationController {
-    public async getAllLeads(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async GetAllApplications(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const data = await applicationService.getAll(res.locals.query as ApplicationFilters);
             res.status(StatusCodes.OK).json(data);
@@ -35,6 +35,28 @@ class ApplicationController {
 
             const data = await applicationService.updateApplicationById(id as string, applicationDto);
             res.status(StatusCodes.OK).json(data);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    public async ExportApplications(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const filters = res.locals.query as ApplicationFilters;
+
+            const file = await applicationService.generateTable(filters);
+
+            res.setHeader(
+                "Content-Type",
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            );
+
+            res.setHeader(
+                "Content-Disposition",
+                'attachment; filename="applications.xlsx"'
+            );
+
+            res.status(StatusCodes.OK).send(file);
         } catch (error) {
             next(error);
         }

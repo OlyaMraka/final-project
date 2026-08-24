@@ -11,10 +11,7 @@ const CustomPagination: FC = () => {
 
     const page = Number(searchParams.get("page") ?? 1);
 
-    const handlePageChange = (
-        _: React.ChangeEvent<unknown>,
-        newPage: number
-    ) => {
+    const handlePageChange = (_: React.ChangeEvent<unknown>, newPage: number) => {
         const params = new URLSearchParams(searchParams);
 
         params.set("page", String(newPage));
@@ -24,6 +21,7 @@ const CustomPagination: FC = () => {
 
     return (
         <Pagination
+            size="large"
             page={page}
             count={pagesCount}
             onChange={handlePageChange}

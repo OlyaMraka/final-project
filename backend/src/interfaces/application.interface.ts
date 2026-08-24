@@ -23,9 +23,6 @@ export interface IApplication extends IBase {
 
     managerId: string;
 
-    startDate: Date;
-    endDate: Date;
-
     message: string;
     utm: string;
 }

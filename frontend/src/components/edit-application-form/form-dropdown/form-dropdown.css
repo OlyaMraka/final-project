@@ -1,0 +1,89 @@
+.form-dropdown-block {
+    width: 100%;
+}
+
+.form-dropdown-block .MuiOutlinedInput-root {
+    border-radius: 10px;
+    background-color: #f4f9ee;
+}
+
+.form-dropdown-block .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: #d9e8c9;
+    border-radius: 10px;
+    transition: border-color 0.2s ease;
+}
+
+.form-dropdown-block .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #c3dcab;
+}
+
+.form-dropdown-block .MuiOutlinedInput-root.Mui-focused {
+    background-color: #ffffff;
+}
+
+.form-dropdown-block .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #9ec97e;
+    border-width: 1.5px;
+    box-shadow: 0 0 0 3px rgba(158, 201, 126, 0.25);
+}
+
+.form-dropdown-block .MuiSelect-select.MuiOutlinedInput-input {
+    padding: 13px 36px 13px 16px;
+    font-size: 14px;
+    color: #33422e;
+}
+
+.form-dropdown-block .MuiInputLabel-root {
+    color: #7c9470;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.form-dropdown-block .MuiInputLabel-root.Mui-focused {
+    color: #79ad57;
+}
+
+.form-dropdown-block .MuiSvgIcon-root {
+    color: #8bc169;
+    transition: color 0.2s ease;
+}
+
+.form-dropdown-block .MuiOutlinedInput-root.Mui-focused .MuiSvgIcon-root {
+    color: #79ad57;
+}
+
+/* Menu renders in a portal, needs global selectors — shared visual language with other dropdowns */
+.MuiPopover-root .MuiPaper-root.MuiMenu-paper {
+    margin-top: 6px;
+    max-height: 320px;
+    background-color: #ffffff;
+    border: 1px solid #e2eed4;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(120, 160, 90, 0.18);
+}
+
+.MuiPopover-root .MuiMenu-list {
+    padding: 6px;
+}
+
+.MuiPopover-root .MuiMenuItem-root {
+    padding: 10px 14px;
+    font-size: 14px;
+    color: #33422e;
+    border-radius: 8px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.MuiPopover-root .MuiMenuItem-root:hover {
+    background-color: #f4f9ee;
+}
+
+.MuiPopover-root .MuiMenuItem-root.Mui-selected {
+    background-color: #e9f3dc;
+    color: #4b5c43;
+    font-weight: 600;
+}
+
+.MuiPopover-root .MuiMenuItem-root.Mui-selected:hover {
+    background-color: #dcecc9;
+}

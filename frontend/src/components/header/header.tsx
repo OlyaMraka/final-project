@@ -21,7 +21,7 @@ const Header: FC = () => {
                 <img src={Logo} alt="logo"/>
             </div>
 
-            <div className="operations-block">
+            <div className="header-operations-block">
                 {
                     user?.role === RoleName.ADMIN &&
                     <Link className="admin-panel-button" to={"/admin-panel"}>

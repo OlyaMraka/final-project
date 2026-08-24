@@ -1,7 +1,7 @@
 .filter-panel-container {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
+    justify-content: space-between;
+    gap: 24px;
     padding: 24px;
     margin-bottom: 24px;
     background-color: #ffffff;
@@ -10,9 +10,76 @@
     box-shadow: 0 4px 16px rgba(120, 160, 90, 0.08);
 }
 
+.left-part-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+}
+
 .first-row,
-.second-row {
+.second-row,
+.third-row {
     display: flex;
     flex-wrap: wrap;
     gap: 14px;
+}
+
+.right-part-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    flex-shrink: 0;
+    padding-left: 24px;
+    border-left: 1px solid #e2eed4;
+}
+
+.right-part-actions .action-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px 7px 10px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4b5c43;
+    background-color: #f4f9ee;
+    border: 1px solid #d9e8c9;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.right-part-actions .action-button:hover {
+    background-color: #e9f3dc;
+    border-color: #c3dcab;
+}
+
+.right-part-actions .action-button .MuiSvgIcon-root {
+    color: #6fa84c;
+    font-size: 18px;
+}
+
+.right-part-actions .action-button span {
+    font-size: 13px;
+    line-height: 1;
+}
+
+.right-part-actions .MuiFormControlLabel-root {
+    margin-left: 2px;
+}
+
+.right-part-actions .MuiFormControlLabel-label {
+    font-size: 13px;
+    color: #4b5c43;
+}
+
+.right-part-actions .MuiCheckbox-root {
+    color: #b9dc9d;
+    padding: 6px;
+}
+
+.right-part-actions .MuiCheckbox-root.Mui-checked {
+    color: #8bc169;
 }

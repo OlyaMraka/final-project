@@ -24,7 +24,7 @@ const SearchInput: FC<SearchInputProps> = ({label, queryParam}) => {
 
     return (
         <TextField className="custom-text-input"
-            id="outlined-search"
+            id={`${label}-outlined-input`}
             label={label}
             type="search"
             value={value}

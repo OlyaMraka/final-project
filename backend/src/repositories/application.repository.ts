@@ -1,7 +1,7 @@
 import {Application} from "../models/application.model";
 import {IApplication} from "../interfaces/application.interface";
 import {ApplicationDto, ApplicationFilters, IApplicationResponse} from "../dtos/application.dto";
-import {OrderDirection, SortField} from "../enums/sort-field.enum";
+import {OrderDirection} from "../enums/sort-field.enum";
 import {ApplicationStatus} from "../enums/application-status.enum";
 import {IGroup} from "../interfaces/group.interface";
 import {ApplicationOwnerDto} from "../dtos/user.dto";
@@ -24,12 +24,7 @@ type LeadFilter = {
 
     status?: IApplication["status"];
 
-    startDate?: {
-        $gte?: Date;
-        $lte?: Date;
-    };
-
-    endDate?: {
+    createdAt?: {
         $gte?: Date;
         $lte?: Date;
     };
@@ -80,6 +75,19 @@ class ApplicationRepository {
         };
     }
 
+    public async getAllWithFilters(
+        filters: ApplicationFilters
+    ): Promise<IApplicationResponse[]> {
+        const filter = this.createFilter(filters);
+        const sort = this.createSort(filters);
+
+        return await Application.find(filter)
+            .populate<{ groupId: IGroup | null }>("groupId")
+            .populate<{ managerId: ApplicationOwnerDto | null}>("managerId", "_id name surname role")
+            .sort(sort)
+            .lean();
+    }
+
     public getById(applicationId: string): Promise<IApplication> {
         return Application.findById(applicationId);
     }
@@ -91,8 +99,14 @@ class ApplicationRepository {
         }, { returnDocument: 'after' });
     }
 
-    public updateApplicationById(applicationId: string, application: ApplicationDto): Promise<IApplication> {
-        return Application.findByIdAndUpdate(applicationId, application, { returnDocument: 'after' });
+    public updateApplicationById(applicationId: string, application: ApplicationDto): Promise<IApplicationResponse> {
+        return Application.findByIdAndUpdate(applicationId, application, { returnDocument: 'after' })
+            .populate<{ groupId: IGroup | null }>("groupId")
+            .populate<{ managerId: ApplicationOwnerDto | null }>(
+                "managerId",
+                "_id name surname role"
+            )
+            .lean();
     }
 
     private createFilter(
@@ -142,15 +156,15 @@ class ApplicationRepository {
         }
 
         if (filters.startDate) {
-            filter.startDate = {
-                ...filter.startDate,
+            filter.createdAt = {
+                ...filter.createdAt,
                 $gte: filters.startDate,
             };
         }
 
         if (filters.endDate) {
-            filter.endDate = {
-                ...filter.endDate,
+            filter.createdAt = {
+                ...filter.createdAt,
                 $lte: filters.endDate,
             };
         }
@@ -162,7 +176,9 @@ class ApplicationRepository {
         filters: ApplicationFilters
     ): ApplicationSort {
 
-        const sortField = filters.sortField ?? SortField.NAME;
+        if (!filters.sortField) {
+            return {};
+        }
 
         const sortDirection =
             filters.sortOrder === OrderDirection.DESC
@@ -170,7 +186,7 @@ class ApplicationRepository {
                 : 1;
 
         return {
-            [sortField]: sortDirection,
+            [filters.sortField]: sortDirection,
         };
     }
 

@@ -1,0 +1,65 @@
+.comment-view-block {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 16px;
+    background-color: #ffffff;
+    border: 1px solid #e2eed4;
+    border-radius: 10px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.comment-view-block:hover {
+    border-color: #c3dcab;
+    box-shadow: 0 2px 8px rgba(120, 160, 90, 0.08);
+}
+
+.comment-view-block p {
+    margin: 0;
+    font-size: 14px;
+    color: #33422e;
+    flex: 1;
+    word-break: break-word;
+}
+
+.comment-view-additional-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    font-size: 12px;
+    color: #8ba67d;
+    white-space: nowrap;
+}
+
+.comment-view-additional-info span:first-child {
+    font-weight: 600;
+    color: #6fa84c;
+}
+
+.comment-view-actions {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.comment-view-actions .MuiIconButton-root {
+    padding: 5px;
+    color: #a3b596;
+    transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.comment-view-actions .MuiIconButton-root:first-child:hover {
+    color: #6fa84c;
+    background-color: #e9f3dc;
+}
+
+.comment-view-actions .MuiIconButton-root:last-child:hover {
+    color: #d97a6c;
+    background-color: #fbeae7;
+}
+
+.comment-view-actions .MuiSvgIcon-root {
+    font-size: 18px;
+}

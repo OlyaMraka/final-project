@@ -27,9 +27,6 @@ const applicationSchema = new Schema(
 
         managerId: { type: Schema.Types.ObjectId, ref: User },
 
-        startDate: { type: Date, required: true},
-        endDate: { type: Date, required: true},
-
         message: { type: String, required: true },
         utm: { type: String, required: true }
     },

@@ -1,8 +1,7 @@
 import type {GroupSliceType} from "../types/group.ts";
 import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolkit";
-import {getAllGroups} from "../../services/group.service.ts";
+import {createGroup, getAllGroups} from "../../services/group.service.ts";
 import type {Group} from "../../types/group.ts";
-import * as axios from "axios";
 
 const initialState: GroupSliceType = { groups: [] };
 
@@ -11,19 +10,17 @@ const getAllGroupsAction = createAsyncThunk("groupSlice/getAllGroupsAction", asy
         const data = await getAllGroups();
         return thunkAPI.fulfillWithValue(data);
     } catch (error) {
-        if (axios.isAxiosError(error)) {
-            if (error.response?.status === 401) {
-                return thunkAPI.rejectWithValue(
-                    "Unauthorized"
-                );
-            }
+        return thunkAPI.rejectWithValue(
+            "Something went wrong"
+        );
+    }
+});
 
-            return thunkAPI.rejectWithValue(
-                error.response?.data?.message ||
-                "Request failed"
-            );
-        }
-
+const createGroupAction = createAsyncThunk("groupSlice/createGroupAction", async (name: string, thunkAPI)=> {
+    try {
+        const data = await createGroup(name);
+        return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
         return thunkAPI.rejectWithValue(
             "Something went wrong"
         );
@@ -38,8 +35,12 @@ export const groupSlice = createSlice({
         builder.addCase(getAllGroupsAction.fulfilled, (state, action: PayloadAction<Group[]>) => {
             state.groups = action.payload;
         })
+            .addCase(createGroupAction.fulfilled, (state, action: PayloadAction<Group>) => {
+                state.groups.push(action.payload);
+            })
+
 })
 
 export const groupSliceActions = {
-    ...groupSlice.actions, getAllGroupsAction
+    ...groupSlice.actions, getAllGroupsAction, createGroupAction
 };

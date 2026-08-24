@@ -5,8 +5,8 @@
 
 .date-filters .MuiTextField-root,
 .date-filters .MuiFormControl-root {
-    min-width: 200px !important;
-    max-width: 260px;
+    min-width: 300px !important;
+    max-width: 350px;
 }
 
 .date-filters .MuiOutlinedInput-root {

@@ -1,0 +1,80 @@
+.comment-form-container {
+    margin-top: 8px;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.comment-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4b5c43;
+}
+
+.comment-form textarea {
+    min-height: 70px;
+    padding: 12px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #33422e;
+    background-color: #f4f9ee;
+    border: 1px solid #d9e8c9;
+    border-radius: 10px;
+    outline: none;
+    resize: vertical;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.comment-form textarea::placeholder {
+    color: #a3b596;
+}
+
+.comment-form textarea:hover {
+    border-color: #c3dcab;
+}
+
+.comment-form textarea:focus {
+    background-color: #ffffff;
+    border-color: #9ec97e;
+    box-shadow: 0 0 0 3px rgba(158, 201, 126, 0.25);
+}
+
+.comment-form .error-message {
+    font-size: 12px;
+    font-weight: 500;
+    color: #d97a6c;
+}
+
+.comment-form button {
+    align-self: flex-end;
+    padding: 9px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #8bc169;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.comment-form button:hover:not(:disabled) {
+    background-color: #79ad57;
+    box-shadow: 0 6px 14px rgba(139, 193, 105, 0.3);
+}
+
+.comment-form button:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.comment-form button:disabled {
+    background-color: #d9e8c9;
+    color: #a3b596;
+    cursor: not-allowed;
+}

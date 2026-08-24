@@ -1,4 +1,4 @@
-import {type FC, useEffect, useState} from "react";
+import {type FC, useEffect} from "react";
 import {useAppSelector} from "../../../redux/hooks/useAppSelector.tsx";
 import {useSearchParams} from "react-router-dom";
 import {FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent} from "@mui/material";
@@ -18,13 +18,11 @@ const GroupDropdown: FC = () => {
         }
     }, []);
 
-    const [value, setValue] = useState('');
     const [query, setQuery] = useSearchParams();
+    const value = query.get("groupId") ?? "";
 
     const handleChange = (event: SelectChangeEvent) => {
         const groupId = event.target.value;
-
-        setValue(groupId);
 
         const params = new URLSearchParams(query);
         params.set("groupId", groupId);

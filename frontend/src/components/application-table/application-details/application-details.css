@@ -1,0 +1,38 @@
+.application-details-block {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.application-details-info {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 220px;
+    max-width: 260px;
+    flex-shrink: 0;
+}
+
+.application-details-info span {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #8ba67d;
+    margin-bottom: 4px;
+}
+
+.application-details-info p {
+    margin: 0;
+    font-size: 14px;
+    color: #33422e;
+    word-break: break-word;
+}
+
+.application-details-comments {
+    flex: 1;
+    min-width: 0;
+    padding-left: 32px;
+    border-left: 1px solid #d9e8c9;
+}

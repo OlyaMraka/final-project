@@ -1,0 +1,61 @@
+.comment-edit-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px 16px;
+    background-color: #ffffff;
+    border: 1px solid #c3dcab;
+    border-radius: 10px;
+    box-shadow: 0 0 0 3px rgba(158, 201, 126, 0.15);
+}
+
+.comment-edit-block .MuiOutlinedInput-root {
+    border-radius: 8px;
+    background-color: #f4f9ee;
+}
+
+.comment-edit-block .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: #d9e8c9;
+}
+
+.comment-edit-block .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #b9dc9d;
+}
+
+.comment-edit-block .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #8bc169;
+    border-width: 1.5px;
+}
+
+.comment-edit-block .MuiOutlinedInput-root.Mui-focused {
+    background-color: #ffffff;
+}
+
+.comment-edit-block .MuiOutlinedInput-input {
+    font-size: 14px;
+    color: #33422e !important;
+}
+
+.comment-edit-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.comment-edit-actions .MuiIconButton-root:first-child {
+    color: #6fa84c;
+}
+
+.comment-edit-actions .MuiIconButton-root:first-child:hover {
+    background-color: #e9f3dc;
+}
+
+.comment-edit-actions .MuiIconButton-root:last-child {
+    color: #a3b596;
+}
+
+.comment-edit-actions .MuiIconButton-root:last-child:hover {
+    color: #d97a6c;
+    background-color: #fbeae7;
+}

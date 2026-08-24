@@ -9,8 +9,8 @@ export class ApplicationValidator {
     private static page = joi.number().integer().min(1);
     private static sortOrder = joi.string().valid(...Object.values(OrderDirection));
     private static sortField = joi.string().valid(...Object.values(SortField));
-    private static name = joi.string().trim().min(2).max(50);
-    private static surname = joi.string().trim().min(2).max(50);
+    private static name = joi.string().trim();
+    private static surname = joi.string().trim();
     private static email = joi.string().trim().email();
     private static age = joi.number().integer().min(0);
     private static phone = joi.string().trim();
@@ -21,7 +21,6 @@ export class ApplicationValidator {
     private static status = joi.string().valid(...Object.values(ApplicationStatus));
     private static startDate = joi.date();
     private static endDate = joi.date().min(joi.ref("startDate"));
-    private static managerId = joi.string().trim();
     private static sum = joi.number().integer().min(1);
     private static alreadyPaid = joi.number().integer().min(1);
 
@@ -48,8 +47,8 @@ export class ApplicationValidator {
     });
 
     public static validateApplicationUpdate = joi.object({
-        name: this.name.required(),
-        surname: this.surname.required(),
+        name: this.name.min(2).max(50).required(),
+        surname: this.surname.min(2).max(50).required(),
         email: this.email.required(),
         age: this.age.required(),
         phone: this.phone.required(),
@@ -60,9 +59,5 @@ export class ApplicationValidator {
         status: this.status.required(),
         sum: this.sum.required(),
         alreadyPaid: this.alreadyPaid.required()
-    });
-
-    public static validateSetManager = joi.object({
-        managerId: this.managerId.required(),
     });
 }

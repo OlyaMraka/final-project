@@ -1,6 +1,6 @@
 .custom-text-input {
-    min-width: 220px !important;
-    max-width: 280px;
+    min-width: 300px !important;
+    max-width: 350px;
 }
 
 .custom-text-input .MuiOutlinedInput-root {

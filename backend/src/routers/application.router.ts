@@ -11,13 +11,12 @@ router.get(
     '/',
     commonMiddleware.validateQuery(ApplicationValidator.validateFilters),
     authMiddleware.checkAccessToken(),
-    applicationController.getAllLeads
+    applicationController.GetAllApplications
 );
 
 router.post(
     '/set-manager/:id',
     commonMiddleware.isIdValid("id"),
-    commonMiddleware.validateBody(ApplicationValidator.validateSetManager),
     authMiddleware.checkAccessToken(),
     applicationController.SetManager
 );
@@ -29,6 +28,13 @@ router.put(
     authMiddleware.checkAccessToken(),
     applicationMiddleware.checkUpdateAccess(),
     applicationController.UpdateApplication
+);
+
+router.get(
+    '/export',
+    commonMiddleware.validateQuery(ApplicationValidator.validateFilters),
+    authMiddleware.checkAccessToken(),
+    applicationController.ExportApplications
 );
 
 export const applicationRouter = router;

@@ -1,0 +1,17 @@
+.comments-container {
+    padding-right: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.comments-container-loading {
+    padding: 16px;
+    font-size: 14px;
+    color: #8ba67d;
+    text-align: center;
+}
+
+.comments-container .create-comment-form {
+    margin-top: 8px;
+}

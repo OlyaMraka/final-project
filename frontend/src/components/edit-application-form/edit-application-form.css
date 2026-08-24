@@ -1,0 +1,187 @@
+.edit-application-form-block {
+    padding: 28px 32px;
+}
+
+.edit-application-form-block h2 {
+    margin: 0 0 24px;
+
+    font-size: 20px;
+    font-weight: 700;
+    color: #33422e;
+}
+
+.input-fields-container {
+    display: flex;
+    gap: 24px;
+}
+
+.first-column,
+.second-column {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Group */
+
+.group-change-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.add-new-group-button {
+    padding: 9px 16px;
+
+    border: 1px solid #b9dc9d;
+    border-radius: 9px;
+
+    background-color: #f5faef;
+    color: #5f814e;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+            background-color 0.2s ease,
+            border-color 0.2s ease,
+            color 0.2s ease,
+            box-shadow 0.2s ease,
+            transform 0.15s ease;
+}
+
+.add-new-group-button:hover {
+    background-color: #eaf5e1;
+    border-color: #8bc169;
+    color: #4f733f;
+    box-shadow: 0 3px 10px rgba(120, 160, 90, 0.12);
+}
+
+.add-new-group-button:active {
+    transform: translateY(1px);
+}
+
+.add-new-group-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(158, 201, 126, 0.22);
+}
+
+/* Inputs */
+
+.form-text-input .MuiOutlinedInput-root {
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(120, 160, 90, 0.08);
+
+    transition: box-shadow 0.2s ease;
+}
+
+.form-text-input .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: #d9e8c9;
+    border-radius: 10px;
+
+    transition: border-color 0.2s ease;
+}
+
+.form-text-input .MuiOutlinedInput-root:hover {
+    box-shadow: 0 4px 12px rgba(120, 160, 90, 0.12);
+}
+
+.form-text-input .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #b9dc9d;
+}
+
+.form-text-input .MuiOutlinedInput-root.Mui-focused {
+    box-shadow: 0 0 0 3px rgba(158, 201, 126, 0.22);
+}
+
+.form-text-input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #8bc169;
+    border-width: 1.5px;
+}
+
+.form-text-input .MuiOutlinedInput-input {
+    padding: 13px 16px;
+
+    font-size: 14px;
+    font-weight: 500;
+    color: #33422e !important;
+}
+
+.form-text-input .MuiInputLabel-root {
+    color: #8ba67d;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.form-text-input .MuiInputLabel-root.Mui-focused {
+    color: #6fa84c;
+}
+
+.operations-block {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+
+    margin-top: 28px;
+    padding-top: 20px;
+
+    border-top: 1px solid #e2eed4;
+}
+
+.operations-block button {
+    padding: 11px 26px;
+
+    border-radius: 10px;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+            background-color 0.2s ease,
+            border-color 0.2s ease,
+            color 0.2s ease,
+            transform 0.15s ease;
+}
+
+/* Save */
+
+.save-application {
+    color: #ffffff;
+    background-color: #8bc169;
+    border: 1px solid #8bc169;
+}
+
+.save-application:hover {
+    background-color: #79ad57;
+    border-color: #79ad57;
+}
+
+.save-application:active {
+    transform: translateY(1px);
+}
+
+.cancel-editing {
+    color: #4b5c43;
+    background-color: #ffffff;
+    border: 1px solid #d9e8c9;
+}
+
+.cancel-editing:hover {
+    background-color: #fbeae7;
+    border-color: #f3c9c2;
+    color: #a83f36;
+}
+
+.cancel-editing:active {
+    transform: translateY(1px);
+}
