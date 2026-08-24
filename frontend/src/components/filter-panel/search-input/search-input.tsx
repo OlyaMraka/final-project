@@ -1,29 +1,39 @@
-import {type ChangeEvent, type FC} from "react";
-import type {SearchInputProps} from "../../../types/component-props/search-input.ts";
+import {type ChangeEvent, type FC, useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
 import {TextField} from "@mui/material";
+import type {SearchInputProps} from "../../../types/component-props/search-input.ts";
 import "./search-input.css";
 
 const SearchInput: FC<SearchInputProps> = ({label, queryParam}) => {
-    const [query, setQuery] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const value = query.get(queryParam) ?? '';
+    const [value, setValue] = useState(
+        searchParams.get(queryParam) ?? ""
+    );
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            const params = new URLSearchParams(searchParams);
+
+            if (value) {
+                params.set(queryParam, value);
+            } else {
+                params.delete(queryParam);
+            }
+
+            setSearchParams(params);
+        }, 500);
+
+        return () => clearTimeout(timeout);
+    }, [value]);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const newValue = event.target.value as string;
-
-        const params = new URLSearchParams(query);
-        if(newValue) {
-            params.set(queryParam, newValue);
-        } else {
-            params.delete(queryParam);
-        }
-
-        setQuery(params);
+        setValue(event.target.value);
     };
 
     return (
-        <TextField className="custom-text-input"
+        <TextField
+            className="custom-text-input"
             id={`${label}-outlined-input`}
             label={label}
             type="search"
@@ -31,6 +41,6 @@ const SearchInput: FC<SearchInputProps> = ({label, queryParam}) => {
             onChange={handleChange}
         />
     );
-}
+};
 
 export default SearchInput;

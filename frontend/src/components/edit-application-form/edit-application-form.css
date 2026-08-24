@@ -4,7 +4,6 @@
 
 .edit-application-form-block h2 {
     margin: 0 0 24px;
-
     font-size: 20px;
     font-weight: 700;
     color: #33422e;
@@ -23,8 +22,6 @@
     gap: 18px;
 }
 
-/* Group */
-
 .group-change-container {
     display: flex;
     flex-direction: column;
@@ -34,19 +31,14 @@
 
 .add-new-group-button {
     padding: 9px 16px;
-
     border: 1px solid #b9dc9d;
     border-radius: 9px;
-
     background-color: #f5faef;
     color: #5f814e;
-
     font-family: inherit;
     font-size: 13px;
     font-weight: 700;
-
     cursor: pointer;
-
     transition:
             background-color 0.2s ease,
             border-color 0.2s ease,
@@ -71,13 +63,10 @@
     box-shadow: 0 0 0 3px rgba(158, 201, 126, 0.22);
 }
 
-/* Inputs */
-
 .form-text-input .MuiOutlinedInput-root {
     border-radius: 10px;
     background-color: #ffffff;
     box-shadow: 0 2px 8px rgba(120, 160, 90, 0.08);
-
     transition: box-shadow 0.2s ease;
 }
 
@@ -107,7 +96,6 @@
 
 .form-text-input .MuiOutlinedInput-input {
     padding: 13px 16px;
-
     font-size: 14px;
     font-weight: 500;
     color: #33422e !important;
@@ -115,7 +103,6 @@
 
 .form-text-input .MuiInputLabel-root {
     color: #8ba67d;
-
     font-size: 14px;
     font-weight: 500;
 }
@@ -128,32 +115,24 @@
     display: flex;
     justify-content: flex-end;
     gap: 12px;
-
     margin-top: 28px;
     padding-top: 20px;
-
     border-top: 1px solid #e2eed4;
 }
 
 .operations-block button {
     padding: 11px 26px;
-
     border-radius: 10px;
-
     font-family: inherit;
     font-size: 14px;
     font-weight: 700;
-
     cursor: pointer;
-
     transition:
             background-color 0.2s ease,
             border-color 0.2s ease,
             color 0.2s ease,
             transform 0.15s ease;
 }
-
-/* Save */
 
 .save-application {
     color: #ffffff;
