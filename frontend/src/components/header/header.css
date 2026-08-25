@@ -19,7 +19,7 @@
     object-fit: contain;
 }
 
-.operations-block {
+.header-operations-block {
     display: flex;
     align-items: center;
     gap: 12px;

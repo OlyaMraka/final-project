@@ -11,7 +11,7 @@ export const logout = async (): Promise<void> => {
     const token = getItemFromLocalStorage<Token>("token");
 
     await publicInstance.post<Token>(
-        "/auth/refresh",
+        "/auth/log-out",
         {
             refresh_token: token.refresh_token,
         }
