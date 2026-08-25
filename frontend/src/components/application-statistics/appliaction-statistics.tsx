@@ -3,8 +3,11 @@ import {useAppSelector} from "../../redux/hooks/useAppSelector.tsx";
 import {applicationStatisticsActions} from "../../redux/slices/application-statistics-slice.ts";
 import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
 import "./application-statistics.css";
+import type {
+    ApplicationStatisticsComponentProps
+} from "../../types/component-props/application-statistics-component.ts";
 
-const ApplicationStatisticsComponent: FC = () => {
+const ApplicationStatisticsComponent: FC<ApplicationStatisticsComponentProps> = ({onCreateManager}) => {
     const { statistics } = useAppSelector(({applicationStatisticsSlice}) => applicationStatisticsSlice);
     const dispatch = useAppDispatch();
 
@@ -26,7 +29,7 @@ const ApplicationStatisticsComponent: FC = () => {
                     }
                 </div>
 
-                <button className="create-manager-button">Create manager</button>
+                <button onClick={onCreateManager} className="create-manager-button">Create manager</button>
             </div>
         </div>
     );

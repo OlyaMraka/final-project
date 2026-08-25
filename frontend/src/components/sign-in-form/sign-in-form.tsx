@@ -46,7 +46,7 @@ const SignInFormComponent: FC = () => {
                     { errors.password && <div className="error-message">{errors.password.message}</div> }
                 </label>
 
-                <button disabled={!isValid}>Save</button>
+                <button disabled={!isValid}>Sign In</button>
             </form>
 
             {

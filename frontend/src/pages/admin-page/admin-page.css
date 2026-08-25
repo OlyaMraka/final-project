@@ -1,0 +1,5 @@
+.create-manager-dialog-paper {
+    border-radius: 16px !important;
+    border-left: 4px solid #a8d18d;
+    box-shadow: 0 12px 32px rgba(120, 160, 90, 0.2) !important;
+}

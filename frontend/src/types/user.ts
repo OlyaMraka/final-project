@@ -36,3 +36,9 @@ export type ManagersResponseDto = {
     page: number;
     pageCount: number;
 }
+
+export type CreateManagerDto = {
+    name: string;
+    surname: string;
+    email: string;
+}

@@ -1,0 +1,103 @@
+.create-manager-form-block {
+    padding: 28px 32px;
+}
+
+.create-manager-form-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.create-manager-form-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #33422e;
+    margin: 0;
+}
+
+.create-manager-form-header .MuiIconButton-root {
+    color: #a3b596;
+    transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.create-manager-form-header .MuiIconButton-root:hover {
+    color: #d97a6c;
+    background-color: #fbeae7;
+}
+
+.create-manager-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.create-manager-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4b5c43;
+}
+
+.create-manager-form input {
+    padding: 11px 14px;
+    font-size: 14px;
+    color: #33422e;
+    background-color: #f4f9ee;
+    border: 1px solid #d9e8c9;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.create-manager-form input::placeholder {
+    color: #a3b596;
+}
+
+.create-manager-form input:hover {
+    border-color: #c3dcab;
+}
+
+.create-manager-form input:focus {
+    background-color: #ffffff;
+    border-color: #9ec97e;
+    box-shadow: 0 0 0 3px rgba(158, 201, 126, 0.25);
+}
+
+.create-manager-form .error-message {
+    min-height: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #d97a6c;
+    margin-top: 2px;
+}
+
+.create-manager-form button {
+    margin-top: 10px;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #8bc169;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.create-manager-form button:hover:not(:disabled) {
+    background-color: #79ad57;
+    box-shadow: 0 6px 14px rgba(139, 193, 105, 0.35);
+}
+
+.create-manager-form button:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.create-manager-form button:disabled {
+    background-color: #d9e8c9;
+    color: #a3b596;
+    cursor: not-allowed;
+}

@@ -1,13 +1,59 @@
 import type {ManagerSliceType} from "../types/manager.ts";
 import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolkit";
-import {getManagers} from "../../services/user.service.ts";
-import type {ManagersResponseDto} from "../../types/user.ts";
+import {banUser, createManager, getManagers, unbanUser} from "../../services/user.service.ts";
+import type {CreateManagerDto, ManagersResponseDto, User} from "../../types/user.ts";
 
 const initialState: ManagerSliceType = {};
+
+const updateManager = (
+    state: ManagerSliceType,
+    updatedUser: User
+) => {
+    const manager = state.managers?.find(
+        item => item.manager._id === updatedUser._id
+    );
+
+    if (manager) {
+        manager.manager = updatedUser;
+    }
+};
 
 const getAllManagersAction = createAsyncThunk("managerSlice/getAllManagersAction", async (page: number, thunkAPI) =>{
     try {
         const data = await getManagers(page);
+        return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+        return thunkAPI.rejectWithValue(
+            "Something went wrong"
+        );
+    }
+});
+
+const banManagerAction = createAsyncThunk("managerSlice/banManagerAction", async (managerId: string, thunkAPI) => {
+    try {
+        const data = await banUser(managerId);
+        return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+        return thunkAPI.rejectWithValue(
+            "Something went wrong"
+        );
+    }
+});
+
+const unbanManagerAction = createAsyncThunk("managerSlice/unbanManagerAction", async (managerId: string, thunkAPI) => {
+    try {
+        const data = await unbanUser(managerId);
+        return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+        return thunkAPI.rejectWithValue(
+            "Something went wrong"
+        );
+    }
+});
+
+const createManagerAction = createAsyncThunk("managerSlice/createManagerAction", async (managerDto: CreateManagerDto, thunkAPI) => {
+    try {
+        const data = await createManager(managerDto);
         return thunkAPI.fulfillWithValue(data);
     } catch (error) {
         return thunkAPI.rejectWithValue(
@@ -28,8 +74,20 @@ export const managerSlice = createSlice({
             state.pageCount = action.payload.pageCount;
             state.page = action.payload.page;
         })
+            .addCase(
+                banManagerAction.fulfilled,
+                (state, action: PayloadAction<User>) => {
+                    updateManager(state, action.payload);
+                }
+            )
+            .addCase(
+                unbanManagerAction.fulfilled,
+                (state, action: PayloadAction<User>) => {
+                    updateManager(state, action.payload);
+                }
+            )
 });
 
 export const managerSliceActions = {
-    ...managerSlice.actions, getAllManagersAction
+    ...managerSlice.actions, getAllManagersAction, banManagerAction, unbanManagerAction, createManagerAction
 };
