@@ -3,6 +3,7 @@ import {userSlice} from "./slices/user-slice.ts";
 import {groupSlice} from "./slices/group-slice.ts";
 import {applicationSlice} from "./slices/application-slice.ts";
 import {applicationStatisticsSlice} from "./slices/application-statistics-slice.ts";
+import {managerSlice} from "./slices/manager-slice.ts";
 
 export const store = configureStore({
     reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
         groupSlice: groupSlice.reducer,
         applicationSlice: applicationSlice.reducer,
         applicationStatisticsSlice: applicationStatisticsSlice.reducer,
+        managerSlice: managerSlice.reducer,
     }
 });

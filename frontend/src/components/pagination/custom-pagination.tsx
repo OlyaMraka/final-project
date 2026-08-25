@@ -1,12 +1,10 @@
 import type {FC} from "react";
 import {useSearchParams} from "react-router-dom";
 import {Pagination} from "@mui/material";
-import {useAppSelector} from "../../redux/hooks/useAppSelector.tsx";
+import type {PaginationProps} from "../../types/component-props/pagination.ts";
 import "./custom-pagination.css";
 
-const CustomPagination: FC = () => {
-    const {pagesCount} = useAppSelector(({applicationSlice}) => applicationSlice);
-
+const CustomPagination: FC<PaginationProps> = ({pagesCount}) => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const page = Number(searchParams.get("page") ?? 1);

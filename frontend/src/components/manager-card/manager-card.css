@@ -1,0 +1,122 @@
+.manager-card-block {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 20px 28px;
+    margin-bottom: 14px;
+    background-color: #ffffff;
+    border-left: 4px solid #a8d18d;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(120, 160, 90, 0.08);
+    transition: box-shadow 0.2s ease;
+}
+
+.manager-card-block:hover {
+    box-shadow: 0 6px 20px rgba(120, 160, 90, 0.14);
+}
+
+.manager-info-first-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 220px;
+}
+
+.manager-info-first-col p {
+    margin: 0;
+    font-size: 13px;
+    color: #4b5c43;
+}
+
+.manager-info-first-col p:first-child {
+    font-size: 14px;
+    font-weight: 700;
+    color: #33422e;
+    margin-bottom: 2px;
+}
+
+.manager-info-second-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+.manager-info-second-col > p:first-child {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #33422e;
+}
+
+.applications-status-info-block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.application-status-item {
+    margin: 0;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #4b5c43;
+    background-color: #f4f9ee;
+    border: 1px solid #d9e8c9;
+    border-radius: 20px;
+}
+
+.manager-info-third-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+    min-width: 170px;
+}
+
+.manager-info-third-col button {
+    padding: 9px 18px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.manager-info-third-col button:active {
+    transform: translateY(1px);
+}
+
+.activate-button {
+    color: #ffffff;
+    background-color: #8bc169;
+    border: none;
+}
+
+.activate-button:hover {
+    background-color: #79ad57;
+    box-shadow: 0 6px 14px rgba(139, 193, 105, 0.3);
+}
+
+.recover-password-button {
+    color: #4b5c43;
+    background-color: #ffffff;
+    border: 1px solid #d9e8c9;
+}
+
+.recover-password-button:hover {
+    background-color: #f4f9ee;
+    border-color: #c3dcab;
+}
+
+.ban-button {
+    color: #a83f36;
+    background-color: #fbeae7;
+    border: 1px solid #f3c9c2;
+}
+
+.ban-button:hover {
+    background-color: #f5d5cf;
+    border-color: #eab3ab;
+}

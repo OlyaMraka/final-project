@@ -1,0 +1,11 @@
+.managers-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.managers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}

@@ -12,7 +12,7 @@ const ApplicationsContainer: FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const {applications} = useAppSelector(({ applicationSlice }) => applicationSlice);
+    const {applications, pagesCount} = useAppSelector(({ applicationSlice }) => applicationSlice);
 
     useEffect(() => {
         const filters = getApplicationFiltersFromSearchParams(searchParams);
@@ -25,7 +25,7 @@ const ApplicationsContainer: FC = () => {
             <ApplicationsTable
                 applications={applications}/>
 
-            <CustomPagination/>
+            <CustomPagination pagesCount={pagesCount ?? 0}/>
         </>
     );
 };

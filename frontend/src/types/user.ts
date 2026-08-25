@@ -1,3 +1,5 @@
+import type {ApplicationStatistics} from "./application-statistics.ts";
+
 export type User = {
     _id: string;
     name: string;
@@ -7,6 +9,7 @@ export type User = {
     banned: boolean;
     deleted: boolean;
     isActive: boolean;
+    lastLogin: Date;
 }
 
 export type ApplicationOwnerDto = Pick<User, "_id" | "name" | "surname" | "role">;
@@ -19,4 +22,17 @@ export type Token = {
 export type LogInResponse = {
     user: User;
     token: Token;
+}
+
+export type ManagerDto = {
+    manager: User;
+    statistics: ApplicationStatistics;
+}
+
+export type ManagersResponseDto = {
+    managers: ManagerDto[];
+    total: number;
+    limit: number;
+    page: number;
+    pageCount: number;
 }

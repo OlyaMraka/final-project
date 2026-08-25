@@ -8,9 +8,7 @@ import {userSliceActions} from "../../redux/slices/user-slice.ts";
 const HomeLayout: FC = () => {
     const dispatch = useAppDispatch();
 
-    console.log("HOME LAYOUT");
     useEffect(() => {
-        console.log("HOME LAYOUT MOUNTED");
         dispatch(userSliceActions.me());
     }, []);
 

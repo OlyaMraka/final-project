@@ -24,7 +24,7 @@ const Header: FC = () => {
             <div className="header-operations-block">
                 {
                     user?.role === RoleName.ADMIN &&
-                    <Link className="admin-panel-button" to={"/admin-panel"}>
+                    <Link className="admin-panel-button" to={"/adminpage"}>
                         Admin panel
                         <AdminPanelSettingsOutlined/>
                     </Link>

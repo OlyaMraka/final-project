@@ -4,7 +4,7 @@ import {applicationStatisticsActions} from "../../redux/slices/application-stati
 import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
 import "./application-statistics.css";
 
-const ApplicationStatistics: FC = () => {
+const ApplicationStatisticsComponent: FC = () => {
     const { statistics } = useAppSelector(({applicationStatisticsSlice}) => applicationStatisticsSlice);
     const dispatch = useAppDispatch();
 
@@ -32,4 +32,4 @@ const ApplicationStatistics: FC = () => {
     );
 };
 
-export default ApplicationStatistics;
+export default ApplicationStatisticsComponent;
