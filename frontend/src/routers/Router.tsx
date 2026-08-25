@@ -4,6 +4,7 @@ import SignInPage from "../pages/sign-in-page/sign-in-page.tsx";
 import HomePage from "../pages/home-page/home-page.tsx";
 import HomeLayout from "../layouts/home-layout/home-layout.tsx";
 import AdminPage from "../pages/admin-page/admin-page.tsx";
+import SetPasswordPage from "../pages/set-password-page/set-password-page.tsx";
 
 export const router = createBrowserRouter([
     { path: '/', element: <MainLayout/>, children: [
@@ -13,6 +14,7 @@ export const router = createBrowserRouter([
                 ]},
             {path: "adminpage", element: <HomeLayout/>, children: [
                     {index: true, element: <AdminPage/>},
-                ]}
+                ]},
+            {path: "set-password", element: <SetPasswordPage/>},
         ] },
 ]);

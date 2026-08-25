@@ -10,6 +10,8 @@ interface IConfig {
     ACTIVATION_LIFETIME: any;
     JWT_ACCESS_LIFETIME: any;
     JWT_REFRESH_LIFETIME: any;
+    EMAIL_USER: string;
+    EMAIL_PASSWORD: string;
 }
 
 const config: IConfig = {
@@ -21,6 +23,8 @@ const config: IConfig = {
     ACTIVATION_LIFETIME: process.env.ACTIVATION_LIFETIME,
     JWT_ACCESS_LIFETIME: process.env.JWT_ACCESS_LIFETIME,
     JWT_REFRESH_LIFETIME: process.env.JWT_REFRESH_LIFETIME,
+    EMAIL_USER: process.env.EMAIL_USER,
+    EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
 }
 
 export {

@@ -39,3 +39,10 @@ export const refresh = async (): Promise<Token> => {
     localStorage.setItem("token", JSON.stringify(data));
     return data;
 };
+
+export const setPassword = async (activationToken: string, password: string): Promise<void> => {
+    await publicInstance.patch("/auth/set-password", {
+        activationToken: activationToken,
+        password: password,
+    });
+};

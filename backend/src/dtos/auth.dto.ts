@@ -7,3 +7,7 @@ export type SetPasswordDto = {
     activationToken: string;
     password: string;
 }
+
+export type SetPasswordResponse = {
+    link: string;
+}

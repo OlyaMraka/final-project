@@ -20,3 +20,8 @@ export const createManager = async (managerDto: CreateManagerDto): Promise<User>
     const { data } = await privateInstance.post("/users", managerDto);
     return data;
 }
+
+export const activateUser = async (managerId: string): Promise<User> => {
+    const { data } = await privateInstance.patch(`/users/${managerId}/activate`);
+    return data;
+}

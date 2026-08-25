@@ -20,7 +20,7 @@ const ManagerCard: FC<ManagerCardProps> = ({managerInfo}) => {
                     )
                 ).unwrap();
 
-                setToastMessage("Manager has been banned");
+                setToastMessage("Manager has been unbanned");
                 setToastOpen(true);
             } else {
                 await dispatch(
@@ -29,9 +29,24 @@ const ManagerCard: FC<ManagerCardProps> = ({managerInfo}) => {
                     )
                 ).unwrap();
 
-                setToastMessage("Manager has been unbanned");
+                setToastMessage("Manager has been banned");
                 setToastOpen(true);
             }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleActivate = async () => {
+        try {
+            await dispatch(
+                managerSliceActions.activateManagerAction(
+                    managerInfo.manager._id
+                )
+            ).unwrap();
+
+            setToastMessage("Manager has been activated. Email for set-password has been sent!");
+            setToastOpen(true);
         } catch (error) {
             console.error(error);
         }
@@ -62,7 +77,7 @@ const ManagerCard: FC<ManagerCardProps> = ({managerInfo}) => {
                 </div>
 
                 <div className="manager-info-third-col">
-                    { !managerInfo.manager.isActive && <button className="activate-button">Activate</button> }
+                    { !managerInfo.manager.isActive && <button onClick={handleActivate} className="activate-button">Activate</button> }
                     { managerInfo.manager.isActive && <button className="recover-password-button">Recover password</button> }
                     <button className={managerInfo.manager.banned ? "unban-button" : "ban-button"} onClick={handleBanToggle}>
                         {managerInfo.manager.banned ? "Unban" : "Ban"}

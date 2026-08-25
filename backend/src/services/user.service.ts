@@ -1,7 +1,6 @@
 import {userRepository} from "../repositories/user.repository";
 import {IUser} from "../interfaces/user.interface";
 import {
-    ActivateUserResponseDto,
     CreateUserDto,
     ManagersResponseDto,
     UpdateUserDto,
@@ -12,6 +11,9 @@ import {StatusCodes} from "../enums/status-codes";
 import {ServiceConstants} from "../constants/error.constants";
 import {tokenService} from "./token.service";
 import {applicationRepository} from "../repositories/application.repository";
+import {TemplateNames} from "../constants/email.Templates.constants";
+import {emailService} from "./email.service";
+import {EmailTopicsConstants} from "../constants/emailTopic.constants";
 
 class UserService {
     public async getAll(): Promise<UserResponseDto[]> {
@@ -79,11 +81,21 @@ class UserService {
         return this.mapUserToResponse(user);
     }
 
-    public async activateUserById(userId: string): Promise<ActivateUserResponseDto> {
+    public async activateUserById(userId: string): Promise<UserResponseDto> {
         const user = await userRepository.activateUserById(userId);
 
         const activationToken = tokenService.generateActivationToken(user._id);
-        return { activationToken };
+
+        await emailService.sendEmail(
+            user.email,
+            EmailTopicsConstants.SET_PASSWORD,
+            TemplateNames.SET_PASSWORD,
+            {
+                activationLink: `http://localhost:5173/set-password?token=${activationToken}`,
+            }
+        );
+
+        return this.mapUserToResponse(user);
     }
 
     public mapUserToResponse(user: IUser): UserResponseDto {

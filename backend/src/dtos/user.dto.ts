@@ -23,7 +23,7 @@ export type UserResponseDto = Pick<IUser,
     "lastLogin">;
 
 export type ActivateUserResponseDto = {
-    activationToken: string;
+    link: string;
 }
 
 export type ManagerDto = {

@@ -1,6 +1,6 @@
 import type {ManagerSliceType} from "../types/manager.ts";
 import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolkit";
-import {banUser, createManager, getManagers, unbanUser} from "../../services/user.service.ts";
+import {activateUser, banUser, createManager, getManagers, unbanUser} from "../../services/user.service.ts";
 import type {CreateManagerDto, ManagersResponseDto, User} from "../../types/user.ts";
 
 const initialState: ManagerSliceType = {};
@@ -51,6 +51,17 @@ const unbanManagerAction = createAsyncThunk("managerSlice/unbanManagerAction", a
     }
 });
 
+const activateManagerAction = createAsyncThunk("managerSlice/activateManagerAction", async (managerId: string, thunkAPI) => {
+    try {
+        const data = await activateUser(managerId);
+        return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+        return thunkAPI.rejectWithValue(
+            "Something went wrong"
+        );
+    }
+});
+
 const createManagerAction = createAsyncThunk("managerSlice/createManagerAction", async (managerDto: CreateManagerDto, thunkAPI) => {
     try {
         const data = await createManager(managerDto);
@@ -86,8 +97,15 @@ export const managerSlice = createSlice({
                     updateManager(state, action.payload);
                 }
             )
+            .addCase(
+                activateManagerAction.fulfilled,
+                (state, action: PayloadAction<User>) => {
+                    updateManager(state, action.payload);
+                }
+            )
 });
 
 export const managerSliceActions = {
-    ...managerSlice.actions, getAllManagersAction, banManagerAction, unbanManagerAction, createManagerAction
+    ...managerSlice.actions, getAllManagersAction, banManagerAction,
+    unbanManagerAction, createManagerAction, activateManagerAction
 };
