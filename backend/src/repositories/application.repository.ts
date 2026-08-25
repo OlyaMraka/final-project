@@ -5,6 +5,8 @@ import {OrderDirection} from "../enums/sort-field.enum";
 import {ApplicationStatus} from "../enums/application-status.enum";
 import {IGroup} from "../interfaces/group.interface";
 import {ApplicationOwnerDto} from "../dtos/user.dto";
+import {ApplicationStatistics, StatusCount} from "../dtos/application-statistics.dto";
+import {Types} from "mongoose";
 
 const PAGE_SIZE = 25;
 
@@ -109,9 +111,56 @@ class ApplicationRepository {
             .lean();
     }
 
-    private createFilter(
-        filters: ApplicationFilters
-    ): LeadFilter {
+    private async getApplicationStatistics(filter: { managerId?: Types.ObjectId } = {}): Promise<ApplicationStatistics> {
+        const statistics = await Application.aggregate<StatusCount>([
+            {
+                $match: filter,
+            },
+            {
+                $group: {
+                    _id: "$status",
+                    applicationCount: { $sum: 1 },
+                },
+            },
+            {
+                $project: {
+                    _id: 0,
+                    status: "$_id",
+                    applicationCount: 1,
+                },
+            },
+        ]);
+
+        const statusStatistics = Object.values(ApplicationStatus).map(status => ({
+            status,
+            applicationCount:
+                statistics.find(
+                    item => item.status === status,
+                )?.applicationCount ?? 0,
+        }));
+
+        return {
+            total: statusStatistics.reduce(
+                (sum, item) => sum + item.applicationCount,
+                0,
+            ),
+            statusStatistics,
+        };
+    }
+
+    public getStatistics(): Promise<ApplicationStatistics> {
+        return this.getApplicationStatistics();
+    }
+
+    public getManagerStatistics(
+        managerId: string,
+    ): Promise<ApplicationStatistics> {
+        return this.getApplicationStatistics({
+            managerId: new Types.ObjectId(managerId),
+        });
+    }
+
+    private createFilter(filters: ApplicationFilters): LeadFilter {
 
         const filter: LeadFilter = {};
 
@@ -172,27 +221,18 @@ class ApplicationRepository {
         return filter;
     }
 
-    private createSort(
-        filters: ApplicationFilters
-    ): ApplicationSort {
+    private createSort(filters: ApplicationFilters): ApplicationSort {
 
         if (!filters.sortField) {
             return {};
         }
 
-        const sortDirection =
-            filters.sortOrder === OrderDirection.DESC
-                ? -1
-                : 1;
+        const sortDirection = filters.sortOrder === OrderDirection.DESC ? -1 : 1;
 
-        return {
-            [filters.sortField]: sortDirection,
-        };
+        return {[filters.sortField]: sortDirection};
     }
 
-    private createSearchRegex(
-        value: string
-    ): RegExp {
+    private createSearchRegex(value: string): RegExp {
 
         const escapedValue = value.replace(
             /[.*+?^${}()|[\]\\]/g,

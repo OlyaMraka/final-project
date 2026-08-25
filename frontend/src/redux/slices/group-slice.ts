@@ -39,7 +39,7 @@ export const groupSlice = createSlice({
                 state.groups.push(action.payload);
             })
 
-})
+});
 
 export const groupSliceActions = {
     ...groupSlice.actions, getAllGroupsAction, createGroupAction

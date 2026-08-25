@@ -2,6 +2,7 @@ import {ApplicationDto, ApplicationExcelRow, ApplicationFilters, IApplicationRes
 import {ApplicationListResult, applicationRepository} from "../repositories/application.repository";
 import {IApplication} from "../interfaces/application.interface";
 import Exceljs from "exceljs";
+import {ApplicationStatistics} from "../dtos/application-statistics.dto";
 
 class ApplicationService {
     public getAll(filters: ApplicationFilters): Promise<ApplicationListResult> {
@@ -63,6 +64,10 @@ class ApplicationService {
 
     public updateApplicationById(applicationId: string, application: ApplicationDto): Promise<IApplicationResponse> {
         return applicationRepository.updateApplicationById(applicationId, application);
+    }
+
+    public getStatistics(): Promise<ApplicationStatistics> {
+        return applicationRepository.getStatistics();
     }
 
     private mapToExcelRows(

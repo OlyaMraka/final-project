@@ -40,6 +40,15 @@ class ApplicationController {
         }
     }
 
+    public async GetApplicationStatistics(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const data = await applicationService.getStatistics();
+            res.status(StatusCodes.OK).json(data);
+        } catch (error) {
+            next(error);
+        }
+    }
+
     public async ExportApplications(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const filters = res.locals.query as ApplicationFilters;

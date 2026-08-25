@@ -1,6 +1,7 @@
 import type {ApplicationFilters, ApplicationResponse} from "../types/application.ts";
 import {privateInstance} from "./axios.instances.ts";
 import type {EditableApplicationInformation} from "../types/component-props/edit-application-form.ts";
+import type {ApplicationStatistics} from "../types/application-statistics.ts";
 
 export const getAllWithFilters = async (filters: ApplicationFilters): Promise<ApplicationResponse> => {
     const { data } = await privateInstance.get("applications",
@@ -30,3 +31,8 @@ export const exportApplications = async (filters: ApplicationFilters): Promise<B
 
     return data;
 };
+
+export const getApplicationStatistics = async (): Promise<ApplicationStatistics> => {
+    const { data } = await privateInstance.get("/applications/application-statistics");
+    return data;
+}

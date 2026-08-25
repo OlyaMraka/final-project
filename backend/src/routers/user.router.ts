@@ -9,7 +9,16 @@ const router = Router();
 router.get('/',
     authMiddleware.checkAccessToken(),
     authMiddleware.checkAdminAccess(),
-    userController.GetAllUsers);
+    userController.GetAllUsers
+);
+
+router.get(
+    '/managers',
+    commonMiddleware.validateQuery(UserValidator.validateFilters),
+    authMiddleware.checkAccessToken(),
+    authMiddleware.checkAdminAccess(),
+    userController.GetManagers
+);
 
 router.post(
     '/',
@@ -24,14 +33,16 @@ router.get(
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
     authMiddleware.checkAdminAccess(),
-    userController.GetUserById);
+    userController.GetUserById
+);
 
 router.put(
     '/:id',
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
     commonMiddleware.validateBody(UserValidator.validateUser),
-    userController.UpdateById);
+    userController.UpdateById
+);
 
 router.delete(
     '/:id',

@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction} from "express";
 import {userService} from "../services/user.service";
 import {StatusCodes} from "../enums/status-codes";
-import {CreateUserDto, UpdateUserDto} from "../dtos/user.dto";
+import {CreateUserDto, GetManagersRequest, UpdateUserDto} from "../dtos/user.dto";
 
 class UserController {
     public async GetAllUsers(req: Request, res: Response, next: NextFunction) {
@@ -18,6 +18,18 @@ class UserController {
             const { id } = req.params;
             const data = await userService.getById(id as string);
             res.status(StatusCodes.OK).json(data);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    public async GetManagers(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const {page} = res.locals.query as GetManagersRequest;
+
+            const managers = await userService.getManagers(page);
+
+            res.status(StatusCodes.OK).json(managers);
         } catch (error) {
             next(error);
         }

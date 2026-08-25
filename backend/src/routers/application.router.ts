@@ -37,4 +37,11 @@ router.get(
     applicationController.ExportApplications
 );
 
+router.get(
+    '/application-statistics',
+    authMiddleware.checkAccessToken(),
+    authMiddleware.checkAdminAccess(),
+    applicationController.GetApplicationStatistics
+)
+
 export const applicationRouter = router;

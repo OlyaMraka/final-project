@@ -1,0 +1,64 @@
+.admin-panel-header-section {
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #eef6e4 0%, #dcecc9 100%);
+    border-radius: 16px;
+}
+
+.admin-panel-header-section h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #33422e;
+    margin: 0 0 20px;
+}
+
+.statistics-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.statistics-container > div:first-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.status-info-block {
+    padding: 14px 20px;
+    background-color: #ffffff;
+    border-left: 3px solid #a8d18d;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(120, 160, 90, 0.1);
+}
+
+.status-info-block span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4b5c43;
+}
+
+.create-manager-button {
+    flex-shrink: 0;
+    padding: 12px 24px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #8bc169;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.create-manager-button:hover {
+    background-color: #79ad57;
+    box-shadow: 0 6px 14px rgba(139, 193, 105, 0.35);
+}
+
+.create-manager-button:active {
+    transform: translateY(1px);
+}

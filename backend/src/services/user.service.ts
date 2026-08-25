@@ -1,16 +1,44 @@
 import {userRepository} from "../repositories/user.repository";
 import {IUser} from "../interfaces/user.interface";
-import {ActivateUserResponseDto, CreateUserDto, UpdateUserDto, UserResponseDto} from "../dtos/user.dto";
+import {
+    ActivateUserResponseDto,
+    CreateUserDto,
+    ManagersResponseDto,
+    UpdateUserDto,
+    UserResponseDto
+} from "../dtos/user.dto";
 import {ApiError} from "../errors/api.error";
 import {StatusCodes} from "../enums/status-codes";
 import {ServiceConstants} from "../constants/error.constants";
 import {tokenService} from "./token.service";
+import {applicationRepository} from "../repositories/application.repository";
 
 class UserService {
     public async getAll(): Promise<UserResponseDto[]> {
         const users = await userRepository.getAll();
 
         return users.map((user) => this.mapUserToResponse(user));
+    }
+
+    public async getManagers(page: number): Promise<ManagersResponseDto> {
+        const {managers, total, limit, page: currentPage, pageCount,} = await userRepository.getManagers(page);
+
+        const managersWithStatistics = await Promise.all(
+            managers.map(async manager => ({
+                manager: this.mapUserToResponse(manager),
+                statistics: await applicationRepository.getManagerStatistics(
+                    manager._id.toString(),
+                ),
+            })),
+        );
+
+        return {
+            managers: managersWithStatistics,
+            total,
+            limit,
+            page: currentPage,
+            pageCount,
+        };
     }
 
     public async create(user: CreateUserDto): Promise<IUser> {
