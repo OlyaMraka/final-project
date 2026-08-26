@@ -98,6 +98,21 @@ class UserService {
         return this.mapUserToResponse(user);
     }
 
+    public async recoverPassword(userId: string): Promise<void> {
+        const user = await userRepository.getById(userId);
+
+        const activationToken = tokenService.generateActivationToken(user._id);
+
+        await emailService.sendEmail(
+            user.email,
+            EmailTopicsConstants.RECOVER_PASSWORD,
+            TemplateNames.RECOVER_PASSWORD,
+            {
+                recoveryLink: `http://localhost:5173/set-password?token=${activationToken}`,
+            }
+        );
+    }
+
     public mapUserToResponse(user: IUser): UserResponseDto {
         return {
             _id: user._id,

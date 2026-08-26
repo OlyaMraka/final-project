@@ -76,4 +76,12 @@ router.patch(
     userController.ActivateUserById
 );
 
+router.patch(
+    '/:id/resover-password',
+    commonMiddleware.isIdValid("id"),
+    authMiddleware.checkAccessToken(),
+    authMiddleware.checkAdminAccess(),
+    userController.RecoverUserPassword
+);
+
 export const userRouter = router;

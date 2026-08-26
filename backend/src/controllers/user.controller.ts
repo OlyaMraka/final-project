@@ -95,6 +95,16 @@ class UserController {
             next(error);
         }
     }
+
+    public async RecoverUserPassword(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.params;
+            await userService.recoverPassword(id as string);
+            res.sendStatus(StatusCodes.NO_CONTENT);
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 export const userController = new UserController();

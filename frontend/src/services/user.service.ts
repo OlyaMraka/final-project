@@ -25,3 +25,7 @@ export const activateUser = async (managerId: string): Promise<User> => {
     const { data } = await privateInstance.patch(`/users/${managerId}/activate`);
     return data;
 }
+
+export const recoverUserPassword = async (managerId: string): Promise<void> => {
+    await privateInstance.patch(`/users/${managerId}/resover-password`);
+}

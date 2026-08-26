@@ -11,8 +11,12 @@ import {
 } from "@mui/icons-material";
 import ApplicationDetails from "../application-details/application-details.tsx";
 import "./application-row.css";
+import {useAppSelector} from "../../../redux/hooks/useAppSelector.tsx";
 
 const ApplicationRow: FC<ApplicationRowProps> = ({ application, onEdit }) => {
+    const { user } = useAppSelector(({ userSlice }) => userSlice);
+    const isAuthor = !application.managerId || user?._id === application.managerId?._id;
+
     const [open, setOpen] = useState(false);
 
     const author: CommentAuthor = {
@@ -36,14 +40,16 @@ const ApplicationRow: FC<ApplicationRowProps> = ({ application, onEdit }) => {
                         )}
                     </IconButton>
 
-                    <Tooltip title="Edit application">
-                        <IconButton
-                            size="small"
-                            onClick={() => onEdit(application)}
-                        >
-                            <EditOutlined fontSize="small" />
-                        </IconButton>
-                    </Tooltip>
+                    { isAuthor &&
+                        <Tooltip title="Edit application">
+                            <IconButton
+                                size="small"
+                                onClick={() => onEdit(application)}
+                            >
+                                <EditOutlined fontSize="small" />
+                            </IconButton>
+                        </Tooltip>
+                    }
                 </TableCell>
 
                 <TableCell>{application._id}</TableCell>

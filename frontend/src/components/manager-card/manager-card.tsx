@@ -4,6 +4,7 @@ import "./manager-card.css";
 import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
 import {managerSliceActions} from "../../redux/slices/manager-slice.ts";
 import { Alert, Snackbar } from "@mui/material";
+import {recoverUserPassword} from "../../services/user.service.ts";
 
 const ManagerCard: FC<ManagerCardProps> = ({managerInfo}) => {
     const dispatch = useAppDispatch();
@@ -52,6 +53,17 @@ const ManagerCard: FC<ManagerCardProps> = ({managerInfo}) => {
         }
     };
 
+    const handleRecoverPassword = async () => {
+        try {
+            await recoverUserPassword(managerInfo.manager._id);
+
+            setToastMessage("Password recovery email has been sent!");
+            setToastOpen(true);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <>
             <div className="manager-card-block">
@@ -78,7 +90,7 @@ const ManagerCard: FC<ManagerCardProps> = ({managerInfo}) => {
 
                 <div className="manager-info-third-col">
                     { !managerInfo.manager.isActive && <button onClick={handleActivate} className="activate-button">Activate</button> }
-                    { managerInfo.manager.isActive && <button className="recover-password-button">Recover password</button> }
+                    { managerInfo.manager.isActive && <button onClick={handleRecoverPassword} className="recover-password-button">Recover password</button> }
                     <button className={managerInfo.manager.banned ? "unban-button" : "ban-button"} onClick={handleBanToggle}>
                         {managerInfo.manager.banned ? "Unban" : "Ban"}
                     </button>
