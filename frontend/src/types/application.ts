@@ -4,6 +4,7 @@ import type {CourseFormat} from "../enums/course-format.enum.ts";
 import type {ApplicationStatus} from "../enums/application-status.enum.ts";
 import type {Group} from "./group.ts";
 import type {ApplicationOwnerDto} from "./user.ts";
+import {type OrderDirection, SortField} from "../enums/sort-field.enum.ts";
 
 export type Application = {
     _id: string;
@@ -40,6 +41,9 @@ export interface IApplicationResponse extends Omit<Application, "groupId" | "man
 
 export type ApplicationFilters = {
     page?: number;
+
+    sortOrder?: OrderDirection;
+    sortField?: SortField;
 
     name?: string;
     surname?: string;

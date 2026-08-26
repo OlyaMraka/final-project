@@ -5,10 +5,16 @@ import ApplicationRow from "./application-row/application-row.tsx";
 import "./application-table.css";
 import type {IApplicationResponse} from "../../types/application.ts";
 import EditApplicationForm from "../edit-application-form/edit-application-form.tsx";
+import {useSearchParams} from "react-router-dom";
+import {OrderDirection, SortField} from "../../enums/sort-field.enum.ts";
 
 const ApplicationsTable: FC<ApplicationsTableProps> = ({applications}) => {
     const [selectedApplication, setSelectedApplication] =
         useState<IApplicationResponse | null>(null);
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const currentSortField = searchParams.get("sortField");
+    const currentSortOrder = searchParams.get("sortOrder");
 
     const handleEdit = (application: IApplicationResponse) => {
         setSelectedApplication(application);
@@ -16,6 +22,26 @@ const ApplicationsTable: FC<ApplicationsTableProps> = ({applications}) => {
 
     const handleCloseEdit = () => {
         setSelectedApplication(null);
+    };
+
+    const handleSort = (field: SortField) => {
+        const params = new URLSearchParams(searchParams);
+
+        if (currentSortField === field) {
+            params.set(
+                "sortOrder",
+                currentSortOrder === OrderDirection.DESC
+                    ? OrderDirection.ASC
+                    : OrderDirection.DESC
+            );
+        } else {
+            params.set("sortField", field);
+            params.set("sortOrder", OrderDirection.DESC);
+        }
+
+        params.set("page", "1");
+
+        setSearchParams(params);
     };
 
     return (
@@ -26,21 +52,21 @@ const ApplicationsTable: FC<ApplicationsTableProps> = ({applications}) => {
                         <TableRow>
                             <TableCell />
 
-                            <TableCell>ID</TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Surname</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Phone</TableCell>
-                            <TableCell>Age</TableCell>
-                            <TableCell>Course</TableCell>
-                            <TableCell>Format</TableCell>
-                            <TableCell>Tariff</TableCell>
-                            <TableCell>Sum</TableCell>
-                            <TableCell>Already Paid</TableCell>
-                            <TableCell>Group</TableCell>
-                            <TableCell>Created At</TableCell>
-                            <TableCell>Status</TableCell>
-                            <TableCell>Manager</TableCell>
+                            <TableCell onClick={() => handleSort(SortField.ID)}>ID</TableCell>
+                            <TableCell onClick={() => handleSort(SortField.NAME)}>Name</TableCell>
+                            <TableCell onClick={() => handleSort(SortField.SURNAME)}>Surname</TableCell>
+                            <TableCell onClick={() => handleSort(SortField.EMAIL)}>Email</TableCell>
+                            <TableCell onClick={() => handleSort(SortField.PHONE)}>Phone</TableCell>
+                            <TableCell onClick={() => handleSort(SortField.AGE)}>Age</TableCell>
+                            <TableCell onClick={() => handleSort(SortField.COURSE)}>Course</TableCell>
+                            <TableCell onClick={() => handleSort(SortField.FORMAT)}>Format</TableCell>
+                            <TableCell onClick={() => handleSort(SortField.TARIFF)}>Tariff</TableCell>
+                            <TableCell onClick={() => handleSort(SortField.SUM)}>Sum</TableCell>
+                            <TableCell onClick={() => handleSort(SortField.ALREADY_PAID)}>Already Paid</TableCell>
+                            <TableCell onClick={() => handleSort(SortField.GROUP_ID)}>Group</TableCell>
+                            <TableCell onClick={() => handleSort(SortField.CREATED_AT)}>Created At</TableCell>
+                            <TableCell onClick={() => handleSort(SortField.STATUS)}>Status</TableCell>
+                            <TableCell onClick={() => handleSort(SortField.MANAGER_ID)}>Manager</TableCell>
                         </TableRow>
                     </TableHead>
 
