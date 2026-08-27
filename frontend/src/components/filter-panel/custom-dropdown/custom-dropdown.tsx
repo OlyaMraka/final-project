@@ -3,6 +3,7 @@ import type {DropdownProps} from "../../../types/component-props/dropdown.ts";
 import {FormControl, InputLabel, Select, MenuItem, type SelectChangeEvent} from "@mui/material";
 import {useSearchParams} from "react-router-dom";
 import "./custom-dropdown.css";
+import {setSearchParam} from "../../../helpers/application-filters.helper.ts";
 
 const CustomDropdown: FC<DropdownProps> = ({queryParam, values, label}) => {
 
@@ -12,14 +13,8 @@ const CustomDropdown: FC<DropdownProps> = ({queryParam, values, label}) => {
     const handleChange = (event: SelectChangeEvent) => {
         const newValue = event.target.value as string;
 
-        const params = new URLSearchParams(query);
-        if(newValue) {
-            params.set(queryParam, newValue);
-        } else {
-            params.delete(queryParam);
-        }
-
-        setQuery(params);
+        setQuery(prev =>
+            setSearchParam(prev, queryParam, newValue));
     };
 
     return (

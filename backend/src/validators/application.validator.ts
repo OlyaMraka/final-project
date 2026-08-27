@@ -22,7 +22,8 @@ export class ApplicationValidator {
     private static startDate = joi.date();
     private static endDate = joi.date().min(joi.ref("startDate"));
     private static sum = joi.number().integer().min(1);
-    private static alreadyPaid = joi.number().integer().min(1);
+    private static alreadyPaid = joi.number().integer().min(0);
+    private static myApplications = joi.boolean();
 
     public static validateFilters = joi.object({
         page: this.page.default(1),
@@ -44,6 +45,8 @@ export class ApplicationValidator {
 
         startDate: this.startDate,
         endDate: this.endDate,
+
+        myApplications: this.myApplications,
     });
 
     public static validateApplicationUpdate = joi.object({

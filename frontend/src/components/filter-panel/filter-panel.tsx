@@ -42,6 +42,24 @@ const FilterPanel: FC = () => {
         }
     };
 
+    const isMyApplications = searchParams.get("myApplications") === "true";
+
+    const handleMyApplicationsChange = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const params = new URLSearchParams(searchParams);
+
+        if (event.target.checked) {
+            params.set("myApplications", "true");
+        } else {
+            params.delete("myApplications");
+        }
+
+        params.set("page", "1");
+
+        setSearchParams(params);
+    };
+
     return (
         <div className="filter-panel-container">
             <div className="left-part-filters">
@@ -77,7 +95,8 @@ const FilterPanel: FC = () => {
                     <span>Create Table</span>
                 </button>
 
-                <FormControlLabel control={<Checkbox/>} label="My applications" />
+                <FormControlLabel control={<Checkbox checked={isMyApplications}
+                                                     onChange={handleMyApplicationsChange}/>}label="My applications" />
             </div>
         </div>
     )

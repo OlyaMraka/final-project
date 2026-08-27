@@ -7,7 +7,16 @@ import {ITokenPayload} from "../interfaces/token.interface";
 class ApplicationController {
     public async GetAllApplications(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const data = await applicationService.getAll(res.locals.query as ApplicationFilters);
+            const filters = res.locals.query as ApplicationFilters;
+
+            if(filters && filters.myApplications) {
+                const tokenPayload = res.locals.tokenPayload as ITokenPayload;
+                const { userId } = tokenPayload;
+
+                filters.myId = userId;
+            }
+
+            const data = await applicationService.getAll(filters);
             res.status(StatusCodes.OK).json(data);
         } catch (error) {
             next(error);
@@ -52,6 +61,13 @@ class ApplicationController {
     public async ExportApplications(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const filters = res.locals.query as ApplicationFilters;
+
+            if(filters && filters.myApplications) {
+                const tokenPayload = res.locals.tokenPayload as ITokenPayload;
+                const { userId } = tokenPayload;
+
+                filters.myId = userId;
+            }
 
             const file = await applicationService.generateTable(filters);
 

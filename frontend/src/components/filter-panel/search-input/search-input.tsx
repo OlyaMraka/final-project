@@ -3,6 +3,7 @@ import {useSearchParams} from "react-router-dom";
 import {TextField} from "@mui/material";
 import type {SearchInputProps} from "../../../types/component-props/search-input.ts";
 import "./search-input.css";
+import {setSearchParam} from "../../../helpers/application-filters.helper.ts";
 
 const SearchInput: FC<SearchInputProps> = ({label, queryParam}) => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -12,16 +13,14 @@ const SearchInput: FC<SearchInputProps> = ({label, queryParam}) => {
     );
 
     useEffect(() => {
+        setValue(searchParams.get(queryParam) ?? "");
+    }, [searchParams, queryParam]);
+
+    useEffect(() => {
         const timeout = setTimeout(() => {
-            const params = new URLSearchParams(searchParams);
-
-            if (value) {
-                params.set(queryParam, value);
-            } else {
-                params.delete(queryParam);
-            }
-
-            setSearchParams(params);
+            setSearchParams(prev =>
+                setSearchParam(prev, queryParam, value)
+            );
         }, 500);
 
         return () => clearTimeout(timeout);

@@ -24,6 +24,8 @@ type LeadFilter = {
 
     groupId?: string;
 
+    managerId?: string;
+
     status?: IApplication["status"];
 
     createdAt?: {
@@ -198,6 +200,10 @@ class ApplicationRepository {
 
         if (filters.groupId) {
             filter.groupId = filters.groupId;
+        }
+
+        if(filters.myApplications && filters.myId) {
+            filter.managerId = filters.myId;
         }
 
         if (filters.status) {

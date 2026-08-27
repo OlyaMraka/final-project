@@ -5,6 +5,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { type Dayjs } from "dayjs";
 import "./date-picker.css";
+import {setSearchParam} from "../../../helpers/application-filters.helper.ts";
 
 const DateFilters: FC = () => {
     const [query, setQuery] = useSearchParams();
@@ -13,27 +14,15 @@ const DateFilters: FC = () => {
     const dateTo = query.get("endDate");
 
     const handleFromChange = (newValue: Dayjs | null) => {
-        const params = new URLSearchParams(query);
-
-        if (newValue) {
-            params.set("startDate", newValue.format("YYYY-MM-DD"));
-        } else {
-            params.delete("startDate");
-        }
-
-        setQuery(params);
+        setQuery(prev =>
+            setSearchParam(prev, "startDate", newValue.format("YYYY-MM-DD"))
+        );
     };
 
     const handleToChange = (newValue: Dayjs | null) => {
-        const params = new URLSearchParams(query);
-
-        if (newValue) {
-            params.set("endDate", newValue.format("YYYY-MM-DD"));
-        } else {
-            params.delete("endDate");
-        }
-
-        setQuery(params);
+        setQuery(prev =>
+            setSearchParam(prev, "endDate", newValue.format("YYYY-MM-DD"))
+        );
     };
 
     return (

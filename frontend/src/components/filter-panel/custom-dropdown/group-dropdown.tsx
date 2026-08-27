@@ -5,6 +5,7 @@ import {FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent} from 
 import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.tsx";
 import {groupSliceActions} from "../../../redux/slices/group-slice.ts";
 import "./custom-dropdown.css";
+import {setSearchParam} from "../../../helpers/application-filters.helper.ts";
 
 const GroupDropdown: FC = () => {
     const { groups } = useAppSelector(({groupSlice}) => groupSlice);
@@ -24,10 +25,8 @@ const GroupDropdown: FC = () => {
     const handleChange = (event: SelectChangeEvent) => {
         const groupId = event.target.value;
 
-        const params = new URLSearchParams(query);
-        params.set("groupId", groupId);
-
-        setQuery(params);
+        setQuery(prev =>
+            setSearchParam(prev, "groupId", groupId));
     };
 
     return (

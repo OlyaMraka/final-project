@@ -5,9 +5,7 @@ import type { CourseFormat } from "../enums/course-format.enum.ts";
 import type { ApplicationStatus } from "../enums/application-status.enum.ts";
 import type { SortField, OrderDirection } from "../enums/sort-field.enum.ts";
 
-export const getApplicationFiltersFromSearchParams = (
-    searchParams: URLSearchParams
-): ApplicationFilters => {
+export const getApplicationFiltersFromSearchParams = (searchParams: URLSearchParams): ApplicationFilters => {
     return {
         page: Number(searchParams.get("page") ?? 1),
 
@@ -38,5 +36,21 @@ export const getApplicationFiltersFromSearchParams = (
         endDate: searchParams.get("endDate")
             ? new Date(searchParams.get("endDate")!)
             : undefined,
+
+        myApplications: searchParams.get("myApplications") === "true",
     };
+};
+
+export const setSearchParam = (searchParams: URLSearchParams, key: string, value?: string): URLSearchParams => {
+    const params = new URLSearchParams(searchParams);
+
+    if (value) {
+        params.set(key, value);
+    } else {
+        params.delete(key);
+    }
+
+    params.set("page", "1");
+
+    return params;
 };

@@ -49,6 +49,9 @@ export type ApplicationFilters = {
 
     startDate?: Date;
     endDate?: Date;
+
+    myApplications?: boolean;
+    myId?: string
 }
 
 export type ApplicationExcelRow = {

@@ -59,6 +59,8 @@ export type ApplicationFilters = {
 
     startDate?: Date;
     endDate?: Date;
+
+    myApplications?: boolean;
 }
 
 
