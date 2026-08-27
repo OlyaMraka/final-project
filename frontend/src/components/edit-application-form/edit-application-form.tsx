@@ -56,9 +56,13 @@ const EditApplicationForm: FC<EditApplicationFormProps> = ({applicationId, appli
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
 
+        const numericFields = ["age", "sum", "alreadyPaid"];
+
         setFormData(prev => ({
             ...prev,
-            [name]: value,
+            [name]: numericFields.includes(name)
+                ? value === "" ? null : Number(value)
+                : value,
         }));
     };
 
@@ -67,16 +71,16 @@ const EditApplicationForm: FC<EditApplicationFormProps> = ({applicationId, appli
 
         setFormData(prev => ({
             ...prev,
-            [name]: value,
+            [name]: value === "" ? null : value,
         }));
     };
 
-    const handleApplicationGroupChange = (groupId: string) => {
+    const handleApplicationGroupChange = (groupId: string | null) => {
         setFormData(prev => ({
             ...prev,
             groupId,
         }));
-    }
+    };
 
     return (
         <div className="edit-application-form-block">
@@ -97,15 +101,15 @@ const EditApplicationForm: FC<EditApplicationFormProps> = ({applicationId, appli
                                    value={formData.phone} onChange={handleInputChange}/>
 
                         <TextField className="form-text-input" label="Age" type="number" name="age"
-                                   value={formData.age} onChange={handleInputChange}/>
+                                   value={formData.age ?? ""} onChange={handleInputChange}/>
 
                         <TextField className="form-text-input" label="Sum" type="number" name="sum"
-                                   value={formData.sum} onChange={handleInputChange}/>
+                                   value={formData.sum ?? ""} onChange={handleInputChange}/>
                     </div>
 
                     <div className="second-column">
                         <TextField className="form-text-input" label="Already Paid" type="number" name="alreadyPaid"
-                                   value={formData.alreadyPaid} onChange={handleInputChange}/>
+                                   value={formData.alreadyPaid ?? ""} onChange={handleInputChange}/>
 
                         <FormDropdown
                             label="Course"

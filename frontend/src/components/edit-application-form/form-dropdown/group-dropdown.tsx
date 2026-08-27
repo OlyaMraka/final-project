@@ -8,7 +8,9 @@ const ApplicationGroupDropdown: FC<ApplicationGroupDropdownProps> = ({groupId, o
     const { groups } = useAppSelector(({ groupSlice }) => groupSlice);
 
     const handleChange = (event: SelectChangeEvent) => {
-        onGroupChange(event.target.value);
+        const value = event.target.value;
+
+        onGroupChange(value === "" ? null : value);
     };
 
     return (
@@ -30,6 +32,10 @@ const ApplicationGroupDropdown: FC<ApplicationGroupDropdownProps> = ({groupId, o
                         label="Group"
                         onChange={handleChange}
                     >
+                        <MenuItem value="">
+                            Not selected
+                        </MenuItem>
+
                         {groups.map(group => (
                             <MenuItem
                                 key={group._id}

@@ -11,8 +11,11 @@ const FormDropdown: FC<FormDropdownProps> = ({label, name, value, values, onChan
             </InputLabel>
 
             <Select className="dropdown-input-select" labelId={`${name}-select-label`}
-                    id={`${name}-select`} name={name} value={value} label={label}
+                    id={`${name}-select`} name={name} value={value ?? ""} label={label}
                     onChange={onChange}>
+                <MenuItem value="">
+                    Not selected
+                </MenuItem>
 
                 {values.map((item) => (
                     <MenuItem key={item} value={item}>

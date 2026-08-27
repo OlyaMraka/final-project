@@ -101,7 +101,7 @@ const ApplicationsTable: FC<ApplicationsTableProps> = ({applications}) => {
                             format: selectedApplication.format,
                             tariff: selectedApplication.tariff,
                             status: selectedApplication.status,
-                            groupId: selectedApplication.groupId?._id ?? "",
+                            groupId: selectedApplication.groupId?._id,
                             alreadyPaid: selectedApplication.alreadyPaid,
                             sum: selectedApplication.sum,
                         }}

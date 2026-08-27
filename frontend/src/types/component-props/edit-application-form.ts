@@ -11,20 +11,20 @@ export type EditApplicationFormProps = {
 }
 
 export type EditableApplicationInformation = {
-    name: string;
-    surname: string;
-    email: string;
-    age: number;
-    phone: string;
+    name?: string;
+    surname?: string;
+    email?: string;
+    age?: number;
+    phone?: string;
 
-    course: CourseName;
-    format: CourseFormat;
-    tariff: TariffName;
-    status: ApplicationStatus;
-    groupId: string;
+    course?: CourseName;
+    format?: CourseFormat;
+    tariff?: TariffName;
+    status?: ApplicationStatus;
+    groupId?: string;
 
-    alreadyPaid: number;
-    sum: number;
+    alreadyPaid?: number;
+    sum?: number;
 }
 
 export type FormDropdownProps = {
@@ -37,5 +37,5 @@ export type FormDropdownProps = {
 
 export type ApplicationGroupDropdownProps = {
     groupId: string | null;
-    onGroupChange: (groupId: string) => void;
+    onGroupChange: (groupId: string | null) => void;
 };

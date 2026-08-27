@@ -6,23 +6,23 @@ import {TariffName} from "../enums/tariff-name.enum";
 
 export interface IApplication extends IBase {
     _id: string;
-    name: string;
-    surname: string;
-    email: string;
-    age: number;
-    phone: string;
+    name?: string;
+    surname?: string;
+    email?: string;
+    age?: number;
+    phone?: string;
 
-    course: CourseName;
-    format: CourseFormat;
-    tariff: TariffName;
-    status: ApplicationStatus;
-    groupId: string;
+    course?: CourseName;
+    format?: CourseFormat;
+    tariff?: TariffName;
+    status?: ApplicationStatus;
+    groupId?: string;
 
-    alreadyPaid: number;
-    sum: number;
+    alreadyPaid?: number;
+    sum?: number;
 
-    managerId: string;
+    managerId?: string;
 
-    message: string;
-    utm: string;
+    message?: string;
+    utm?: string;
 }

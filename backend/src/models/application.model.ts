@@ -9,26 +9,26 @@ import {TariffName} from "../enums/tariff-name.enum";
 
 const applicationSchema = new Schema(
     {
-        name: { type: String, required: true },
-        surname: {type: String, required: true },
-        email: { type: String, required: true },
-        age: { type: Number, required: true },
-        phone: { type: String, required: true },
+        name: { type: String },
+        surname: {type: String },
+        email: { type: String },
+        age: { type: Number },
+        phone: { type: String },
 
-        course: { type: String, enum: Object.values(CourseName), required: true },
-        format: { type: String, enum: Object.values(CourseFormat), required: true },
-        tariff: { type: String, enum: Object.values(TariffName), required: true },
+        course: { type: String, enum: Object.values(CourseName) },
+        format: { type: String, enum: Object.values(CourseFormat) },
+        tariff: { type: String, enum: Object.values(TariffName) },
         status: { type: String, enum: Object.values(ApplicationStatus),
-            default: ApplicationStatus.NEW, required: true },
-        groupId: { type: Schema.Types.ObjectId, ref: Group, required: true },
+            default: ApplicationStatus.NEW },
+        groupId: { type: Schema.Types.ObjectId, ref: Group },
 
-        alreadyPaid: { type: Number, required: true },
-        sum: { type: Number, required: true },
+        alreadyPaid: { type: Number },
+        sum: { type: Number },
 
         managerId: { type: Schema.Types.ObjectId, ref: User },
 
-        message: { type: String, required: true },
-        utm: { type: String, required: true }
+        message: { type: String },
+        utm: { type: String }
     },
     {
         timestamps: true,

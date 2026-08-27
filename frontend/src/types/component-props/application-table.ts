@@ -18,9 +18,9 @@ export type ApplicationDetailsProps = {
 }
 
 export type CommentAuthor = {
-    author_id: string;
-    author_name: string;
-    author_surname: string;
+    author_id?: string;
+    author_name?: string;
+    author_surname?: string;
 }
 
 export type CommentEditProps = {

@@ -57,23 +57,23 @@ export type ApplicationFilters = {
 export type ApplicationExcelRow = {
     applicationId: string;
 
-    name: string;
-    surname: string;
-    email: string;
-    phone: string;
+    name?: string;
+    surname?: string;
+    email?: string;
+    phone?: string;
 
-    course: string;
-    tariff: string;
-    format: string;
-    status: string;
+    course?: string;
+    tariff?: string;
+    format?: string;
+    status?: string;
 
-    sum: number;
-    alreadyPaid: number;
+    sum?: number;
+    alreadyPaid?: number;
 
-    managerId: string;
-    managerName: string;
-    managerSurname: string;
+    managerId?: string;
+    managerName?: string;
+    managerSurname?: string;
 
-    groupId: string;
-    groupName: string;
+    groupId?: string;
+    groupName?: string;
 };

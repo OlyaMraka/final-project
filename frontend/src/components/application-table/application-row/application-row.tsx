@@ -53,16 +53,16 @@ const ApplicationRow: FC<ApplicationRowProps> = ({ application, onEdit }) => {
                 </TableCell>
 
                 <TableCell>{application._id}</TableCell>
-                <TableCell>{application.name}</TableCell>
-                <TableCell>{application.surname}</TableCell>
-                <TableCell>{application.email}</TableCell>
-                <TableCell>{application.phone}</TableCell>
-                <TableCell>{application.age}</TableCell>
-                <TableCell>{application.course}</TableCell>
-                <TableCell>{application.format}</TableCell>
-                <TableCell>{application.tariff}</TableCell>
-                <TableCell>{application.sum}</TableCell>
-                <TableCell>{application.alreadyPaid}</TableCell>
+                <TableCell>{application.name ?? "-"}</TableCell>
+                <TableCell>{application.surname ?? "-"}</TableCell>
+                <TableCell>{application.email ?? "-"}</TableCell>
+                <TableCell>{application.phone ?? "-"}</TableCell>
+                <TableCell>{application.age ?? "-"}</TableCell>
+                <TableCell>{application.course ?? "-"}</TableCell>
+                <TableCell>{application.format ?? "-"}</TableCell>
+                <TableCell>{application.tariff ?? "-"}</TableCell>
+                <TableCell>{application.sum ?? "-"}</TableCell>
+                <TableCell>{application.alreadyPaid ?? "-"}</TableCell>
                 <TableCell>{application.groupId?.name ?? "-"}</TableCell>
 
                 <TableCell>

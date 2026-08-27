@@ -29,7 +29,7 @@ const CreateManagerForm: FC<CreateManagerFormProps> = ({onClose}) => {
         ).unwrap();
 
         await dispatch(
-            managerSliceActions.getAllManagersAction(page)
+            managerSliceActions.getAllManagersAction(page ?? 1)
         ).unwrap();
 
         onClose();
