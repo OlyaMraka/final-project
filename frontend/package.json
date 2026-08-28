@@ -5,10 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc -bvite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "start": "serve -s dist"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -25,8 +24,7 @@
     "react-dom": "^19.2.8",
     "react-hook-form": "^7.85.0",
     "react-redux": "^9.3.0",
-    "react-router-dom": "^7.18.2",
-    "serve": "^14.2.6"
+    "react-router-dom": "^7.18.2"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
