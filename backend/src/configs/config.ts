@@ -12,6 +12,7 @@ interface IConfig {
     JWT_REFRESH_LIFETIME: any;
     EMAIL_USER: string;
     EMAIL_PASSWORD: string;
+    FRONTEND_URL: string;
 }
 
 const config: IConfig = {
@@ -25,6 +26,7 @@ const config: IConfig = {
     JWT_REFRESH_LIFETIME: process.env.JWT_REFRESH_LIFETIME,
     EMAIL_USER: process.env.EMAIL_USER,
     EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
+    FRONTEND_URL: process.env.FRONTEND_URL,
 }
 
 export {

@@ -14,6 +14,7 @@ import {applicationRepository} from "../repositories/application.repository";
 import {TemplateNames} from "../constants/email.Templates.constants";
 import {emailService} from "./email.service";
 import {EmailTopicsConstants} from "../constants/emailTopic.constants";
+import {config} from "../configs/config";
 
 class UserService {
     public async getAll(): Promise<UserResponseDto[]> {
@@ -91,7 +92,7 @@ class UserService {
             EmailTopicsConstants.SET_PASSWORD,
             TemplateNames.SET_PASSWORD,
             {
-                activationLink: `http://localhost:5173/set-password?token=${activationToken}`,
+                activationLink: `${config.FRONTEND_URL}/set-password?token=${activationToken}`,
             }
         );
 
@@ -108,7 +109,7 @@ class UserService {
             EmailTopicsConstants.RECOVER_PASSWORD,
             TemplateNames.RECOVER_PASSWORD,
             {
-                recoveryLink: `http://localhost:5173/set-password?token=${activationToken}`,
+                recoveryLink: `${config.FRONTEND_URL}/set-password?token=${activationToken}`,
             }
         );
     }
