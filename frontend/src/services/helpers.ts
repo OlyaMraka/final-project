@@ -5,7 +5,7 @@ export const getItemFromLocalStorage = <T>(key: string) => {
     }
     const parsedItem = JSON.parse(item);
     return parsedItem as T;
-}
+};
 
 export const removeTokenFromStorage = () => {
     localStorage.removeItem("token");
