@@ -10,9 +10,14 @@ import cors from "cors";
 
 const app = express();
 
+const allowedOrigin = config.FRONTEND_URL || 'https://final-project-frontend-two-lyart.vercel.app';
+
+console.log('CORS allowed origin is:', allowedOrigin); // Виведе в логи Azure поточний лінк
+
 app.use(
     cors({
-        origin: config.FRONTEND_URL,
+        origin: [allowedOrigin, 'https://final-project-frontend-two-lyart.vercel.app', 'http://localhost:5173'],
+        credentials: true
     })
 );
 
