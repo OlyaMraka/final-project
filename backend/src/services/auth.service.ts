@@ -47,16 +47,11 @@ class AuthService {
         };
     }
 
-    public async setUserPassword(passwordDto: SetPasswordDto): Promise<TokenPair> {
+    public async setUserPassword(passwordDto: SetPasswordDto): Promise<void> {
         const tokenPayload = tokenService.verifyToken(passwordDto.activationToken, TokenType.ACTIVATION);
 
         const passwordHash = await passwordService.hashPassword(passwordDto.password);
         await userRepository.setUserPassword(tokenPayload.userId, passwordHash);
-
-        const token = tokenService.generateTokens({userId: tokenPayload.userId});
-        await tokenRepository.create({...token, _userId: tokenPayload.userId});
-
-        return token;
     }
 
     public async logOut(refresh: RefreshToken): Promise<void> {

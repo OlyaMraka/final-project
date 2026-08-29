@@ -66,8 +66,8 @@ class AuthController {
     public async SetPassword(req: Request, res: Response, next: NextFunction) {
         try {
             const body = req.body as SetPasswordDto;
-            const data = await authService.setUserPassword(body);
-            res.status(StatusCodes.OK).json(data);
+            await authService.setUserPassword(body);
+            res.sendStatus(StatusCodes.NO_CONTENT);
         } catch (error) {
             next(error);
         }

@@ -13,6 +13,7 @@ interface IConfig {
     EMAIL_USER: string;
     EMAIL_PASSWORD: string;
     FRONTEND_URL: string;
+    BACKEND_API_URL: string;
 }
 
 const config: IConfig = {
@@ -27,6 +28,7 @@ const config: IConfig = {
     EMAIL_USER: process.env.EMAIL_USER,
     EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
     FRONTEND_URL: process.env.FRONTEND_URL,
+    BACKEND_API_URL: process.env.BACKEND_API_URL,
 }
 
 export {

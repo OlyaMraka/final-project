@@ -6,6 +6,7 @@ import {ApiError} from "./errors/api.error";
 import {userSeeder} from "./seeders/user.seeder";
 import {applicationSeeder} from "./seeders/application.seeder";
 import {cronsRunner} from "./crons";
+import {SwaggerDocument, swaggerUI} from "./docs/swagger.config";
 import cors from "cors";
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/docs", swaggerUI.serve, swaggerUI.setup(SwaggerDocument));
 app.use("/", apiRouter);
 
 app.use(
