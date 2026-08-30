@@ -13,11 +13,13 @@ const CreateGroupDialog: FC<CreateGroupDialogProps> = ({open, onClose}) => {
     const dispatch = useAppDispatch();
 
     const [name, setName] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault();
 
+        setErrorMessage("");
         const groupName = name.trim();
 
         if (!groupName) {
@@ -34,7 +36,7 @@ const CreateGroupDialog: FC<CreateGroupDialogProps> = ({open, onClose}) => {
             setName("");
             onClose();
         } catch (error) {
-            console.error("Failed to create group:", error);
+            setErrorMessage(error as string);
         } finally {
             setIsLoading(false);
         }
@@ -63,6 +65,8 @@ const CreateGroupDialog: FC<CreateGroupDialogProps> = ({open, onClose}) => {
                         label="Group name"
                         value={name}
                         onChange={(event) => setName(event.target.value)}
+                        error={!!errorMessage}
+                        helperText={errorMessage}
                         disabled={isLoading}
                     />
                 </DialogContent>

@@ -2,6 +2,7 @@ import type {GroupSliceType} from "../types/group.ts";
 import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import {createGroup, getAllGroups} from "../../services/group.service.ts";
 import type {Group} from "../../types/group.ts";
+import * as axios from "axios";
 
 const initialState: GroupSliceType = { groups: [] };
 
@@ -21,6 +22,12 @@ const createGroupAction = createAsyncThunk("groupSlice/createGroupAction", async
         const data = await createGroup(name);
         return thunkAPI.fulfillWithValue(data);
     } catch (error) {
+        if (axios.isAxiosError(error)) {
+            return thunkAPI.rejectWithValue(
+                error.response?.data?.message ?? "Something went wrong"
+            );
+        }
+
         return thunkAPI.rejectWithValue(
             "Something went wrong"
         );

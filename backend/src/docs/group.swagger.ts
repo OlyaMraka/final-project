@@ -1,5 +1,5 @@
 import {OpenAPIV3} from "openapi-types";
-import {badRequestResponse, unauthorizedResponse} from "./responses/error.responses";
+import {badRequestResponse, conflictResponse, unauthorizedResponse} from "./responses/error.responses";
 
 export const groupPaths: OpenAPIV3.PathsObject = {
     "/groups": {
@@ -55,6 +55,7 @@ export const groupPaths: OpenAPIV3.PathsObject = {
                 },
                 "401": unauthorizedResponse,
                 "400": badRequestResponse,
+                "409": conflictResponse
             }
         }
     },

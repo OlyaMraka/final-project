@@ -11,6 +11,10 @@ class GroupRepository {
         return Group.findById(groupId);
     }
 
+    public async findByName(name: string): Promise<IGroup | null> {
+        return Group.findOne({ name });
+    }
+
     public create(group: GroupDto): Promise<IGroup> {
         return Group.create(group);
     }

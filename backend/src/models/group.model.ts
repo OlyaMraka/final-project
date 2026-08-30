@@ -3,7 +3,7 @@ import {IGroup} from "../interfaces/group.interface";
 
 const groupSchema = new Schema(
     {
-        name: { type: String, required: true }
+        name: { type: String, required: true, unique: true }
     },
     {
         timestamps: true,

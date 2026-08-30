@@ -44,3 +44,18 @@ export const forbiddenResponse: OpenAPIV3.ResponseObject = {
         },
     },
 };
+
+export const conflictResponse: OpenAPIV3.ResponseObject = {
+    description: "Conflict",
+    content: {
+        "application/json": {
+            schema: {
+                type: "object",
+                properties: {
+                    status: { type: "integer", default: 409 },
+                    message: { type: "string" },
+                },
+            },
+        },
+    },
+};

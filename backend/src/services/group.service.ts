@@ -1,6 +1,9 @@
 import {IGroup} from "../interfaces/group.interface";
 import {groupRepository} from "../repositories/group.repository";
 import {GroupDto} from "../dtos/group.dto";
+import {ApiError} from "../errors/api.error";
+import {StatusCodes} from "../enums/status-codes";
+import {ServiceConstants} from "../constants/error.constants";
 
 class GroupService {
     public getAll(): Promise<IGroup[]> {
@@ -12,6 +15,15 @@ class GroupService {
     }
 
     public async create(group: GroupDto): Promise<IGroup> {
+        const existingGroup = await groupRepository.findByName(group.name);
+
+        if (existingGroup) {
+            throw new ApiError(
+                StatusCodes.CONFLICT,
+                ServiceConstants.GROUP_ALREADY_EXISTS
+            );
+        }
+
         return  groupRepository.create(group);
     }
 
