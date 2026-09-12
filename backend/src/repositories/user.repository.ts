@@ -77,6 +77,14 @@ class UserRepository {
     public setUserPassword(userId: string, password: string): Promise<IUser> {
         return User.findByIdAndUpdate(userId, { password }, { returnDocument: 'after' });
     }
+
+    public updateLastLogin(userId: string): Promise<IUser> {
+        return User.findByIdAndUpdate(
+            userId,
+            { lastLogin: new Date() },
+            { returnDocument: "after" }
+        );
+    }
 }
 
 export const userRepository = new UserRepository();

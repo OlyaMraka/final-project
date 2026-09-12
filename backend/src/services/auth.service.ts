@@ -40,6 +40,7 @@ class AuthService {
         await tokenRepository.create({...token, _userId: user._id});
 
         const userResponse = userService.mapUserToResponse(user);
+        await userRepository.updateLastLogin(user._id);
 
         return {
             user: userResponse,

@@ -75,6 +75,9 @@ const ManagerCard: FC<ManagerCardProps> = ({managerInfo}) => {
                     <p>Role: {managerInfo.manager.role}</p>
                     <p>Active: {managerInfo.manager.isActive ? "Yes" : "No"}</p>
                     <p>Banned: {managerInfo.manager.banned ? "Yes" : "No"}</p>
+                    <p>Last login: {
+                        managerInfo.manager.lastLogin ?
+                        new Date(managerInfo.manager.lastLogin).toLocaleString("uk-UA") : " - "}</p>
                 </div>
 
                 <div className="manager-info-second-col">
