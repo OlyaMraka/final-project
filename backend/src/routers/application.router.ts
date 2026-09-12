@@ -24,16 +24,16 @@ router.post(
 router.put(
     '/:id',
     commonMiddleware.isIdValid("id"),
-    commonMiddleware.validateBody(ApplicationValidator.validateApplicationUpdate),
     authMiddleware.checkAccessToken(),
     applicationMiddleware.checkUpdateAccess(),
+    commonMiddleware.validateBody(ApplicationValidator.validateApplicationUpdate),
     applicationController.UpdateApplication
 );
 
 router.get(
     '/export',
-    commonMiddleware.validateQuery(ApplicationValidator.validateFilters),
     authMiddleware.checkAccessToken(),
+    commonMiddleware.validateQuery(ApplicationValidator.validateFilters),
     applicationController.ExportApplications
 );
 

@@ -21,16 +21,16 @@ router.get(
 
 router.post(
     '/',
-    commonMiddleware.validateBody(GroupValidator.validateGroup),
     authMiddleware.checkAccessToken(),
+    commonMiddleware.validateBody(GroupValidator.validateGroup),
     groupController.CreateGroup
 );
 
 router.put(
     '/:id',
     commonMiddleware.isIdValid("id"),
-    commonMiddleware.validateBody(GroupValidator.validateGroup),
     authMiddleware.checkAccessToken(),
+    commonMiddleware.validateBody(GroupValidator.validateGroup),
     groupController.UpdateGroup
 );
 

@@ -16,16 +16,16 @@ router.get(
 
 router.post(
     '/',
-    commonMiddleware.validateBody(ApplicationCommentValidator.validateCreateCommentBody),
     authMiddleware.checkAccessToken(),
+    commonMiddleware.validateBody(ApplicationCommentValidator.validateCreateCommentBody),
     commentController.CreateComment
 );
 
 router.put(
     '/:id',
     commonMiddleware.isIdValid("id"),
-    commonMiddleware.validateBody(ApplicationCommentValidator.validateUpdateCommentBody),
     authMiddleware.checkAccessToken(),
+    commonMiddleware.validateBody(ApplicationCommentValidator.validateUpdateCommentBody),
     applicationCommentMiddleware.checkAuthorAccess(),
     commentController.UpdateComment
 );

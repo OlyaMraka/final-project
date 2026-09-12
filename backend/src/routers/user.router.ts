@@ -14,9 +14,9 @@ router.get('/',
 
 router.get(
     '/managers',
-    commonMiddleware.validateQuery(UserValidator.validateFilters),
     authMiddleware.checkAccessToken(),
     authMiddleware.checkAdminAccess(),
+    commonMiddleware.validateQuery(UserValidator.validateFilters),
     userController.GetManagers
 );
 
