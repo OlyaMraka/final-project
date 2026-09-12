@@ -1,13 +1,17 @@
 import {IComment} from "../interfaces/application-comment.interface";
-import {CreateCommentDto, UpdateCommentDto} from "../dtos/application-comment.dto";
+import {CreateCommentDto, ICommentResponse, UpdateCommentDto} from "../dtos/application-comment.dto";
 import {commentRepository} from "../repositories/application-comment.repository";
 
 class CommentService {
-    public getByLeadId(applicationId: string): Promise<IComment[]> {
-        return commentRepository.getByLeadId(applicationId);
+    public getByApplicationId(applicationId: string): Promise<ICommentResponse[]> {
+        return commentRepository.getByApplicationId(applicationId);
     }
 
-    public create(comment: CreateCommentDto): Promise<IComment> {
+    public getById(commentId: string): Promise<IComment> {
+        return commentRepository.getById(commentId);
+    }
+
+    public create(comment: CreateCommentDto): Promise<ICommentResponse> {
         return commentRepository.create(comment);
     }
 

@@ -44,3 +44,5 @@ export type GetManagersRequest = {
 }
 
 export type ApplicationOwnerDto = Pick<IUser, "_id" | "name" | "surname" | "role">;
+
+export type CommentOwnerDto = Pick<IUser, "_id" | "name" | "surname">;

@@ -4,7 +4,7 @@ import CommentEdit from "./comment-edit/comment-edit.tsx";
 import {deleteComment, updateComment} from "../../../services/comment.service.ts";
 import type {CommentComponentProps} from "../../../types/component-props/application-table.ts";
 
-const Comment: FC<CommentComponentProps> = ({comment, author, onDeleted}) => {
+const Comment: FC<CommentComponentProps> = ({comment, onDeleted}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(comment.text);
 
@@ -51,7 +51,7 @@ const Comment: FC<CommentComponentProps> = ({comment, author, onDeleted}) => {
         <CommentView
             commentId={comment._id}
             text={text}
-            author={author}
+            author={comment.author}
             createdAt={comment.createdAt.toString()}
             onEdit={handleEdit}
             onDelete={handleDelete}

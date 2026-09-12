@@ -18,5 +18,6 @@ export const MiddlewareConstants = {
     NO_REFRESH_TOKEN: "No refresh token provided",
     NO_REFRESH_TOKEN_FOUND: "No refresh token found",
     ADMIN_ACCESS: "This action can only be performed by an administrator.",
-    NO_ACCESS_TO_EDIT_REQUEST: "You cannot edit this request!",
+    NO_ACCESS_TO_EDIT_REQUEST: "You cannot edit/delete this request!",
+    NO_ACCESS_TO_EDIT_COMMENT: "You cannot edit/delete this comment!",
 }

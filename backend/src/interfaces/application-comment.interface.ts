@@ -4,4 +4,5 @@ export interface IComment extends IBase {
     _id: string;
     text: string;
     applicationId: string;
+    userId: string;
 }

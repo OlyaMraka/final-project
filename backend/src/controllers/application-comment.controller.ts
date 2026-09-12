@@ -2,12 +2,13 @@ import {NextFunction, Request, Response} from "express";
 import {commentService} from "../services/application-comment.service";
 import {StatusCodes} from "../enums/status-codes";
 import {CreateCommentDto, UpdateCommentDto} from "../dtos/application-comment.dto";
+import {ITokenPayload} from "../interfaces/token.interface";
 
 class CommentController {
     public async GetCommentsByApplicationId(req: Request, res: Response, next: NextFunction) {
         try {
             const { id } = req.params;
-            const data = await commentService.getByLeadId(id as string);
+            const data = await commentService.getByApplicationId(id as string);
             res.status(StatusCodes.OK).json(data);
         } catch (error) {
             next(error);
@@ -17,6 +18,12 @@ class CommentController {
     public async CreateComment(req: Request, res: Response, next: NextFunction) {
         try {
             const commentDto = req.body as CreateCommentDto;
+
+            const tokenPayload = res.locals.tokenPayload as ITokenPayload;
+            const { userId } = tokenPayload;
+
+            commentDto.userId = userId;
+
             const data = await commentService.create(commentDto);
             res.status(StatusCodes.CREATED).json(data);
         } catch (error) {

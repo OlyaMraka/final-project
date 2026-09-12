@@ -3,6 +3,7 @@ import {commonMiddleware} from "../middleware/common.middleware";
 import {authMiddleware} from "../middleware/auth.middleware";
 import {commentController} from "../controllers/application-comment.controller";
 import {ApplicationCommentValidator} from "../validators/application-comment.validator";
+import {applicationCommentMiddleware} from "../middleware/application-comment.middleware";
 
 const router = Router();
 
@@ -22,14 +23,18 @@ router.post(
 
 router.put(
     '/:id',
+    commonMiddleware.isIdValid("id"),
     commonMiddleware.validateBody(ApplicationCommentValidator.validateUpdateCommentBody),
     authMiddleware.checkAccessToken(),
+    applicationCommentMiddleware.checkAuthorAccess(),
     commentController.UpdateComment
 );
 
 router.delete(
     '/:id',
+    commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
+    applicationCommentMiddleware.checkAuthorAccess(),
     commentController.DeleteComment
 );
 

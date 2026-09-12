@@ -1,6 +1,6 @@
 import { type FC, useEffect, useState } from "react";
 import type { ApplicationComment } from "../../../types/application-comment.ts";
-import type { CommentAuthor } from "../../../types/component-props/application-table.ts";
+import type { ApplicationAuthor } from "../../../types/component-props/application-table.ts";
 import {
     createComment,
     getCommentsByApplicationId,
@@ -17,7 +17,7 @@ import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.tsx";
 
 type CommentsContainerProps = {
     applicationId: string;
-    author: CommentAuthor;
+    author: ApplicationAuthor;
 };
 
 const CommentsContainer: FC<CommentsContainerProps> = ({applicationId, author}) => {
@@ -82,7 +82,6 @@ const CommentsContainer: FC<CommentsContainerProps> = ({applicationId, author}) 
                 <Comment
                     key={comment._id}
                     comment={comment}
-                    author={author}
                     onDeleted={handleDeleted}
                 />
             ))}

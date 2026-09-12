@@ -1,5 +1,5 @@
 import type {IApplicationResponse} from "../application.ts";
-import type {ApplicationComment} from "../application-comment.ts";
+import type {ApplicationComment, CommentOwner} from "../application-comment.ts";
 
 export type ApplicationsTableProps = {
     applications: IApplicationResponse[];
@@ -16,13 +16,13 @@ export type ApplicationDetailsProps = {
     applicationId: string;
     message: string;
     utm: string;
-    author: CommentAuthor;
+    author: ApplicationAuthor;
 }
 
-export type CommentAuthor = {
-    author_id?: string;
-    author_name?: string;
-    author_surname?: string;
+export type ApplicationAuthor = {
+    author_id: string;
+    author_name: string;
+    author_surname: string;
 }
 
 export type CommentEditProps = {
@@ -35,7 +35,7 @@ export type CommentEditProps = {
 export type CommentViewProps = {
     commentId: string;
     text: string;
-    author: CommentAuthor
+    author: CommentOwner
     createdAt: string;
     onEdit: () => void;
     onDelete: (commentId: string) => void;
@@ -43,7 +43,6 @@ export type CommentViewProps = {
 
 export type CommentComponentProps = {
     comment: ApplicationComment;
-    author: CommentAuthor;
     onDeleted: (commentId: string) => void;
 };
 

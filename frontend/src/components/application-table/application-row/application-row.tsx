@@ -1,7 +1,7 @@
 import { type FC } from "react";
 import type {
     ApplicationRowProps,
-    CommentAuthor,
+    ApplicationAuthor,
 } from "../../../types/component-props/application-table.ts";
 import {Collapse, IconButton, TableCell, TableRow, Tooltip} from "@mui/material";
 import {
@@ -17,7 +17,7 @@ const ApplicationRow: FC<ApplicationRowProps> = ({ application, onEdit, isOpen, 
     const { user } = useAppSelector(({ userSlice }) => userSlice);
     const isAuthor = !application.managerId || user?._id === application.managerId?._id;
 
-    const author: CommentAuthor = {
+    const author: ApplicationAuthor = {
         author_id: application.managerId?._id,
         author_name: application.managerId?.name,
         author_surname: application.managerId?.surname,

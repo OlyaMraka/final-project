@@ -9,7 +9,7 @@ import "./comment-view.css";
 const CommentView: FC<CommentViewProps> = ({commentId, text, author, createdAt, onEdit, onDelete,}) => {
     const { user } = useAppSelector(({ userSlice }) => userSlice);
 
-    const isAuthor = user?._id === author.author_id;
+    const isAuthor = user?._id === author._id;
 
     const handleDelete = () => {
         onDelete(commentId);
@@ -20,7 +20,7 @@ const CommentView: FC<CommentViewProps> = ({commentId, text, author, createdAt, 
             <p>{text}</p>
 
             <div className="comment-view-additional-info">
-                <span>{author.author_name} {author.author_surname}</span>
+                <span>{author.name} {author.surname}</span>
                 <span>
                     {new Date(createdAt).toLocaleString("uk-UA", {
                         day: "2-digit",

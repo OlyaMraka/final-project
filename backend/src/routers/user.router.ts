@@ -41,6 +41,7 @@ router.put(
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
     commonMiddleware.validateBody(UserValidator.validateUser),
+    authMiddleware.checkAdminAccess(),
     userController.UpdateById
 );
 
