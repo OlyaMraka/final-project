@@ -1,4 +1,4 @@
-import { type FC, useState } from "react";
+import { type FC } from "react";
 import type {
     ApplicationRowProps,
     CommentAuthor,
@@ -13,11 +13,9 @@ import ApplicationDetails from "../application-details/application-details.tsx";
 import "./application-row.css";
 import {useAppSelector} from "../../../redux/hooks/useAppSelector.tsx";
 
-const ApplicationRow: FC<ApplicationRowProps> = ({ application, onEdit }) => {
+const ApplicationRow: FC<ApplicationRowProps> = ({ application, onEdit, isOpen, onExpand }) => {
     const { user } = useAppSelector(({ userSlice }) => userSlice);
     const isAuthor = !application.managerId || user?._id === application.managerId?._id;
-
-    const [open, setOpen] = useState(false);
 
     const author: CommentAuthor = {
         author_id: application.managerId?._id,
@@ -31,9 +29,9 @@ const ApplicationRow: FC<ApplicationRowProps> = ({ application, onEdit }) => {
                 <TableCell>
                     <IconButton
                         size="small"
-                        onClick={() => setOpen((prev) => !prev)}
+                        onClick={onExpand}
                     >
-                        {open ? (
+                        {isOpen ? (
                             <KeyboardArrowUpOutlined />
                         ) : (
                             <KeyboardArrowDownOutlined />
@@ -81,7 +79,7 @@ const ApplicationRow: FC<ApplicationRowProps> = ({ application, onEdit }) => {
             <TableRow>
                 <TableCell colSpan={16}>
                     <Collapse
-                        in={open}
+                        in={isOpen}
                         timeout="auto"
                         unmountOnExit
                     >

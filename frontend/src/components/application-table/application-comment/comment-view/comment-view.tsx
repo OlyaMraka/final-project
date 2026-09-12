@@ -21,7 +21,15 @@ const CommentView: FC<CommentViewProps> = ({commentId, text, author, createdAt, 
 
             <div className="comment-view-additional-info">
                 <span>{author.author_name} {author.author_surname}</span>
-                <span>{createdAt}</span>
+                <span>
+                    {new Date(createdAt).toLocaleString("uk-UA", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    })}
+                </span>
 
                 {isAuthor && (
                     <div className="comment-view-actions">

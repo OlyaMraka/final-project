@@ -8,6 +8,8 @@ export type ApplicationsTableProps = {
 export type ApplicationRowProps = {
     application: IApplicationResponse;
     onEdit: (application: IApplicationResponse) => void;
+    isOpen: boolean;
+    onExpand: () => void;
 };
 
 export type ApplicationDetailsProps = {

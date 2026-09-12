@@ -12,6 +12,9 @@ const ApplicationsTable: FC<ApplicationsTableProps> = ({applications}) => {
     const [selectedApplication, setSelectedApplication] =
         useState<IApplicationResponse | null>(null);
 
+    const [openedApplicationId, setOpenedApplicationId] =
+        useState<string | null>(null);
+
     const [searchParams, setSearchParams] = useSearchParams();
     const currentSortField = searchParams.get("sortField");
     const currentSortOrder = searchParams.get("sortOrder");
@@ -76,6 +79,14 @@ const ApplicationsTable: FC<ApplicationsTableProps> = ({applications}) => {
                                 key={application._id}
                                 application={application}
                                 onEdit={handleEdit}
+                                isOpen={openedApplicationId === application._id}
+                                onExpand={() =>
+                                    setOpenedApplicationId(prev =>
+                                        prev === application._id
+                                            ? null
+                                            : application._id
+                                    )
+                                }
                             />
                         ))}
                     </TableBody>
