@@ -3,6 +3,7 @@ import {ApplicationListResult, applicationRepository} from "../repositories/appl
 import {IApplication} from "../interfaces/application.interface";
 import Exceljs from "exceljs";
 import {ApplicationStatistics} from "../dtos/application-statistics.dto";
+import {ApplicationStatus} from "../enums/application-status.enum";
 
 class ApplicationService {
     public getAll(filters: ApplicationFilters): Promise<ApplicationListResult> {
@@ -63,6 +64,10 @@ class ApplicationService {
     }
 
     public updateApplicationById(applicationId: string, application: ApplicationDto): Promise<IApplicationResponse> {
+        if(application.status === ApplicationStatus.NEW) {
+            application.managerId = null;
+        }
+
         return applicationRepository.updateApplicationById(applicationId, application);
     }
 

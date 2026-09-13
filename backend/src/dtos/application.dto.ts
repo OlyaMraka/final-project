@@ -21,7 +21,8 @@ export type ApplicationDto = Pick<IApplication,
     "status" |
 
     "alreadyPaid" |
-    "sum">;
+    "sum" |
+    "managerId">;
 
 export interface IApplicationResponse extends Omit<IApplication, "groupId" | "managerId"> {
     groupId: IGroup | null;
