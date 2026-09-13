@@ -160,8 +160,14 @@ const EditApplicationForm: FC<EditApplicationFormProps> = ({applicationId, appli
                 </div>
 
                 <div className="operations-block">
-                    <button className="save-application">Save</button>
-                    <button className="cancel-editing" onClick={onCancel}>Cancel</button>
+                    <button
+                        type="submit"
+                        className="save-application">Save</button>
+
+                    <button
+                        type="button"
+                        className="cancel-editing"
+                        onClick={onCancel}>Cancel</button>
                 </div>
             </form>
 
