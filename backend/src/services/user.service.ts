@@ -15,6 +15,7 @@ import {TemplateNames} from "../constants/email.Templates.constants";
 import {emailService} from "./email.service";
 import {EmailTopicsConstants} from "../constants/emailTopic.constants";
 import {config} from "../configs/config";
+import {tokenRepository} from "../repositories/token.repository";
 
 class UserService {
     public async getAll(): Promise<UserResponseDto[]> {
@@ -74,6 +75,7 @@ class UserService {
 
     public async banUserById(userId: string): Promise<UserResponseDto> {
         const user = await userRepository.banUserById(userId);
+        await tokenRepository.deleteByUserId(userId);
         return this.mapUserToResponse(user);
     }
 
