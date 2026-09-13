@@ -2,6 +2,8 @@ import type {ApplicationStatisticsSliceType} from "../types/application-statisti
 import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import {getApplicationStatistics} from "../../services/application.service.ts";
 import type {ApplicationStatistics} from "../../types/application-statistics.ts";
+import {getErrorMessage} from "../../helpers/error-message.helper.ts";
+import {GeneralApiErrors} from "../../constants/api-errors.ts";
 
 const initialState: ApplicationStatisticsSliceType = {};
 
@@ -11,7 +13,12 @@ const getApplicationStatisticsAction = createAsyncThunk("applicationStatisticsSl
             const data = await getApplicationStatistics();
             return thunkAPI.fulfillWithValue(data);
         } catch (error) {
-            return thunkAPI.rejectWithValue("Something went wrong");
+            return thunkAPI.rejectWithValue(
+                getErrorMessage(
+                    error,
+                    GeneralApiErrors.APPLICATION_STATISTICS.FAILED_TO_GET_STATISTICS
+                )
+            );
         }
     }
 );

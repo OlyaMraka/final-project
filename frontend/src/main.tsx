@@ -4,9 +4,11 @@ import {RouterProvider} from "react-router-dom";
 import {router} from "./routers/Router.tsx";
 import {Provider} from "react-redux";
 import {store} from "./redux/store.ts";
+import {Notification} from "./components/notification/notification.tsx";
 
 createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
         <RouterProvider router={router}/>
+        <Notification />
     </Provider>
 );

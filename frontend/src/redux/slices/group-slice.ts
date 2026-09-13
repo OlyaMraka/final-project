@@ -2,7 +2,8 @@ import type {GroupSliceType} from "../types/group.ts";
 import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import {createGroup, getAllGroups} from "../../services/group.service.ts";
 import type {Group} from "../../types/group.ts";
-import * as axios from "axios";
+import {getErrorMessage} from "../../helpers/error-message.helper.ts";
+import {GeneralApiErrors} from "../../constants/api-errors.ts";
 
 const initialState: GroupSliceType = { groups: [] };
 
@@ -12,7 +13,10 @@ const getAllGroupsAction = createAsyncThunk("groupSlice/getAllGroupsAction", asy
         return thunkAPI.fulfillWithValue(data);
     } catch (error) {
         return thunkAPI.rejectWithValue(
-            "Something went wrong"
+            getErrorMessage(
+                error,
+                GeneralApiErrors.GROUPS.FAILED_TO_GET_GROUPS
+            )
         );
     }
 });
@@ -22,14 +26,11 @@ const createGroupAction = createAsyncThunk("groupSlice/createGroupAction", async
         const data = await createGroup(name);
         return thunkAPI.fulfillWithValue(data);
     } catch (error) {
-        if (axios.isAxiosError(error)) {
-            return thunkAPI.rejectWithValue(
-                error.response?.data?.message ?? "Something went wrong"
-            );
-        }
-
         return thunkAPI.rejectWithValue(
-            "Something went wrong"
+            getErrorMessage(
+                error,
+                GeneralApiErrors.GROUPS.FAILED_TO_CREATE_GROUP
+            )
         );
     }
 });

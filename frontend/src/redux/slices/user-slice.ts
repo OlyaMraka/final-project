@@ -3,7 +3,8 @@ import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolki
 import type {SignInParams} from "../../types/component-props/sign-in-form.ts";
 import {getCurrentUser, login} from "../../services/auth.service.ts";
 import type {LogInResponse, User} from "../../types/user.ts";
-import * as axios from "axios";
+import {getErrorMessage} from "../../helpers/error-message.helper.ts";
+import {GeneralApiErrors} from "../../constants/api-errors.ts";
 
 const initialState: UserSliceType = {};
 
@@ -16,13 +17,12 @@ const signIn = createAsyncThunk("userSlice/signIn", async (params: SignInParams,
 
         return thunkAPI.fulfillWithValue(data);
     } catch (error) {
-        if (axios.isAxiosError(error)) {
-            return thunkAPI.rejectWithValue(
-                error.response?.data?.message || "Invalid email or password"
-            );
-        }
-
-        return thunkAPI.rejectWithValue("Something went wrong");
+        return thunkAPI.rejectWithValue(
+            getErrorMessage(
+                error,
+                GeneralApiErrors.USERS.FAILED_TO_SIGN_IN
+            )
+        );
     }
 });
 
@@ -32,7 +32,10 @@ const me = createAsyncThunk("userSlice/me", async (_, thunkAPI) => {
         return thunkAPI.fulfillWithValue(data);
     } catch (error) {
         return thunkAPI.rejectWithValue(
-            "Something went wrong"
+            getErrorMessage(
+                error,
+                GeneralApiErrors.USERS.FAILED_TO_GET_ME
+            )
         );
     }
 });

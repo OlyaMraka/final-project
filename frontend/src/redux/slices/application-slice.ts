@@ -2,6 +2,8 @@ import type {ApplicationSliceType, EditApplicationParams} from "../types/applica
 import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import type {ApplicationFilters, ApplicationResponse, IApplicationResponse} from "../../types/application.ts";
 import {editApplication, getAllWithFilters} from "../../services/application.service.ts";
+import {GeneralApiErrors} from "../../constants/api-errors.ts";
+import {getErrorMessage} from "../../helpers/error-message.helper.ts";
 
 const initialState: ApplicationSliceType = {};
 
@@ -12,7 +14,10 @@ const getAllApplicationsWithFilters = createAsyncThunk("applicationSlice/getAllA
             return thunkAPI.fulfillWithValue(data);
         } catch (error) {
             return thunkAPI.rejectWithValue(
-                "Something went wrong"
+                getErrorMessage(
+                    error,
+                    GeneralApiErrors.APPLICATIONS.FAILED_TO_LOAD_APPLICATIONS
+                )
             );
         }
     }
@@ -25,7 +30,10 @@ const updateApplication = createAsyncThunk("applicationSlice/updateApplication",
             return thunkAPI.fulfillWithValue(data);
         } catch (error) {
             return thunkAPI.rejectWithValue(
-                "Something went wrong"
+                getErrorMessage(
+                    error,
+                    GeneralApiErrors.APPLICATIONS.FAILED_TO_UPDATE_APPLICATION
+                )
             );
         }
     });

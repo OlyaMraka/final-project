@@ -2,6 +2,8 @@ import type {ManagerSliceType} from "../types/manager.ts";
 import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import {activateUser, banUser, createManager, getManagers, unbanUser} from "../../services/user.service.ts";
 import type {CreateManagerDto, ManagersResponseDto, User} from "../../types/user.ts";
+import {getErrorMessage} from "../../helpers/error-message.helper.ts";
+import {GeneralApiErrors} from "../../constants/api-errors.ts";
 
 const initialState: ManagerSliceType = {};
 
@@ -24,7 +26,10 @@ const getAllManagersAction = createAsyncThunk("managerSlice/getAllManagersAction
         return thunkAPI.fulfillWithValue(data);
     } catch (error) {
         return thunkAPI.rejectWithValue(
-            "Something went wrong"
+            getErrorMessage(
+                error,
+                GeneralApiErrors.MANAGERS.FAILED_TO_GET_MANAGERS
+            )
         );
     }
 });
@@ -35,7 +40,10 @@ const banManagerAction = createAsyncThunk("managerSlice/banManagerAction", async
         return thunkAPI.fulfillWithValue(data);
     } catch (error) {
         return thunkAPI.rejectWithValue(
-            "Something went wrong"
+            getErrorMessage(
+                error,
+                GeneralApiErrors.MANAGERS.FAILED_TO_BAN_MANAGER
+            )
         );
     }
 });
@@ -46,7 +54,10 @@ const unbanManagerAction = createAsyncThunk("managerSlice/unbanManagerAction", a
         return thunkAPI.fulfillWithValue(data);
     } catch (error) {
         return thunkAPI.rejectWithValue(
-            "Something went wrong"
+            getErrorMessage(
+                error,
+                GeneralApiErrors.MANAGERS.FAILED_TO_UNBAN_MANAGER
+            )
         );
     }
 });
@@ -57,7 +68,10 @@ const activateManagerAction = createAsyncThunk("managerSlice/activateManagerActi
         return thunkAPI.fulfillWithValue(data);
     } catch (error) {
         return thunkAPI.rejectWithValue(
-            "Something went wrong"
+            getErrorMessage(
+                error,
+                GeneralApiErrors.MANAGERS.FAILED_TO_ACTIVATE_MANAGER
+            )
         );
     }
 });
@@ -68,7 +82,10 @@ const createManagerAction = createAsyncThunk("managerSlice/createManagerAction",
         return thunkAPI.fulfillWithValue(data);
     } catch (error) {
         return thunkAPI.rejectWithValue(
-            "Something went wrong"
+            getErrorMessage(
+                error,
+                GeneralApiErrors.MANAGERS.FAILED_TO_CREATE_MANAGER
+            )
         );
     }
 });

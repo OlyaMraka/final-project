@@ -4,6 +4,8 @@ import {groupSlice} from "./slices/group-slice.ts";
 import {applicationSlice} from "./slices/application-slice.ts";
 import {applicationStatisticsSlice} from "./slices/application-statistics-slice.ts";
 import {managerSlice} from "./slices/manager-slice.ts";
+import {notificationSlice} from "./slices/notification-slice.ts";
+import {notificationMiddleware} from "./middleware/notification-middleware.ts";
 
 export const store = configureStore({
     reducer: {
@@ -12,5 +14,9 @@ export const store = configureStore({
         applicationSlice: applicationSlice.reducer,
         applicationStatisticsSlice: applicationStatisticsSlice.reducer,
         managerSlice: managerSlice.reducer,
-    }
+        notificationSlice: notificationSlice.reducer,
+    },
+
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware().concat(notificationMiddleware),
 });
