@@ -2,6 +2,7 @@ import {Request, Response, NextFunction} from "express";
 import {userService} from "../services/user.service";
 import {StatusCodes} from "../enums/status-codes";
 import {CreateUserDto, GetManagersRequest, UpdateUserDto} from "../dtos/user.dto";
+import {ITokenPayload} from "../interfaces/token.interface";
 
 class UserController {
     public async GetAllUsers(req: Request, res: Response, next: NextFunction) {
@@ -69,7 +70,11 @@ class UserController {
     public async BanUserById(req: Request, res: Response, next: NextFunction) {
         try {
             const { id } = req.params;
-            const user = await userService.banUserById(id as string);
+
+            const tokenPayload = res.locals.tokenPayload as ITokenPayload;
+            const { userId } = tokenPayload;
+
+            const user = await userService.banUserById(id as string, userId);
             res.status(StatusCodes.OK).json(user);
         } catch (error) {
             next(error);

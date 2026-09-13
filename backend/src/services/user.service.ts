@@ -73,7 +73,11 @@ class UserService {
         }
     }
 
-    public async banUserById(userId: string): Promise<UserResponseDto> {
+    public async banUserById(userId: string, currentUserId: string): Promise<UserResponseDto> {
+        if (userId.toString() === currentUserId.toString()) {
+            throw new ApiError(StatusCodes.BAD_REQUEST, ServiceConstants.BAN_YOURSELF);
+        }
+
         const user = await userRepository.banUserById(userId);
         await tokenRepository.deleteByUserId(userId);
         return this.mapUserToResponse(user);

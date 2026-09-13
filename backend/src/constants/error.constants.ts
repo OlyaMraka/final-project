@@ -7,7 +7,8 @@ export const ServiceConstants = {
     COURSE_TARIFF_NOT_FOUND: "Course tariff not found!",
     USER_NOT_ACTIVE: "User not activated!",
     USER_NOT_FOUND: "User not found!",
-    GROUP_ALREADY_EXISTS: "Group with this name already exists"
+    GROUP_ALREADY_EXISTS: "Group with this name already exists",
+    BAN_YOURSELF: "You cannot ban yourself",
 }
 
 export const MiddlewareConstants = {
