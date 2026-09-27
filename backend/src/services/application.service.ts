@@ -1,9 +1,18 @@
-import {ApplicationDto, ApplicationExcelRow, ApplicationFilters, IApplicationResponse} from "../dtos/application.dto";
+import {
+    ApplicationDto,
+    ApplicationExcelRow,
+    ApplicationFilters,
+    IApplicationResponse,
+    SetManagerDto
+} from "../dtos/application.dto";
 import {ApplicationListResult, applicationRepository} from "../repositories/application.repository";
 import {IApplication} from "../interfaces/application.interface";
 import Exceljs from "exceljs";
 import {ApplicationStatistics} from "../dtos/application-statistics.dto";
 import {ApplicationStatus} from "../enums/application-status.enum";
+import {ApiError} from "../errors/api.error";
+import {StatusCodes} from "../enums/status-codes";
+import {ServiceConstants} from "../constants/error.constants";
 
 class ApplicationService {
     public getAll(filters: ApplicationFilters): Promise<ApplicationListResult> {
@@ -59,8 +68,17 @@ class ApplicationService {
         return applicationRepository.getById(applicationId);
     }
 
-    public setManager(applicationId: string, managerId: string): Promise<IApplication> {
-        return applicationRepository.setManager(applicationId, managerId);
+    public async setManager(applicationId: string, data: SetManagerDto): Promise<IApplication> {
+        const application = await applicationRepository.getById(applicationId);
+        if (application.managerId && application.managerId.toString() !== data.managerId.toString()) {
+            throw new ApiError(StatusCodes.BAD_REQUEST, ServiceConstants.APPLICATION_ALREADY_HAS_MANAGER);
+        }
+
+        if (application.status === ApplicationStatus.NEW) {
+            data.status = ApplicationStatus.IN_WORK;
+        }
+
+        return applicationRepository.setManager(applicationId, data);
     }
 
     public updateApplicationById(applicationId: string, application: ApplicationDto): Promise<IApplicationResponse> {

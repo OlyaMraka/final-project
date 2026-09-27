@@ -1,5 +1,5 @@
 export const ServiceConstants = {
-    USER_ALREADY_EXISTS: "User already exists",
+    USER_ALREADY_EXISTS: "User already exists!",
     SIGN_IN_ERROR_USER_BANNED: "You cannot log in to your account because the manager has blocked it!",
     INVALID_EMAIL_OR_PASSWORD: "Invalid email or password!",
     COURSE_NOT_FOUND: "Course not found!",
@@ -7,8 +7,10 @@ export const ServiceConstants = {
     COURSE_TARIFF_NOT_FOUND: "Course tariff not found!",
     USER_NOT_ACTIVE: "User not activated!",
     USER_NOT_FOUND: "User not found!",
-    GROUP_ALREADY_EXISTS: "Group with this name already exists",
-    BAN_YOURSELF: "You cannot ban yourself",
+    GROUP_ALREADY_EXISTS: "Group with this name already exists!",
+    BAN_YOURSELF: "You can't ban yourself!",
+    COMMENT_NOT_ALLOWED: "You can't comment this application!",
+    APPLICATION_ALREADY_HAS_MANAGER: "Application already has assigned manager!"
 }
 
 export const MiddlewareConstants = {

@@ -29,6 +29,10 @@ export interface IApplicationResponse extends Omit<IApplication, "groupId" | "ma
     managerId: ApplicationOwnerDto | null;
 }
 
+export type SetManagerDto = {
+    managerId: string;
+    status?: ApplicationStatus;
+}
 
 export type ApplicationFilters = {
     page?: number;

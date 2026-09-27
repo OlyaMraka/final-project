@@ -1,6 +1,10 @@
 import {IComment} from "../interfaces/application-comment.interface";
 import {CreateCommentDto, ICommentResponse, UpdateCommentDto} from "../dtos/application-comment.dto";
 import {commentRepository} from "../repositories/application-comment.repository";
+import {applicationRepository} from "../repositories/application.repository";
+import {ApiError} from "../errors/api.error";
+import {StatusCodes} from "../enums/status-codes";
+import {ServiceConstants} from "../constants/error.constants";
 
 class CommentService {
     public getByApplicationId(applicationId: string): Promise<ICommentResponse[]> {
@@ -11,7 +15,12 @@ class CommentService {
         return commentRepository.getById(commentId);
     }
 
-    public create(comment: CreateCommentDto): Promise<ICommentResponse> {
+    public async create(comment: CreateCommentDto): Promise<ICommentResponse> {
+        const application = await applicationRepository.getById(comment.applicationId);
+        if (application.managerId && application.managerId.toString() !== comment.userId.toString()) {
+            throw new ApiError(StatusCodes.BAD_REQUEST, ServiceConstants.COMMENT_NOT_ALLOWED);
+        }
+
         return commentRepository.create(comment);
     }
 

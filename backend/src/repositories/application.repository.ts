@@ -1,6 +1,6 @@
 import {Application} from "../models/application.model";
 import {IApplication} from "../interfaces/application.interface";
-import {ApplicationDto, ApplicationFilters, IApplicationResponse} from "../dtos/application.dto";
+import {ApplicationDto, ApplicationFilters, IApplicationResponse, SetManagerDto} from "../dtos/application.dto";
 import {OrderDirection} from "../enums/sort-field.enum";
 import {ApplicationStatus} from "../enums/application-status.enum";
 import {IGroup} from "../interfaces/group.interface";
@@ -96,11 +96,8 @@ class ApplicationRepository {
         return Application.findById(applicationId);
     }
 
-    public setManager(applicationId: string, managerId: string): Promise<IApplication> {
-        return Application.findByIdAndUpdate(applicationId, {
-            managerId: managerId,
-            status: ApplicationStatus.IN_WORK
-        }, { returnDocument: 'after' });
+    public setManager(applicationId: string, data: SetManagerDto): Promise<IApplication> {
+        return Application.findByIdAndUpdate(applicationId, data, { returnDocument: 'after' });
     }
 
     public updateApplicationById(applicationId: string, application: ApplicationDto): Promise<IApplicationResponse> {

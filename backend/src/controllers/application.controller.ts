@@ -30,7 +30,7 @@ class ApplicationController {
             const tokenPayload = res.locals.tokenPayload as ITokenPayload;
             const { userId } = tokenPayload;
 
-            const data = await applicationService.setManager(id as string, userId);
+            const data = await applicationService.setManager(id as string, { managerId: userId });
             res.status(StatusCodes.OK).json(data);
         } catch (error) {
             next(error);
