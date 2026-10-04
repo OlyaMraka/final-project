@@ -262,6 +262,3 @@ final-project/
 ```
 
 ---
-
-## 👩‍💻 Author
-Developed as a graduation project for the Fullstack Web Development course.
