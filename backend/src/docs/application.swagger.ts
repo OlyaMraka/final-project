@@ -186,37 +186,6 @@ export const applicationPaths: OpenAPIV3.PathsObject = {
         },
     },
 
-    "/applications/set-manager/{id}": {
-        post: {
-            tags: ["Applications"],
-            summary: "Set manager to application",
-            security: [{ bearerAuth: [] }],
-            parameters: [
-                {
-                    name: "id",
-                    in: "path",
-                    required: true,
-                    description: "ID of the application to set manager.",
-                    schema: {type: "string"},
-                }
-            ],
-            responses: {
-                "200": {
-                    description: "Manager successfully assigned to application.",
-                    content: {
-                        "application/json": {
-                            schema: {
-                                $ref: "#/components/schemas/Application",
-                            },
-                        },
-                    },
-                },
-                "401": unauthorizedResponse,
-                "400": badRequestResponse
-            }
-        }
-    },
-
     "/applications/{id}": {
         put: {
             tags: ["Applications"],

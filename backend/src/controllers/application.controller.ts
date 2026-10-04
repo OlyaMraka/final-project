@@ -23,20 +23,6 @@ class ApplicationController {
         }
     }
 
-    public async SetManager(req: Request, res: Response, next: NextFunction): Promise<void> {
-        try {
-            const { id } = req.params;
-
-            const tokenPayload = res.locals.tokenPayload as ITokenPayload;
-            const { userId } = tokenPayload;
-
-            const data = await applicationService.setManager(id as string, { managerId: userId });
-            res.status(StatusCodes.OK).json(data);
-        } catch (error) {
-            next(error);
-        }
-    }
-
     public async UpdateApplication(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const { id } = req.params;

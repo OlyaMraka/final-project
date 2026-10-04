@@ -14,13 +14,6 @@ router.get(
     applicationController.GetAllApplications
 );
 
-router.post(
-    '/set-manager/:id',
-    commonMiddleware.isIdValid("id"),
-    authMiddleware.checkAccessToken(),
-    applicationController.SetManager
-);
-
 router.put(
     '/:id',
     commonMiddleware.isIdValid("id"),

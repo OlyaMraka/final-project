@@ -13,10 +13,6 @@ export const getAllWithFilters = async (filters: ApplicationFilters): Promise<Ap
     return data;
 };
 
-export const setManager = async (applicationId: string) => {
-    await privateInstance.post(API_ENDPOINTS.APPLICATIONS.SET_MANAGER(applicationId));
-};
-
 export const editApplication = async (applicationId: string, application: EditableApplicationInformation) => {
     const { data } = await privateInstance.put(API_ENDPOINTS.APPLICATIONS.BY_ID(applicationId), application);
     return data;

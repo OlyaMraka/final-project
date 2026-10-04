@@ -9,7 +9,6 @@ import Comment from "../application-comment/application-comment.tsx";
 import CommentForm from "../create-comment-form/create-comment-form.tsx";
 import "./application-comment-container.css";
 import {useAppSelector} from "../../../redux/hooks/useAppSelector.tsx";
-import {setManager} from "../../../services/application.service.ts";
 import {getApplicationFiltersFromSearchParams} from "../../../helpers/application-filters.helper.ts";
 import {applicationSliceActions} from "../../../redux/slices/application-slice.ts";
 import {useSearchParams} from "react-router-dom";
@@ -57,14 +56,9 @@ const CommentsContainer: FC<CommentsContainerProps> = ({applicationId, author}) 
     const handleCreate = async (text: string) => {
         try {
             const comment = await createComment(applicationId, text);
+            const filters = getApplicationFiltersFromSearchParams(searchParams);
 
-            if(!author.author_id) {
-                await setManager(applicationId);
-
-                const filters = getApplicationFiltersFromSearchParams(searchParams);
-
-                dispatch(applicationSliceActions.getAllApplicationsWithFilters(filters));
-            }
+            dispatch(applicationSliceActions.getAllApplicationsWithFilters(filters));
 
             setComments((prev) => [...prev, comment]);
         } catch (error) {
