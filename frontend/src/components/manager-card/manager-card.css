@@ -88,6 +88,15 @@
     transform: translateY(1px);
 }
 
+.manager-info-third-col button:disabled,
+.manager-info-third-col button:disabled:hover,
+.manager-info-third-col button:disabled:active {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
 .activate-button {
     color: #ffffff;
     background-color: #8bc169;

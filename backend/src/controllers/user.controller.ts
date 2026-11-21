@@ -104,8 +104,8 @@ class UserController {
     public async RecoverUserPassword(req: Request, res: Response, next: NextFunction) {
         try {
             const { id } = req.params;
-            await userService.recoverPassword(id as string);
-            res.sendStatus(StatusCodes.NO_CONTENT);
+            const data = await userService.recoverPassword(id as string);
+            res.status(StatusCodes.OK).json(data);
         } catch (error) {
             next(error);
         }

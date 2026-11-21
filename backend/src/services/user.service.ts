@@ -2,6 +2,7 @@ import {userRepository} from "../repositories/user.repository";
 import {IUser} from "../interfaces/user.interface";
 import {
     CreateUserDto,
+    ActivateUserResponseDto,
     ManagersResponseDto,
     UpdateUserDto,
     UserResponseDto
@@ -88,36 +89,46 @@ class UserService {
         return this.mapUserToResponse(user);
     }
 
-    public async activateUserById(userId: string): Promise<UserResponseDto> {
+    public async activateUserById(userId: string): Promise<ActivateUserResponseDto> {
         const user = await userRepository.activateUserById(userId);
 
         const activationToken = tokenService.generateActivationToken(user._id);
+        const link = `${config.FRONTEND_URL}/set-password?token=${activationToken}`;
+        let emailSent = true;
 
-        await emailService.sendEmail(
-            user.email,
-            EmailTopicsConstants.SET_PASSWORD,
-            TemplateNames.SET_PASSWORD,
-            {
-                activationLink: `${config.FRONTEND_URL}/set-password?token=${activationToken}`,
-            }
-        );
+        try {
+            await emailService.sendEmail(
+                user.email,
+                EmailTopicsConstants.SET_PASSWORD,
+                TemplateNames.SET_PASSWORD,
+                { activationLink: link }
+            );
+        } catch {
+            emailSent = false;
+        }
 
-        return this.mapUserToResponse(user);
+        return { user: this.mapUserToResponse(user), link, emailSent };
     }
 
-    public async recoverPassword(userId: string): Promise<void> {
+    public async recoverPassword(userId: string): Promise<ActivateUserResponseDto> {
         const user = await userRepository.getById(userId);
 
         const activationToken = tokenService.generateActivationToken(user._id);
+        const link = `${config.FRONTEND_URL}/set-password?token=${activationToken}`;
+        let emailSent = true;
 
-        await emailService.sendEmail(
-            user.email,
-            EmailTopicsConstants.RECOVER_PASSWORD,
-            TemplateNames.RECOVER_PASSWORD,
-            {
-                recoveryLink: `${config.FRONTEND_URL}/set-password?token=${activationToken}`,
-            }
-        );
+        try {
+            await emailService.sendEmail(
+                user.email,
+                EmailTopicsConstants.RECOVER_PASSWORD,
+                TemplateNames.RECOVER_PASSWORD,
+                { recoveryLink: link }
+            );
+        } catch {
+            emailSent = false;
+        }
+
+        return { user: this.mapUserToResponse(user), link, emailSent };
     }
 
     public mapUserToResponse(user: IUser): UserResponseDto {

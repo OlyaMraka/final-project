@@ -12,6 +12,12 @@ export type User = {
     lastLogin: Date;
 }
 
+export type UserLinkResponse = {
+    user: User;
+    link: string;
+    emailSent: boolean;
+}
+
 export type ApplicationOwnerDto = Pick<User, "_id" | "name" | "surname" | "role">;
 
 export type Token = {

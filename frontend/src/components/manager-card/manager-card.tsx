@@ -3,64 +3,79 @@ import type {ManagerCardProps} from "../../types/component-props/manager-card.ts
 import "./manager-card.css";
 import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
 import {managerSliceActions} from "../../redux/slices/manager-slice.ts";
-import { Alert, Snackbar } from "@mui/material";
+import { Alert, Snackbar, type AlertColor } from "@mui/material";
 import {recoverUserPassword} from "../../services/user.service.ts";
+import type {UserLinkResponse} from "../../types/user.ts";
 
 const ManagerCard: FC<ManagerCardProps> = ({managerInfo}) => {
     const dispatch = useAppDispatch();
 
     const [toastOpen, setToastOpen] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
+    const [toastSeverity, setToastSeverity] = useState<AlertColor>("success");
 
-    const handleBanToggle = async () => {
+    const showMessage = (message: string, severity: AlertColor = "success") => {
+        setToastMessage(message);
+        setToastSeverity(severity);
+        setToastOpen(true);
+    };
+
+    const getErrorText = (error: unknown) =>
+        typeof error === "string" ? error : "The action failed. Please try again.";
+
+    const copyLinkAndReport = async (response: UserLinkResponse, action: string) => {
         try {
-            if (managerInfo.manager.banned) {
-                await dispatch(
-                    managerSliceActions.unbanManagerAction(
-                        managerInfo.manager._id
-                    )
-                ).unwrap();
-
-                setToastMessage("Manager has been unbanned");
-                setToastOpen(true);
-            } else {
-                await dispatch(
-                    managerSliceActions.banManagerAction(
-                        managerInfo.manager._id
-                    )
-                ).unwrap();
-
-                setToastMessage("Manager has been banned");
-                setToastOpen(true);
-            }
+            await navigator.clipboard.writeText(response.link);
         } catch (error) {
-            console.error(error);
+            showMessage(`Could not copy the link. Copy it manually: ${response.link}`, "error");
+            return;
+        }
+
+        showMessage(
+            response.emailSent
+                ? `${action} link copied to clipboard and sent by email.`
+                : `${action} link copied to clipboard. Email could not be sent.`,
+            response.emailSent ? "success" : "warning"
+        );
+    };
+
+    const handleBan = async () => {
+        try {
+            await dispatch(managerSliceActions.banManagerAction(managerInfo.manager._id)).unwrap();
+            showMessage("Manager has been banned.");
+        } catch (error) {
+            showMessage(getErrorText(error), "error");
+        }
+    };
+
+    const handleUnban = async () => {
+        try {
+            await dispatch(managerSliceActions.unbanManagerAction(managerInfo.manager._id)).unwrap();
+            showMessage("Manager has been unbanned.");
+        } catch (error) {
+            showMessage(getErrorText(error), "error");
         }
     };
 
     const handleActivate = async () => {
         try {
-            await dispatch(
+            const response = await dispatch(
                 managerSliceActions.activateManagerAction(
                     managerInfo.manager._id
                 )
             ).unwrap();
-
-            setToastMessage("Manager has been activated. Email for set-password has been sent!");
-            setToastOpen(true);
+            await copyLinkAndReport(response, "Activation");
         } catch (error) {
-            console.error(error);
+            showMessage(getErrorText(error), "error");
         }
     };
 
     const handleRecoverPassword = async () => {
         try {
-            await recoverUserPassword(managerInfo.manager._id);
-
-            setToastMessage("Password recovery email has been sent!");
-            setToastOpen(true);
+            const response = await recoverUserPassword(managerInfo.manager._id);
+            await copyLinkAndReport(response, "Password reset");
         } catch (error) {
-            console.error(error);
+            showMessage(getErrorText(error), "error");
         }
     };
 
@@ -94,15 +109,14 @@ const ManagerCard: FC<ManagerCardProps> = ({managerInfo}) => {
                 <div className="manager-info-third-col">
                     { !managerInfo.manager.isActive && <button onClick={handleActivate} className="activate-button">Activate</button> }
                     { managerInfo.manager.isActive && <button onClick={handleRecoverPassword} className="recover-password-button">Recover password</button> }
-                    <button className={managerInfo.manager.banned ? "unban-button" : "ban-button"} onClick={handleBanToggle}>
-                        {managerInfo.manager.banned ? "Unban" : "Ban"}
-                    </button>
+                    <button className="ban-button" onClick={handleBan} disabled={managerInfo.manager.banned}>Ban</button>
+                    <button className="unban-button" onClick={handleUnban} disabled={!managerInfo.manager.banned}>Unban</button>
                 </div>
             </div>
 
             <Snackbar
                 open={toastOpen}
-                autoHideDuration={3000}
+                autoHideDuration={8000}
                 onClose={() => setToastOpen(false)}
                 anchorOrigin={{
                     vertical: "bottom",
@@ -110,7 +124,7 @@ const ManagerCard: FC<ManagerCardProps> = ({managerInfo}) => {
                 }}
             >
                 <Alert
-                    severity="info"
+                    severity={toastSeverity}
                     onClose={() => setToastOpen(false)}
                 >
                     {toastMessage}

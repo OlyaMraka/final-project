@@ -23,7 +23,9 @@ export type UserResponseDto = Pick<IUser,
     "lastLogin">;
 
 export type ActivateUserResponseDto = {
+    user: UserResponseDto;
     link: string;
+    emailSent: boolean;
 }
 
 export type ManagerDto = {

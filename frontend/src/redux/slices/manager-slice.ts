@@ -1,7 +1,7 @@
 import type {ManagerSliceType} from "../types/manager.ts";
 import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import {activateUser, banUser, createManager, getManagers, unbanUser} from "../../services/user.service.ts";
-import type {CreateManagerDto, ManagersResponseDto, User} from "../../types/user.ts";
+import type {CreateManagerDto, ManagersResponseDto, User, UserLinkResponse} from "../../types/user.ts";
 import {getErrorMessage} from "../../helpers/error-message.helper.ts";
 import {GeneralApiErrors} from "../../constants/api-errors.ts";
 
@@ -116,8 +116,8 @@ export const managerSlice = createSlice({
             )
             .addCase(
                 activateManagerAction.fulfilled,
-                (state, action: PayloadAction<User>) => {
-                    updateManager(state, action.payload);
+                (state, action: PayloadAction<UserLinkResponse>) => {
+                    updateManager(state, action.payload.user);
                 }
             )
 });
