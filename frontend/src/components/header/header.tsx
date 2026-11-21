@@ -22,6 +22,16 @@ const Header: FC = () => {
             </div>
 
             <div className="header-operations-block">
+                {user && (
+                    <div className="header-user-profile">
+                        <span className="header-user-avatar" aria-hidden="true">
+                            {`${user.name?.[0] ?? ""}${user.surname?.[0] ?? ""}`.toUpperCase()}
+                        </span>
+                        <span className="header-user-name">
+                            {user.name} {user.surname}
+                        </span>
+                    </div>
+                )}
                 {
                     user?.role === RoleName.ADMIN &&
                     <Link className="admin-panel-button" to={"/adminpage"}>

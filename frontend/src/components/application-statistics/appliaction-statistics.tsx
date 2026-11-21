@@ -20,6 +20,11 @@ const ApplicationStatisticsComponent: FC<ApplicationStatisticsComponentProps> = 
             <h1>Application Statistics</h1>
             <div className="statistics-container">
                 <div>
+                    {statistics && (
+                        <div className="status-info-block">
+                            <span>Total: {statistics.total}</span>
+                        </div>
+                    )}
                     {
                         statistics && statistics.statusStatistics.map(info => (
                             <div className="status-info-block">

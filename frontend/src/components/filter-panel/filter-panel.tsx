@@ -9,16 +9,25 @@ import GroupDropdown from "./custom-dropdown/group-dropdown.tsx";
 import DateFilters from "./date-picker/date-picker.tsx";
 import "./filter-panel.css";
 import {Checkbox, FormControlLabel} from "@mui/material";
-import {FileUploadOutlined, RefreshOutlined} from "@mui/icons-material";
+import {FileUploadOutlined, RefreshOutlined, SyncOutlined} from "@mui/icons-material";
 import {useSearchParams} from "react-router-dom";
 import {getApplicationFiltersFromSearchParams} from "../../helpers/application-filters.helper.ts";
 import {exportApplications} from "../../services/application.service.ts";
+import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
+import {applicationSliceActions} from "../../redux/slices/application-slice.ts";
 
 const FilterPanel: FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
+    const dispatch = useAppDispatch();
 
     const handleClearFilters = () => {
         setSearchParams({});
+    };
+
+    const handleRefresh = () => {
+        dispatch(applicationSliceActions.getAllApplicationsWithFilters(
+            getApplicationFiltersFromSearchParams(searchParams)
+        ));
     };
 
     const handleExport = async () => {
@@ -85,6 +94,11 @@ const FilterPanel: FC = () => {
             </div>
 
             <div className="right-part-actions">
+                <button className="action-button" onClick={handleRefresh}>
+                    <SyncOutlined fontSize="small" />
+                    <span>Refresh list</span>
+                </button>
+
                 <button className="action-button" onClick={handleClearFilters}>
                     <RefreshOutlined fontSize="small" />
                     <span>Clear filters</span>

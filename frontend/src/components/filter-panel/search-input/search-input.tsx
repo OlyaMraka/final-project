@@ -17,6 +17,10 @@ const SearchInput: FC<SearchInputProps> = ({label, queryParam}) => {
     }, [searchParams, queryParam]);
 
     useEffect(() => {
+        if (value === (searchParams.get(queryParam) ?? "")) {
+            return;
+        }
+
         const timeout = setTimeout(() => {
             setSearchParams(prev =>
                 setSearchParam(prev, queryParam, value)
@@ -24,7 +28,7 @@ const SearchInput: FC<SearchInputProps> = ({label, queryParam}) => {
         }, 500);
 
         return () => clearTimeout(timeout);
-    }, [value]);
+    }, [value, queryParam, searchParams, setSearchParams]);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);

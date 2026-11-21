@@ -25,6 +25,33 @@
     gap: 12px;
 }
 
+.header-user-name {
+    color: #33422e;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.header-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-user-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    color: #ffffff;
+    background: linear-gradient(135deg, #8bc169, #679c4a);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+
 .admin-panel-button,
 .log-out-button {
     display: flex;

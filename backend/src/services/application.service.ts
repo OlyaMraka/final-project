@@ -74,7 +74,7 @@ class ApplicationService {
             throw new ApiError(StatusCodes.BAD_REQUEST, ServiceConstants.APPLICATION_ALREADY_HAS_MANAGER);
         }
 
-        if (application.status === ApplicationStatus.NEW) {
+        if (!application.status || application.status === ApplicationStatus.NEW) {
             data.status = ApplicationStatus.IN_WORK;
         }
 

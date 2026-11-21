@@ -1,7 +1,6 @@
 import {IUser} from "../interfaces/user.interface";
 import {User} from "../models/user.model";
 import {CreateUserDto, UpdateUserDto} from "../dtos/user.dto";
-import {RoleName} from "../enums/role-name.enum";
 
 const MANAGERS_PAGE_SIZE = 15;
 
@@ -27,18 +26,14 @@ class UserRepository {
     }> {
         const skip = (page - 1) * MANAGERS_PAGE_SIZE;
 
-        const filter = {
-            role: RoleName.MANAGER,
-        };
-
         const [managers, total] = await Promise.all([
-            User.find(filter)
+            User.find()
                 .sort({createdAt: -1})
                 .skip(skip)
                 .limit(MANAGERS_PAGE_SIZE)
                 .lean(),
 
-            User.countDocuments(filter),
+            User.countDocuments(),
         ]);
 
         return {

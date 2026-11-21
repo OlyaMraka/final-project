@@ -67,7 +67,7 @@ class ApplicationRepository {
                 .limit(PAGE_SIZE)
                 .lean(),
 
-            Application.countDocuments(filter),
+            Application.countDocuments(filter as any),
         ]);
 
         return {
@@ -111,13 +111,20 @@ class ApplicationRepository {
     }
 
     private async getApplicationStatistics(filter: { managerId?: Types.ObjectId } = {}): Promise<ApplicationStatistics> {
-        const statistics = await Application.aggregate<StatusCount>([
+        const [statistics, total] = await Promise.all([
+            Application.aggregate<StatusCount>([
             {
                 $match: filter,
             },
             {
                 $group: {
-                    _id: "$status",
+                    _id: {
+                        $cond: [
+                            { $in: ["$status", Object.values(ApplicationStatus)] },
+                            "$status",
+                            ApplicationStatus.NEW,
+                        ],
+                    },
                     applicationCount: { $sum: 1 },
                 },
             },
@@ -128,6 +135,8 @@ class ApplicationRepository {
                     applicationCount: 1,
                 },
             },
+            ]),
+            Application.countDocuments(filter as any),
         ]);
 
         const statusStatistics = Object.values(ApplicationStatus).map(status => ({
@@ -139,10 +148,7 @@ class ApplicationRepository {
         }));
 
         return {
-            total: statusStatistics.reduce(
-                (sum, item) => sum + item.applicationCount,
-                0,
-            ),
+            total,
             statusStatistics,
         };
     }
@@ -204,7 +210,17 @@ class ApplicationRepository {
         }
 
         if (filters.status) {
-            filter.status = filters.status;
+            if (filters.status === ApplicationStatus.NEW) {
+                Object.assign(filter, {
+                    $or: [
+                        { status: ApplicationStatus.NEW },
+                        { status: null },
+                        { status: "" },
+                    ],
+                });
+            } else {
+                filter.status = filters.status;
+            }
         }
 
         if (filters.startDate) {
@@ -227,7 +243,7 @@ class ApplicationRepository {
     private createSort(filters: ApplicationFilters): ApplicationSort {
 
         if (!filters.sortField) {
-            return {};
+            return { createdAt: -1 };
         }
 
         const sortDirection = filters.sortOrder === OrderDirection.DESC ? -1 : 1;
