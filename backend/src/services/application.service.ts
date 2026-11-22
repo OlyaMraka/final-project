@@ -64,12 +64,15 @@ class ApplicationService {
         return Buffer.from(buffer);
     }
 
-    public getById(applicationId: string): Promise<IApplication> {
+    public getById(applicationId: string): Promise<IApplication | null> {
         return applicationRepository.getById(applicationId);
     }
 
     public async setManager(applicationId: string, data: SetManagerDto): Promise<IApplication> {
         const application = await applicationRepository.getById(applicationId);
+        if (!application) {
+            throw new ApiError(StatusCodes.NOT_FOUND, ServiceConstants.APPLICATION_NOT_FOUND);
+        }
         if (application.managerId && application.managerId.toString() !== data.managerId.toString()) {
             throw new ApiError(StatusCodes.BAD_REQUEST, ServiceConstants.APPLICATION_ALREADY_HAS_MANAGER);
         }
@@ -78,15 +81,23 @@ class ApplicationService {
             data.status = ApplicationStatus.IN_WORK;
         }
 
-        return applicationRepository.setManager(applicationId, data);
+        const updatedApplication = await applicationRepository.setManager(applicationId, data);
+        if (!updatedApplication) {
+            throw new ApiError(StatusCodes.NOT_FOUND, ServiceConstants.APPLICATION_NOT_FOUND);
+        }
+        return updatedApplication;
     }
 
-    public updateApplicationById(applicationId: string, application: ApplicationDto): Promise<IApplicationResponse> {
+    public async updateApplicationById(applicationId: string, application: ApplicationDto): Promise<IApplicationResponse> {
         if(application.status === ApplicationStatus.NEW) {
             application.managerId = null;
         }
 
-        return applicationRepository.updateApplicationById(applicationId, application);
+        const updatedApplication = await applicationRepository.updateApplicationById(applicationId, application);
+        if (!updatedApplication) {
+            throw new ApiError(StatusCodes.NOT_FOUND, ServiceConstants.APPLICATION_NOT_FOUND);
+        }
+        return updatedApplication;
     }
 
     public getStatistics(): Promise<ApplicationStatistics> {

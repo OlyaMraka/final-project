@@ -92,15 +92,15 @@ class ApplicationRepository {
             .lean();
     }
 
-    public getById(applicationId: string): Promise<IApplication> {
+    public getById(applicationId: string): Promise<IApplication | null> {
         return Application.findById(applicationId);
     }
 
-    public setManager(applicationId: string, data: SetManagerDto): Promise<IApplication> {
+    public setManager(applicationId: string, data: SetManagerDto): Promise<IApplication | null> {
         return Application.findByIdAndUpdate(applicationId, data, { returnDocument: 'after' });
     }
 
-    public updateApplicationById(applicationId: string, application: ApplicationDto): Promise<IApplicationResponse> {
+    public updateApplicationById(applicationId: string, application: ApplicationDto): Promise<IApplicationResponse | null> {
         return Application.findByIdAndUpdate(applicationId, application, { returnDocument: 'after' })
             .populate<{ groupId: IGroup | null }>("groupId")
             .populate<{ managerId: ApplicationOwnerDto | null }>(

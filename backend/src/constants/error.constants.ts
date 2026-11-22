@@ -10,6 +10,8 @@ export const ServiceConstants = {
     GROUP_ALREADY_EXISTS: "Group with this name already exists!",
     BAN_YOURSELF: "You can't ban yourself!",
     COMMENT_NOT_ALLOWED: "You can't comment this application!",
+    APPLICATION_NOT_FOUND: "Application not found!",
+    COMMENT_NOT_FOUND: "Comment not found!",
     APPLICATION_ALREADY_HAS_MANAGER: "Application already has assigned manager!"
 }
 
@@ -23,4 +25,5 @@ export const MiddlewareConstants = {
     ADMIN_ACCESS: "This action can only be performed by an administrator.",
     NO_ACCESS_TO_EDIT_REQUEST: "You cannot edit/delete this request!",
     NO_ACCESS_TO_EDIT_COMMENT: "You cannot edit/delete this comment!",
+    COMMENT_NOT_FOUND: "Comment not found!",
 }

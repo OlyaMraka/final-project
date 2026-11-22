@@ -32,15 +32,15 @@ class CommentRepository {
         };
     }
 
-    public getById(commentId: string): Promise<IComment> {
+    public getById(commentId: string): Promise<IComment | null> {
         return Comment.findById(commentId);
     }
 
-    public updateById(commentId: string, comment: UpdateCommentDto): Promise<IComment> {
+    public updateById(commentId: string, comment: UpdateCommentDto): Promise<IComment | null> {
         return Comment.findByIdAndUpdate(commentId, comment, { returnDocument: 'after' });
     }
 
-    public deleteById(commentId: string): Promise<IComment> {
+    public deleteById(commentId: string): Promise<IComment | null> {
         return Comment.findByIdAndDelete(commentId);
     }
 }

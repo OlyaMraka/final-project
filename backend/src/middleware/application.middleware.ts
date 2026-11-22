@@ -3,7 +3,7 @@ import {ITokenPayload} from "../interfaces/token.interface";
 import {applicationService} from "../services/application.service";
 import {ApiError} from "../errors/api.error";
 import {StatusCodes} from "../enums/status-codes";
-import {MiddlewareConstants} from "../constants/error.constants";
+import {MiddlewareConstants, ServiceConstants} from "../constants/error.constants";
 
 class ApplicationMiddleware {
     public checkUpdateAccess() {
@@ -14,6 +14,9 @@ class ApplicationMiddleware {
 
                 const { id } = req.params;
                 const application = await applicationService.getById(id as string);
+                if (!application) {
+                    throw new ApiError(StatusCodes.NOT_FOUND, ServiceConstants.APPLICATION_NOT_FOUND);
+                }
 
                 if(application.managerId && application.managerId.toString() !== userId.toString()) {
                     throw new ApiError(StatusCodes.FORBIDDEN, MiddlewareConstants.NO_ACCESS_TO_EDIT_REQUEST);
