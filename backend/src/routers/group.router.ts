@@ -30,6 +30,7 @@ router.put(
     '/:id',
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
+    authMiddleware.checkAdminAccess(),
     commonMiddleware.validateBody(GroupValidator.validateGroup),
     groupController.UpdateGroup
 );
@@ -38,6 +39,7 @@ router.delete(
     '/:id',
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
+    authMiddleware.checkAdminAccess(),
     groupController.DeleteGroup
 );
 

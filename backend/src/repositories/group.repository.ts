@@ -1,6 +1,7 @@
 import {IGroup} from "../interfaces/group.interface";
 import {Group} from "../models/group.model";
 import {GroupDto} from "../dtos/group.dto";
+import {Application} from "../models/application.model";
 
 class GroupRepository {
     public getAll(): Promise<IGroup[]> {
@@ -23,7 +24,12 @@ class GroupRepository {
         return Group.findByIdAndUpdate(groupId, group, { returnDocument: 'after' });
     }
 
-    public deleteById(groupId: string): Promise<IGroup> {
+    public async deleteById(groupId: string): Promise<IGroup | null> {
+        await Application.updateMany(
+            { groupId },
+            { $unset: { groupId: null } }
+        );
+
         return Group.findByIdAndDelete(groupId);
     }
 }
