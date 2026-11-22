@@ -18,7 +18,7 @@ class ApplicationCommentMiddleware {
                     throw new ApiError(StatusCodes.NOT_FOUND, MiddlewareConstants.COMMENT_NOT_FOUND);
                 }
 
-                if(comment.userId && comment.userId.toString() !== userId.toString()) {
+                if (!comment.userId || comment.userId.toString() !== userId.toString()) {
                     throw new ApiError(StatusCodes.FORBIDDEN, MiddlewareConstants.NO_ACCESS_TO_EDIT_COMMENT);
                 }
                 next();
