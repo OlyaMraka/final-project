@@ -93,19 +93,7 @@ Replace `<repository-url>` with the URL of this repository. If the project is al
 
 ### 2. Configure the backend
 
-In a terminal opened at the project root, create `backend/.env` by copying the example file. On Windows PowerShell:
-
-```powershell
-Copy-Item backend/.env.example backend/.env
-```
-
-On macOS/Linux:
-
-```bash
-cp backend/.env.example backend/.env
-```
-
-Open `backend/.env` and fill in the values. For local development with MongoDB running on the same machine, use:
+Create a file named `.env` inside the `backend/` folder. Add these variables and set the MongoDB connection string and token secrets for your setup:
 
 ```env
 PORT=7000
@@ -140,13 +128,7 @@ On its first connection to an empty database, the app seeds the admin account, 1
 
 ### 4. Install and start the frontend
 
-Open a second terminal at the project root. Create `frontend/.env`:
-
-```powershell
-Copy-Item frontend/.env.example frontend/.env
-```
-
-On macOS/Linux, use `cp frontend/.env.example frontend/.env`. Set its content to:
+Create a file named `.env` inside the `frontend/` folder and add this variable:
 
 ```env
 VITE_API_URL=http://localhost:7000
