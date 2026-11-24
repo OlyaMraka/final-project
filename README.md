@@ -72,148 +72,111 @@ This system streamlines sales department operations and applications management 
 
 ---
 
-## 3. Environment Variables Configuration (`.env`)
+## 3. Run Locally
 
-To run the application, configure two `.env` files: one in the `backend/` directory and one in the `frontend/` directory.
+### Prerequisites
 
-### Backend (`backend/.env`)
+- Node.js **20.19+** or **22.12+**, and npm. Vite 8 requires one of these Node versions.
+- A reachable MongoDB instance: local MongoDB or a [MongoDB Atlas](https://www.mongodb.com/atlas) cluster.
+- Git, if you need to clone the repository.
 
-| Variable | Example Value | Description |
-| :--- | :--- | :--- |
-| `PORT` | `7000` | Port on which the Express server listens. |
-| `MONGO_URL` | `mongodb://localhost:27017/crm_db` | MongoDB connection URI. |
-| `FRONTEND_URL` | `http://localhost:5173` | Frontend application URL for CORS configuration. |
-| `BACKEND_API_URL` | `http://localhost:7000` | Base backend API URL. |
-| `ACCESS_TOKEN_SECRET` | `super_secret_access_jwt_key_123` | Secret key used to sign Access JWTs. |
-| `REFRESH_TOKEN_SECRET` | `super_secret_refresh_jwt_key_456` | Secret key used to sign Refresh JWTs. |
-| `ACTIVATION_TOKEN_SECRET`| `super_secret_activation_jwt_key_789` | Secret key used for account activation & recovery tokens. |
-| `JWT_ACCESS_LIFETIME` | `15 minutes` | Access token lifespan (e.g., `15m`, `1h`). |
-| `JWT_REFRESH_LIFETIME` | `30 minutes` | Refresh token lifespan (format: `value unit`, e.g., `30 days`). |
-| `ACTIVATION_LIFETIME` | `30 minutes` | Expiration time for password setup links. |
-| `EMAIL_USER` | `your-email@gmail.com` | Gmail / Google Workspace address for sending emails. |
-| `EMAIL_PASSWORD` | `xxxx xxxx xxxx xxxx` | Google Account App Password. |
+### 1. Get the project
 
-#### Example `backend/.env`:
+If you have not already opened the project, clone its repository and enter the project directory:
+
+```bash
+git clone <repository-url>
+cd final-project
+```
+
+Replace `<repository-url>` with the URL of this repository. If the project is already on your computer, open a terminal in its root directory instead.
+
+### 2. Configure the backend
+
+In a terminal opened at the project root, create `backend/.env` by copying the example file. On Windows PowerShell:
+
+```powershell
+Copy-Item backend/.env.example backend/.env
+```
+
+On macOS/Linux:
+
+```bash
+cp backend/.env.example backend/.env
+```
+
+Open `backend/.env` and fill in the values. For local development with MongoDB running on the same machine, use:
+
 ```env
 PORT=7000
-MONGO_URL=mongodb://localhost:27017/crm_db
-FRONTEND_URL=http://localhost:5173
-BACKEND_API_URL=http://localhost:7000
-
-ACCESS_TOKEN_SECRET=your_access_token_secret_key_here
-REFRESH_TOKEN_SECRET=your_refresh_token_secret_key_here
-ACTIVATION_TOKEN_SECRET=your_activation_token_secret_key_here
-
+MONGO_URL=mongodb://127.0.0.1:27017/educational_crm
+ACCESS_TOKEN_SECRET=replace_with_a_long_random_secret
+REFRESH_TOKEN_SECRET=replace_with_another_long_random_secret
+ACTIVATION_TOKEN_SECRET=replace_with_a_third_long_random_secret
 JWT_ACCESS_LIFETIME=15m
 JWT_REFRESH_LIFETIME=30 days
 ACTIVATION_LIFETIME=30m
-
-EMAIL_USER=your_email@gmail.com
-EMAIL_PASSWORD=your_gmail_app_password
+FRONTEND_URL=http://localhost:5173
+BACKEND_API_URL=http://localhost:7000
+EMAIL_USER=your_gmail_address@gmail.com
+EMAIL_PASSWORD=your_google_app_password
 ```
 
----
+Use a valid MongoDB connection string for `MONGO_URL`. The three token secrets should be long, random values and must each be different. Gmail credentials are needed for email delivery (manager activation and password recovery); the app can start without working email credentials, but those email flows will not send messages. To send email through Gmail, use a Google App Password, not your regular account password. Keep `.env` files private and never commit real credentials.
 
-### Frontend (`frontend/.env`)
+### 3. Install and start the backend
 
-| Variable | Example Value | Description |
-| :--- | :--- | :--- |
-| `VITE_API_URL` | `http://localhost:7000` | Base API URL for client-side Axios requests. |
+Keep the project root as your working directory, then run:
 
-#### Example `frontend/.env`:
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+The first run compiles the TypeScript backend and starts the API at `http://localhost:7000`. Leave this terminal open. The MongoDB server must be running and accessible before startup. If you prefer the production-style start command, run `npm run build` once, then `npm start` from `backend/`.
+
+On its first connection to an empty database, the app seeds the admin account, 15 sample groups, and 500 sample applications. Existing admin and application data are retained; seeders do not reset the database.
+
+### 4. Install and start the frontend
+
+Open a second terminal at the project root. Create `frontend/.env`:
+
+```powershell
+Copy-Item frontend/.env.example frontend/.env
+```
+
+On macOS/Linux, use `cp frontend/.env.example frontend/.env`. Set its content to:
+
 ```env
 VITE_API_URL=http://localhost:7000
 ```
 
----
+Then start Vite:
 
-## 4. Local Installation & Setup Guide
-
-### Prerequisites
-Ensure you have the following installed on your local machine:
-- **Node.js** (`v18.0.0` or higher)
-- **npm** or **yarn**
-- **MongoDB** (local instance or cloud cluster via [MongoDB Atlas](https://www.mongodb.com/atlas))
-
----
-
-### Clone the Repository
 ```bash
-git clone https://github.com/your-username/final-project.git
-cd final-project
+cd frontend
+npm install
+npm run dev
 ```
 
----
+Open the local URL printed by Vite (normally `http://localhost:5173`). Keep both backend and frontend terminals running while using the app. If you change either `.env` file, restart its corresponding dev server.
 
-### Backend Setup & Execution
+### 5. Sign in and use the API docs
 
-1. Navigate to the backend folder:
-   ```bash
-   cd backend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Create and configure your `.env` file:
-   ```bash
-   cp .env.example .env
-   ```
-4. Start the backend development server:
-   ```bash
-   npm start
-   ```
+The seeded administrator credentials are:
 
-> **Automatic Database Seeding:**  
-> Upon the initial database connection, the server automatically executes seeders that create:
-> - The default master administrator account (**Admin**).
-> - 15 sample student groups.
-> - 500 mock application records with randomized statuses, formats, and pricing tiers.
+- Email: `admin@gmail.com`
+- Password: `admin`
 
----
+Use these credentials for local development only. The interactive Swagger documentation is available at [http://localhost:7000/docs](http://localhost:7000/docs).
 
-### Frontend Setup & Execution
+### Troubleshooting
 
-1. Open a new terminal window and navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Create your `.env` file:
-   ```bash
-   echo "VITE_API_URL=http://localhost:7000" > .env
-   ```
-4. Start the Vite development server:
-   ```bash
-   npm run dev
-   ```
-5. Open your browser and navigate to: **`http://localhost:5173`**
-
----
-
-## 5. Default Admin Credentials
-
-After automatic seeding, log in using the pre-configured administrator credentials:
-
-- **Email:** `admin@gmail.com`
-- **Password:** `admin`
-- **Role:** `admin`
-
----
-
-## 6. Interactive Swagger API Documentation
-
-Once the backend is running, open the interactive Swagger UI directly in your browser:
-
-**[http://localhost:7000/docs](http://localhost:7000/docs)**
-
-From the Swagger UI, you can:
-1. Inspect all endpoint routes (`Auth`, `Users`, `Applications`, `Application comments`, `Groups`).
-2. Review request/response schemas and DTO models.
-3. Click **Authorize**, paste your Access Token, and test authenticated endpoints in real time.
+- **MongoDB connection error:** Start MongoDB or check that `MONGO_URL` points to a reachable database.
+- **Frontend cannot reach the API / CORS error:** Confirm the backend is running, `VITE_API_URL` is `http://localhost:7000`, and backend `FRONTEND_URL` matches the frontend origin. If Vite selected another port, update `FRONTEND_URL` to that exact origin and restart the backend.
+- **Port already in use:** Stop the other process using port 7000 or 5173, or change the backend `PORT` and update `VITE_API_URL` and `BACKEND_API_URL` to match.
+- **Email not delivered:** Verify `EMAIL_USER` and `EMAIL_PASSWORD`; for Gmail, use an App Password. Email delivery is only needed for account activation and password recovery.
 
 ---
 
