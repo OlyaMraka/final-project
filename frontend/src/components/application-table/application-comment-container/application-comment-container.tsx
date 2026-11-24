@@ -13,6 +13,8 @@ import {getApplicationFiltersFromSearchParams} from "../../../helpers/applicatio
 import {applicationSliceActions} from "../../../redux/slices/application-slice.ts";
 import {useSearchParams} from "react-router-dom";
 import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.tsx";
+import {Alert} from "@mui/material";
+import {getErrorMessage} from "../../../helpers/error-message.helper.ts";
 
 type CommentsContainerProps = {
     applicationId: string;
@@ -22,6 +24,7 @@ type CommentsContainerProps = {
 const CommentsContainer: FC<CommentsContainerProps> = ({applicationId, author}) => {
     const [comments, setComments] = useState<ApplicationComment[]>([]);
     const [loading, setLoading] = useState(false);
+    const [loadError, setLoadError] = useState("");
     const [searchParams] = useSearchParams();
     const dispatch = useAppDispatch();
 
@@ -37,8 +40,9 @@ const CommentsContainer: FC<CommentsContainerProps> = ({applicationId, author}) 
                 const data = await getCommentsByApplicationId(applicationId);
 
                 setComments(data);
+                setLoadError("");
             } catch (error) {
-                console.error(error);
+                setLoadError(getErrorMessage(error, "Failed to load comments."));
             } finally {
                 setLoading(false);
             }
@@ -54,16 +58,12 @@ const CommentsContainer: FC<CommentsContainerProps> = ({applicationId, author}) 
     };
 
     const handleCreate = async (text: string) => {
-        try {
-            const comment = await createComment(applicationId, text);
-            const filters = getApplicationFiltersFromSearchParams(searchParams);
+        const comment = await createComment(applicationId, text);
+        const filters = getApplicationFiltersFromSearchParams(searchParams);
 
-            dispatch(applicationSliceActions.getAllApplicationsWithFilters(filters));
+        dispatch(applicationSliceActions.getAllApplicationsWithFilters(filters));
 
-            setComments((prev) => [...prev, comment]);
-        } catch (error) {
-            console.error(error);
-        }
+        setComments((prev) => [...prev, comment]);
     };
 
     if (loading) {
@@ -72,6 +72,7 @@ const CommentsContainer: FC<CommentsContainerProps> = ({applicationId, author}) 
 
     return (
         <div className="comments-container">
+            {loadError && <Alert severity="error">{loadError}</Alert>}
             {comments.map((comment) => (
                 <Comment
                     key={comment._id}

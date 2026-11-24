@@ -9,6 +9,8 @@ import {ApplicationStatus} from "../../enums/application-status.enum.ts";
 import ApplicationGroupDropdown from "./form-dropdown/group-dropdown.tsx";
 import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
 import {applicationSliceActions} from "../../redux/slices/application-slice.ts";
+import {Alert} from "@mui/material";
+import {getErrorMessage} from "../../helpers/error-message.helper.ts";
 import CreateGroupDialog from "./create-group-dialog/create-group-dialog.tsx";
 import "./edit-application-form.css";
 
@@ -33,6 +35,7 @@ const EditApplicationForm: FC<EditApplicationFormProps> = ({applicationId, appli
         });
 
     const [isCreateGroupOpen, setIsCreateGroupOpen] = useState(false);
+    const [submitError, setSubmitError] = useState("");
 
     const dispatch = useAppDispatch();
 
@@ -48,8 +51,9 @@ const EditApplicationForm: FC<EditApplicationFormProps> = ({applicationId, appli
             ).unwrap();
 
             onCancel();
+            setSubmitError("");
         } catch (error) {
-            console.error("Failed to update application:", error);
+            setSubmitError(getErrorMessage(error, "Failed to update application. Please try again."));
         }
     };
 
@@ -86,6 +90,7 @@ const EditApplicationForm: FC<EditApplicationFormProps> = ({applicationId, appli
         <div className="edit-application-form-block">
             <h2>Edit Application</h2>
             <form onSubmit={handleSubmit}>
+                {submitError && <Alert severity="error" sx={{mb: 2}}>{submitError}</Alert>}
                 <div className="input-fields-container">
                     <div className="first-column">
                         <TextField className="form-text-input" label="Name" type="text" name="name"

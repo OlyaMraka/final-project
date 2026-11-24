@@ -1,9 +1,12 @@
-import type { FC } from "react";
+import {useState, type FC} from "react";
 import { useForm } from "react-hook-form";
+import {Alert} from "@mui/material";
 import type { CommentFormProps } from "../../../types/component-props/application-table.ts";
+import {getErrorMessage} from "../../../helpers/error-message.helper.ts";
 import "./create-comment-form.css";
 
 const CommentForm: FC<CommentFormProps> = ({ onCreate }) => {
+    const [submitError, setSubmitError] = useState("");
     const {handleSubmit, register, reset, formState: { errors, isValid },} = useForm<{ text: string }>({
         mode: "all",
     });
@@ -12,8 +15,9 @@ const CommentForm: FC<CommentFormProps> = ({ onCreate }) => {
         try {
             await onCreate(formData.text);
             reset();
+            setSubmitError("");
         } catch (error) {
-            console.error(error);
+            setSubmitError(getErrorMessage(error, "Failed to add comment. Please try again."));
         }
     };
 
@@ -23,6 +27,7 @@ const CommentForm: FC<CommentFormProps> = ({ onCreate }) => {
                 onSubmit={handleSubmit(submitHandler)}
                 className="comment-form"
             >
+                {submitError && <Alert severity="error">{submitError}</Alert>}
                 <label>
                     Comment:
 

@@ -6,6 +6,7 @@ import {managerSliceActions} from "../../redux/slices/manager-slice.ts";
 import { Alert, Snackbar, type AlertColor } from "@mui/material";
 import {recoverUserPassword} from "../../services/user.service.ts";
 import type {UserLinkResponse} from "../../types/user.ts";
+import {getErrorMessage} from "../../helpers/error-message.helper.ts";
 
 const ManagerCard: FC<ManagerCardProps> = ({managerInfo}) => {
     const dispatch = useAppDispatch();
@@ -21,12 +22,12 @@ const ManagerCard: FC<ManagerCardProps> = ({managerInfo}) => {
     };
 
     const getErrorText = (error: unknown) =>
-        typeof error === "string" ? error : "The action failed. Please try again.";
+        getErrorMessage(error, "The action failed. Please try again.");
 
     const copyLinkAndReport = async (response: UserLinkResponse, action: string) => {
         try {
             await navigator.clipboard.writeText(response.link);
-        } catch (error) {
+        } catch {
             showMessage(`Could not copy the link. Copy it manually: ${response.link}`, "error");
             return;
         }

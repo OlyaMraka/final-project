@@ -1,4 +1,4 @@
-import {type FC} from "react";
+import {useState, type FC} from "react";
 import type {CreateManagerDto} from "../../types/user.ts";
 import {useForm} from "react-hook-form";
 import {joiResolver} from "@hookform/resolvers/joi";
@@ -9,10 +9,13 @@ import {useAppSelector} from "../../redux/hooks/useAppSelector.tsx";
 import "./create-manager-form.css";
 import {IconButton} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import {Alert} from "@mui/material";
 import type {CreateManagerFormProps} from "../../types/component-props/create-manager-form.ts";
+import {getErrorMessage} from "../../helpers/error-message.helper.ts";
 
 const CreateManagerForm: FC<CreateManagerFormProps> = ({onClose}) => {
     const dispatch = useAppDispatch();
+    const [submitError, setSubmitError] = useState("");
 
     const { handleSubmit, register, formState: {errors, isValid} } = useForm<CreateManagerDto>({
         mode: "onChange",
@@ -24,15 +27,19 @@ const CreateManagerForm: FC<CreateManagerFormProps> = ({onClose}) => {
     );
 
     const submitHandler = async (formData: CreateManagerDto) => {
-        await dispatch(
-            managerSliceActions.createManagerAction(formData)
-        ).unwrap();
+        try {
+            await dispatch(
+                managerSliceActions.createManagerAction(formData)
+            ).unwrap();
 
-        await dispatch(
-            managerSliceActions.getAllManagersAction(page ?? 1)
-        ).unwrap();
+            await dispatch(
+                managerSliceActions.getAllManagersAction(page ?? 1)
+            ).unwrap();
 
-        onClose();
+            onClose();
+        } catch (error) {
+            setSubmitError(getErrorMessage(error, "Failed to create manager. Please try again."));
+        }
     };
 
     return (
@@ -44,6 +51,7 @@ const CreateManagerForm: FC<CreateManagerFormProps> = ({onClose}) => {
                 </IconButton>
             </div>
             <form onSubmit={handleSubmit(submitHandler)} className="create-manager-form">
+                {submitError && <Alert severity="error">{submitError}</Alert>}
                 <label>
                     Name:
                     <input type="text" {...register("name")}/>

@@ -8,17 +8,20 @@ import {ApplicationStatus} from "../../enums/application-status.enum.ts";
 import GroupDropdown from "./custom-dropdown/group-dropdown.tsx";
 import DateFilters from "./date-picker/date-picker.tsx";
 import "./filter-panel.css";
-import {Checkbox, FormControlLabel} from "@mui/material";
+import {Alert, Checkbox, FormControlLabel, Snackbar} from "@mui/material";
 import {FileUploadOutlined, RefreshOutlined, SyncOutlined} from "@mui/icons-material";
 import {useSearchParams} from "react-router-dom";
 import {getApplicationFiltersFromSearchParams} from "../../helpers/application-filters.helper.ts";
 import {exportApplications} from "../../services/application.service.ts";
 import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
 import {applicationSliceActions} from "../../redux/slices/application-slice.ts";
+import {useState} from "react";
+import {getErrorMessage} from "../../helpers/error-message.helper.ts";
 
 const FilterPanel: FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useAppDispatch();
+    const [exportError, setExportError] = useState("");
 
     const handleClearFilters = () => {
         setSearchParams({});
@@ -46,8 +49,9 @@ const FilterPanel: FC = () => {
             link.click();
 
             window.URL.revokeObjectURL(url);
+            setExportError("");
         } catch (error) {
-            console.error(error);
+            setExportError(getErrorMessage(error, "Failed to export applications. Please try again."));
         }
     };
 
@@ -112,6 +116,14 @@ const FilterPanel: FC = () => {
                 <FormControlLabel control={<Checkbox checked={isMyApplications}
                                                      onChange={handleMyApplicationsChange}/>}label="My applications" />
             </div>
+            <Snackbar
+                open={Boolean(exportError)}
+                autoHideDuration={6000}
+                onClose={() => setExportError("")}
+                anchorOrigin={{vertical: "bottom", horizontal: "right"}}
+            >
+                <Alert severity="error" onClose={() => setExportError("")}>{exportError}</Alert>
+            </Snackbar>
         </div>
     )
 };
